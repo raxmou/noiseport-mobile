@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:finamp/l10n/app_localizations.dart';
 import 'package:chopper/chopper.dart';
+import 'package:get_it/get_it.dart';
 
 import '../services/finamp_settings_helper.dart';
+import '../services/finamp_user_helper.dart';
 import '../components/error_snackbar.dart';
 
 class NoiseportSettingsScreen extends StatefulWidget {
@@ -24,7 +26,34 @@ class _NoiseportSettingsScreenState extends State<NoiseportSettingsScreen> {
   void initState() {
     super.initState();
     final settings = FinampSettingsHelper.finampSettings;
-    _serverIpController = TextEditingController(text: settings.noiseportServerIp);
+    
+    // Get default server IP from Jellyfin server if not already set
+    String defaultServerIp = settings.noiseportServerIp;
+    if (defaultServerIp.isEmpty) {
+      defaultServerIp = _getDefaultNoiseportServerIp();
+    }
+    
+    _serverIpController = TextEditingController(text: defaultServerIp);
+  }
+  
+  /// Gets the default NoisePort server IP based on the connected Jellyfin server
+  String _getDefaultNoiseportServerIp() {
+    try {
+      final finampUserHelper = GetIt.instance<FinampUserHelper>();
+      final currentUser = finampUserHelper.currentUser;
+      
+      if (currentUser == null) {
+        return '';
+      }
+      
+      final baseUrl = currentUser.baseUrl;
+      final uri = Uri.parse(baseUrl);
+      
+      // Return just the IP/host without port
+      return uri.host;
+    } catch (e) {
+      return '';
+    }
   }
 
   @override
