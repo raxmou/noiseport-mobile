@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:chopper/chopper.dart';
-import 'package:network_info_plus/network_info_plus.dart'; // Add this import
+import 'package:flutter/services.dart';
 
 import 'package:flutter/material.dart';
 import 'package:finamp/l10n/app_localizations.dart';
@@ -88,9 +88,17 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
         return;
       }
 
-      // Get Headscale IP (vpn_ip)
-      final info = NetworkInfo();
-      final vpnIp = await info.getWifiIP(); // Or use another method if needed
+      // Get Headscale/Tailscale VPN IP (100.x.x.x)
+      String? vpnIp;
+      if (Platform.isAndroid) {
+        try {
+          const platform = MethodChannel('com.unicornsonlsd.finamp/network');
+          vpnIp = await platform.invokeMethod('getVpnIp');
+        } catch (e) {
+          // If platform channel fails, vpnIp will remain null
+          vpnIp = null;
+        }
+      }
 
       // Extract album name and artists
       final albumName = album.name ?? "Unknown Album";
