@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 import 'package:chopper/chopper.dart';
+import 'package:network_info_plus/network_info_plus.dart'; // Add this import
 
 import 'package:flutter/material.dart';
 import 'package:finamp/l10n/app_localizations.dart';
@@ -81,17 +82,22 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
   void _showDownloadDialog(BuildContext context) async {
     try {
       final serverIp = FinampSettingsHelper.finampSettings.noiseportServerIp;
-      
       if (serverIp.isEmpty) {
-        _showErrorDialog(context, 
-          "Noiseport server IP not configured. Please set it in Settings > Noiseport Server.");
+        _showErrorDialog(context,
+            "Noiseport server IP not configured. Please set it in Settings > Noiseport Server.");
         return;
       }
 
+      // Get Headscale IP (vpn_ip)
+      final info = NetworkInfo();
+      final vpnIp = await info.getWifiIP(); // Or use another method if needed
+
       // Extract album name and artists
       final albumName = album.name ?? "Unknown Album";
-      final artistNames = album.albumArtists?.map((artist) => artist.name).join(', ') ?? 
-                         album.albumArtist ?? "Unknown Artist";
+      final artistNames =
+          album.albumArtists?.map((artist) => artist.name).join(', ') ??
+              album.albumArtist ??
+              "Unknown Artist";
 
       // Show loading dialog
       showDialog(
@@ -118,12 +124,13 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
         converter: JsonConverter(),
       );
 
-      // Make the POST request
+      // Make the POST request, include vpn_ip
       final response = await downloadClient.post(
         Uri.parse('/api/v1/downloads/download'),
         body: {
           'album': albumName,
           'artist': artistNames,
+          'vpn_ip': vpnIp ?? '', // Add vpn_ip here
         },
       );
 
@@ -137,20 +144,23 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
         _showSuccessModal(context, albumName, artistNames);
       } else {
         // Show error message
-        _showErrorDialog(context, "Failed to send album to download. Please try again.");
+        _showErrorDialog(
+            context, "Failed to send album to download. Please try again.");
       }
     } catch (e) {
       // Close loading dialog if still open
       if (context.mounted) {
         Navigator.of(context).pop();
       }
-      
+
       // Show error message
-      _showErrorDialog(context, "Network error. Please check your connection and try again.");
+      _showErrorDialog(context,
+          "Network error. Please check your connection and try again.");
     }
   }
 
-  void _showSuccessModal(BuildContext context, String albumName, String artistNames) {
+  void _showSuccessModal(
+      BuildContext context, String albumName, String artistNames) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -178,14 +188,14 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
               Text(
                 albumName,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
               Text(
                 "by $artistNames",
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).disabledColor,
-                ),
+                      color: Theme.of(context).disabledColor,
+                    ),
               ),
             ],
           ),
