@@ -1,18 +1,25 @@
-package com.unicornsonlsd.finamp
+package com.rax.noiseport
 
-import io.flutter.embedding.android.FlutterActivity
+import android.util.Log
+
+import com.ryanheise.audioservice.AudioServiceActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
 import java.net.NetworkInterface
 
-class MainActivity: FlutterActivity() {
-    private val CHANNEL = "com.unicornsonlsd.finamp/network"
+class MainActivity: AudioServiceActivity() {
+    private val CHANNEL = "com.rax.noiseport/network"
+    private val TAG = "MainActivity"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
+        Log.d(TAG, "Configuring Flutter Engine with channel: $CHANNEL")
+        
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, CHANNEL).setMethodCallHandler { call, result ->
+            Log.d(TAG, "Method called: ${call.method}")
             if (call.method == "getVpnIp") {
                 val vpnIp = getVpnIpAddress()
+                Log.d(TAG, "VPN IP: $vpnIp")
                 if (vpnIp != null) {
                     result.success(vpnIp)
                 } else {
@@ -22,6 +29,8 @@ class MainActivity: FlutterActivity() {
                 result.notImplemented()
             }
         }
+        
+        Log.d(TAG, "Method channel configured successfully")
     }
 
     private fun getVpnIpAddress(): String? {
@@ -36,12 +45,14 @@ class MainActivity: FlutterActivity() {
                         val ip = address.hostAddress
                         // Check if it's an IPv4 address starting with 100.
                         if (ip != null && ip.contains(".") && ip.startsWith("100.")) {
+                            Log.d(TAG, "Found VPN IP: $ip")
                             return ip
                         }
                     }
                 }
             }
         } catch (e: Exception) {
+            Log.e(TAG, "Error getting VPN IP", e)
             e.printStackTrace()
         }
         return null

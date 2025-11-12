@@ -87,14 +87,15 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
             "Noiseport server IP not configured. Please set it in Settings > Noiseport Server.");
         return;
       }
-
+      print('Server IP: $serverIp');
       // Get Headscale/Tailscale VPN IP (100.x.x.x)
       String? vpnIp;
       if (Platform.isAndroid) {
         try {
-          const platform = MethodChannel('com.unicornsonlsd.finamp/network');
+          const platform = MethodChannel('com.rax.noiseport/network');
           vpnIp = await platform.invokeMethod('getVpnIp');
         } catch (e) {
+          print('Failed to get VPN IP: $e');
           // If platform channel fails, vpnIp will remain null
           vpnIp = null;
         }
@@ -128,7 +129,7 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
 
       // Create Chopper client for the download API
       final downloadClient = ChopperClient(
-        baseUrl: Uri.parse('http://$serverIp:8000'),
+        baseUrl: Uri.parse('http://$serverIp:8010'),
         converter: JsonConverter(),
       );
 

@@ -44,9 +44,9 @@ class _AlbumScreenContentState extends State<AlbumScreenContent> {
     }
 
     List<List<BaseItemDto>> childrenPerDisc = [];
-    // if not in playlist, try splitting up tracks by disc numbers
-    // if first track has a disc number, let's assume the rest has it too
-    if (widget.parent.type != "Playlist" &&
+    // Only split tracks by disc numbers if there are children
+    if (widget.children.isNotEmpty &&
+        widget.parent.type != "Playlist" &&
         widget.children[0].parentIndexNumber != null) {
       int? lastDiscNumber;
       for (var child in widget.children) {
@@ -80,10 +80,12 @@ class _AlbumScreenContentState extends State<AlbumScreenContent> {
                   !FinampSettingsHelper.finampSettings.isOffline)
                 PlaylistNameEditButton(playlist: widget.parent),
               FavoriteButton(item: widget.parent),
-              if (GetIt.instance<DownloadsHelper>().isAlbumDownloaded(widget.parent.id))
+              if (GetIt.instance<DownloadsHelper>()
+                  .isAlbumDownloaded(widget.parent.id))
                 DeleteButton(parent: widget.parent, items: widget.children),
               if (!FinampSettingsHelper.finampSettings.isOffline)
-                SyncAlbumOrPlaylistButton(parent: widget.parent, items: widget.children)
+                SyncAlbumOrPlaylistButton(
+                    parent: widget.parent, items: widget.children)
             ],
           ),
           if (widget.children.length > 1 &&
