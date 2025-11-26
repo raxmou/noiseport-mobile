@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:finamp/l10n/app_localizations.dart';
+import 'package:get_it/get_it.dart';
 
 import '../services/finamp_settings_helper.dart';
+import '../services/finamp_user_helper.dart';
 import '../services/slskd_api.dart';
 import '../components/error_snackbar.dart';
 
@@ -24,9 +26,47 @@ class _SlskdSettingsScreenState extends State<SlskdSettingsScreen> {
   void initState() {
     super.initState();
     final settings = FinampSettingsHelper.finampSettings;
-    _hostController = TextEditingController(text: settings.slskdHost);
-    _usernameController = TextEditingController(text: settings.slskdUsername);
-    _passwordController = TextEditingController(text: settings.slskdPassword);
+    
+    // Get default host from Jellyfin server if not already set
+    String defaultHost = settings.slskdHost;
+    if (defaultHost.isEmpty) {
+      defaultHost = _getDefaultSlskdHost();
+    }
+    
+    // Set default credentials if not already set
+    String defaultUsername = settings.slskdUsername;
+    if (defaultUsername.isEmpty) {
+      defaultUsername = 'slskd';
+    }
+    
+    String defaultPassword = settings.slskdPassword;
+    if (defaultPassword.isEmpty) {
+      defaultPassword = 'slskd';
+    }
+    
+    _hostController = TextEditingController(text: defaultHost);
+    _usernameController = TextEditingController(text: defaultUsername);
+    _passwordController = TextEditingController(text: defaultPassword);
+  }
+  
+  /// Gets the default slskd host based on the connected Jellyfin server
+  String _getDefaultSlskdHost() {
+    try {
+      final finampUserHelper = GetIt.instance<FinampUserHelper>();
+      final currentUser = finampUserHelper.currentUser;
+      
+      if (currentUser == null) {
+        return '';
+      }
+      
+      final baseUrl = currentUser.baseUrl;
+      final uri = Uri.parse(baseUrl);
+      
+      // Construct the slskd URL with the same IP but port 5030
+      return '${uri.scheme}://${uri.host}:5030';
+    } catch (e) {
+      return '';
+    }
   }
 
   @override
