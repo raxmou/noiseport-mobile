@@ -76,6 +76,24 @@ class _AlbumItemState extends State<AlbumItem> {
     // this is jank lol
     onTap = widget.onTap ??
         () {
+          // Log all available tags when clicking on an album
+          print('=== Album clicked: ${mutableAlbum.name} ===');
+          if (mutableAlbum.tags != null && mutableAlbum.tags!.isNotEmpty) {
+            print('All available tags (${mutableAlbum.tags!.length}):');
+            for (var i = 0; i < mutableAlbum.tags!.length; i++) {
+              print('  [$i] ${mutableAlbum.tags![i]}');
+            }
+            // Highlight DOWNLOADED_BY tags specifically
+            final downloadedByTags = mutableAlbum.tags!
+                .where((tag) => tag.startsWith('DOWNLOADED_BY:'))
+                .toList();
+            if (downloadedByTags.isNotEmpty) {
+              print('DOWNLOADED_BY tags found: $downloadedByTags');
+            }
+          } else {
+            print('No tags available for this album');
+          }
+
           if (mutableAlbum.type == "MusicArtist" ||
               mutableAlbum.type == "MusicGenre") {
             Navigator.of(context)

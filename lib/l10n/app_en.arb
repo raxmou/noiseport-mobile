@@ -285,7 +285,7 @@
   "@message": {},
   "stackTrace": "Stack Trace",
   "@stackTrace": {},
-  "applicationLegalese": "Licensed with the Mozilla Public License 2.0. Source code available at:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Licensed with the Mozilla Public License 2.0.",
   "@applicationLegalese": {},
   "transcoding": "Transcoding",
   "@transcoding": {},
