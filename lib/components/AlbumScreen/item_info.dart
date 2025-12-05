@@ -18,6 +18,16 @@ class ItemInfo extends StatelessWidget {
 // TODO: see if there's a way to expand this column to the row that it's in
   @override
   Widget build(BuildContext context) {
+    // Print DOWNLOADED_BY tags for debugging
+    if (item.tags != null && item.tags!.isNotEmpty) {
+      print('All tags for ${item.name}: ${item.tags}');
+      final downloadedByTags =
+          item.tags!.where((tag) => tag.startsWith('DOWNLOADED_BY:')).toList();
+      if (downloadedByTags.isNotEmpty) {
+        print('DOWNLOADED_BY tags found: $downloadedByTags');
+      }
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
