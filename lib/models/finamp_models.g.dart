@@ -107,8 +107,8 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
               TabContentType.genres,
               TabContentType.songs,
               TabContentType.discover,
-              TabContentType.slskdDownloads,
-              TabContentType.slskdSearches
+              TabContentType.slskdSearches,
+              TabContentType.slskdDownloads
             ]
           : (fields[22] as List).cast<TabContentType>(),
       hasCompletedBlurhashImageMigration:

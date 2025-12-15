@@ -279,7 +279,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
     if (widget.tabContentType == TabContentType.slskdDownloads) {
       return const SlskdDownloadsTabView();
     }
-    
+
     if (widget.tabContentType == TabContentType.slskdSearches) {
       return const SlskdSearchesTabView();
     }
@@ -557,7 +557,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                   ),
                   const Padding(padding: EdgeInsets.all(16.0)),
                   Text(
-                    "Search for albums on Spotify",
+                    "Download albums",
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           color: Colors.white.withOpacity(0.7),
                         ),

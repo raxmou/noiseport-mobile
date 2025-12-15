@@ -366,11 +366,11 @@ enum TabContentType {
       case TabContentType.playlists:
         return "Playlists";
       case TabContentType.discover:
-        return "Discover";
+        return "Download";
       case TabContentType.slskdDownloads:
-        return "Downloads";
+        return "Monitor Downloads";
       case TabContentType.slskdSearches:
-        return "Searches";
+        return "Monitor Searches";
     }
   }
 
@@ -388,13 +388,13 @@ enum TabContentType {
       case TabContentType.playlists:
         return AppLocalizations.of(context)!.playlists;
       case TabContentType.discover:
-        return AppLocalizations.of(context)!.discover;
+        return "Download";
       case TabContentType.slskdDownloads:
         // Fallback to static string until generated
-        return "Downloads";
+        return "Monitor Downloads";
       case TabContentType.slskdSearches:
         // Fallback to static string until generated
-        return "Searches";
+        return "Monitor Searches";
     }
   }
 }

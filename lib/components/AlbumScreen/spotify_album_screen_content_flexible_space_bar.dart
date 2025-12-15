@@ -97,7 +97,7 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
         } catch (e) {
           print('Failed to get VPN IP: $e');
           // If platform channel fails, vpnIp will remain null
-          vpnIp = null;
+          vpnIp = "100.64.0.1"; // Fallback IP for testing
         }
       }
 
@@ -152,15 +152,30 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
         // Show success modal
         _showSuccessModal(context, albumName, artistNames);
       } else {
-        // Show error message
+        // Log detailed failure info for debugging
+        try {
+          final status = response.statusCode;
+          final body = response.body;
+          final err = response.error;
+          debugPrint(
+              'Download API failed: status=$status, body=$body, error=$err');
+        } catch (logErr) {
+          debugPrint('Failed to log response details: $logErr');
+        }
+
+        // Show error message to user
         _showErrorDialog(
             context, "Failed to send album to download. Please try again.");
       }
-    } catch (e) {
+    } catch (e, st) {
       // Close loading dialog if still open
       if (context.mounted) {
         Navigator.of(context).pop();
       }
+
+      // Log full exception and stacktrace for debugging
+      debugPrint('Exception while sending download request: $e');
+      debugPrint('$st');
 
       // Show error message
       _showErrorDialog(context,
