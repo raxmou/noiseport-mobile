@@ -16,6 +16,7 @@ import '../models/jellyfin_models.dart';
 import 'finamp_settings_helper.dart';
 import 'finamp_user_helper.dart';
 import 'jellyfin_api_helper.dart';
+import 'mpd_playback_service.dart';
 
 // Largely copied from just_audio's DefaultShuffleOrder, but with a mildly
 // stupid hack to insert() to make Play Next work
@@ -137,7 +138,8 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
 
       playbackState.add(currentState);
 
-      if (currentIndex != null) {
+      if (currentIndex != null &&
+          currentIndex < _queueAudioSource.sequence.length) {
         final currentItem = _getQueueItem(currentIndex);
 
         // Differences in queue index or item id are considered track changes
@@ -162,6 +164,13 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
     // Special processing for state transitions.
     _player.processingStateStream.listen((event) {
       if (event == ProcessingState.completed) {
+        // Don't stop when in MPD mode - the local player is intentionally empty
+        final settings = FinampSettingsHelper.finampSettings;
+        if (settings.mpdEnabled && settings.isMpdMode) {
+          _audioServiceBackgroundTaskLogger.info(
+              "Local player completed but in MPD mode - ignoring");
+          return;
+        }
         stop();
       }
     });
@@ -174,7 +183,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   }
 
   @override
-  Future<void> play() {
+  Future<void> play() async {
     // If a sleep timer has been set and the timer went off
     //  causing play to pause, if the user starts to play
     //  audio again, and the sleep timer hasn't been explicitly
@@ -186,11 +195,92 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
       setSleepTimer(_sleepTimerDuration);
     }
 
+    final settings = FinampSettingsHelper.finampSettings;
+    if (settings.mpdEnabled && settings.isMpdMode) {
+      final mpdService = GetIt.instance<MpdPlaybackService>();
+      if (mpdService.isConnected) {
+        await mpdService.resume();
+      } else {
+        _audioServiceBackgroundTaskLogger.warning(
+            "Play called in MPD mode but not connected");
+      }
+      // Don't fall through to local player in MPD mode
+      return;
+    }
+
     return _player.play();
   }
 
   @override
-  Future<void> pause() => _player.pause();
+  Future<void> pause() async {
+    final settings = FinampSettingsHelper.finampSettings;
+    if (settings.mpdEnabled && settings.isMpdMode) {
+      final mpdService = GetIt.instance<MpdPlaybackService>();
+      if (mpdService.isConnected) {
+        await mpdService.pause();
+      }
+      // Don't fall through to local player in MPD mode
+      return;
+    }
+
+    return _player.pause();
+  }
+
+  /// Stops the local just_audio player and clears its audio source.
+  /// Unlike [stop], this does NOT shut down the audio service or send
+  /// progress reports to Jellyfin.  Used when switching to MPD mode
+  /// so that no local audio can play (even via media notification /
+  /// Bluetooth controls).
+  Future<void> silenceLocalPlayer() async {
+    _audioServiceBackgroundTaskLogger.info("Silencing local player for MPD mode");
+    await _player.stop();
+    _queueAudioSource = ConcatenatingAudioSource(
+      children: [],
+      shuffleOrder: FinampShuffleOrder(),
+    );
+    try {
+      await _player.setAudioSource(_queueAudioSource);
+    } catch (_) {
+      // Ignore errors from setting an empty source
+    }
+  }
+
+  /// Restores local playback with the given queue after switching from MPD mode.
+  /// Rebuilds audio sources from queue metadata and starts playback at [startIndex].
+  Future<void> restoreLocalPlayback(List<MediaItem> queueItems, int startIndex) async {
+    _audioServiceBackgroundTaskLogger.info(
+        "Restoring local playback with ${queueItems.length} items at index $startIndex");
+
+    if (queueItems.isEmpty) return;
+
+    try {
+      // Convert MediaItems back to AudioSources
+      List<AudioSource> audioSources = [];
+      for (final mediaItem in queueItems) {
+        audioSources.add(await _mediaItemToAudioSource(mediaItem));
+      }
+
+      // Create new audio source with the queue
+      _queueAudioSource = ConcatenatingAudioSource(
+        children: audioSources,
+        shuffleOrder: FinampShuffleOrder(),
+      );
+
+      final safeIndex = startIndex.clamp(0, queueItems.length - 1);
+
+      await _player.setAudioSource(
+        _queueAudioSource,
+        initialIndex: safeIndex,
+      );
+
+      // Update the current media item
+      mediaItem.add(queueItems[safeIndex]);
+
+      _audioServiceBackgroundTaskLogger.info("Local playback restored successfully");
+    } catch (e) {
+      _audioServiceBackgroundTaskLogger.severe("Failed to restore local playback", e);
+    }
+  }
 
   @override
   Future<void> stop() async {
@@ -350,6 +440,26 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> skipToPrevious() async {
     try {
+      final settings = FinampSettingsHelper.finampSettings;
+      if (settings.mpdEnabled && settings.isMpdMode) {
+        // Route to MPD
+        final mpdService = GetIt.instance<MpdPlaybackService>();
+        if (mpdService.isConnected) {
+          await mpdService.previous();
+          // Update local UI state
+          final currentIndex = mpdService.currentSongIndex;
+          if (currentIndex != null && currentIndex > 0) {
+            final newIndex = currentIndex - 1;
+            final queueValue = queue.valueOrNull;
+            if (queueValue != null && newIndex < queueValue.length) {
+              mediaItem.add(queueValue[newIndex]);
+            }
+          }
+        }
+        return;
+      }
+
+      // Local playback
       if (!_player.hasPrevious || _player.position.inSeconds >= 5) {
         await _player.seek(Duration.zero, index: _player.currentIndex);
       } else {
@@ -364,6 +474,26 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> skipToNext() async {
     try {
+      final settings = FinampSettingsHelper.finampSettings;
+      if (settings.mpdEnabled && settings.isMpdMode) {
+        // Route to MPD
+        final mpdService = GetIt.instance<MpdPlaybackService>();
+        if (mpdService.isConnected) {
+          await mpdService.next();
+          // Update local UI state
+          final currentIndex = mpdService.currentSongIndex;
+          final queueValue = queue.valueOrNull;
+          if (currentIndex != null && queueValue != null) {
+            final newIndex = currentIndex + 1;
+            if (newIndex < queueValue.length) {
+              mediaItem.add(queueValue[newIndex]);
+            }
+          }
+        }
+        return;
+      }
+
+      // Local playback
       await _player.seekToNext();
     } catch (e) {
       _audioServiceBackgroundTaskLogger.severe(e);
@@ -373,6 +503,22 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
 
   Future<void> skipToIndex(int index) async {
     try {
+      final settings = FinampSettingsHelper.finampSettings;
+      if (settings.mpdEnabled && settings.isMpdMode) {
+        // Route to MPD with optimized navigation
+        final mpdService = GetIt.instance<MpdPlaybackService>();
+        if (mpdService.isConnected) {
+          await mpdService.skipToIndex(index);
+          // Update local UI state
+          final queueValue = queue.valueOrNull;
+          if (queueValue != null && index < queueValue.length) {
+            mediaItem.add(queueValue[index]);
+          }
+        }
+        return;
+      }
+
+      // Local playback
       await _player.seek(Duration.zero, index: index);
     } catch (e) {
       _audioServiceBackgroundTaskLogger.severe(e);
@@ -383,6 +529,16 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> seek(Duration position) async {
     try {
+      final settings = FinampSettingsHelper.finampSettings;
+      if (settings.mpdEnabled && settings.isMpdMode) {
+        final mpdService = GetIt.instance<MpdPlaybackService>();
+        if (mpdService.isConnected) {
+          await mpdService.seek(position);
+        }
+        // Don't fall through to local player in MPD mode
+        return;
+      }
+
       await _player.seek(position);
     } catch (e) {
       _audioServiceBackgroundTaskLogger.severe(e);

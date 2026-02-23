@@ -11,6 +11,7 @@ import 'downloads_settings_screen.dart';
 import 'audio_service_settings_screen.dart';
 import 'layout_settings_screen.dart';
 import 'slskd_settings_screen.dart';
+import 'mpd_settings_screen.dart';
 import 'noiseport_settings_screen.dart';
 import '../components/SettingsScreen/logout_list_tile.dart';
 import 'view_selector.dart';
@@ -83,6 +84,12 @@ class SettingsScreen extends StatelessWidget {
               title: Text(AppLocalizations.of(context)!.slskdSettings),
               onTap: () => Navigator.of(context)
                   .pushNamed(SlskdSettingsScreen.routeName),
+            ),
+            ListTile(
+              leading: const Icon(Icons.speaker_group),
+              title: const Text('MPD Remote Playback'),
+              onTap: () => Navigator.of(context)
+                  .pushNamed(MpdSettingsScreen.routeName),
             ),
             ListTile(
               leading: const Icon(Icons.router),

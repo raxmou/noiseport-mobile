@@ -2,37 +2,77 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:finamp/l10n/app_localizations.dart';
+import 'package:rxdart/rxdart.dart';
 
+import '../../services/finamp_settings_helper.dart';
+import '../../services/mpd_playback_service.dart';
 import '../../services/music_player_background_task.dart';
+
+/// Combined playback state that works for both local and MPD playback
+class CombinedPlaybackState {
+  final PlaybackState? localState;
+  final MpdPlaybackStatus? mpdStatus;
+  final bool isMpdMode;
+
+  CombinedPlaybackState(this.localState, this.mpdStatus, this.isMpdMode);
+
+  bool get isPlaying {
+    if (isMpdMode && mpdStatus != null) {
+      return mpdStatus!.isPlaying;
+    }
+    return localState?.playing ?? false;
+  }
+
+  bool get hasState => localState != null || (isMpdMode && mpdStatus != null);
+
+  // Delegate other properties to local state (shuffle, repeat modes are local-only for now)
+  AudioServiceShuffleMode get shuffleMode =>
+      localState?.shuffleMode ?? AudioServiceShuffleMode.none;
+  AudioServiceRepeatMode get repeatMode =>
+      localState?.repeatMode ?? AudioServiceRepeatMode.none;
+}
 
 class PlayerButtons extends StatelessWidget {
   const PlayerButtons({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final audioHandler = GetIt.instance<MusicPlayerBackgroundTask>();
+    final mpdService = GetIt.instance<MpdPlaybackService>();
 
-    return StreamBuilder<PlaybackState>(
-      stream: audioHandler.playbackState,
+    // Combine local playback state with MPD status
+    final combinedStream = Rx.combineLatest2<PlaybackState, MpdPlaybackStatus?, CombinedPlaybackState>(
+      audioHandler.playbackState,
+      mpdService.statusStream.map<MpdPlaybackStatus?>((s) => s).startWith(null),
+      (localState, mpdStatus) {
+        final settings = FinampSettingsHelper.finampSettings;
+        return CombinedPlaybackState(
+          localState,
+          mpdStatus,
+          settings.mpdEnabled && settings.isMpdMode,
+        );
+      },
+    );
+
+    return StreamBuilder<CombinedPlaybackState>(
+      stream: combinedStream,
       builder: (context, snapshot) {
-        final PlaybackState? playbackState = snapshot.data;
+        final CombinedPlaybackState? combinedState = snapshot.data;
         return Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           textDirection: TextDirection.ltr,
           children: [
             IconButton(
-              tooltip: playbackState?.shuffleMode == AudioServiceShuffleMode.all
+              tooltip: combinedState?.shuffleMode == AudioServiceShuffleMode.all
                   ? AppLocalizations.of(context)!.playbackOrderShuffledTooltip
                   : AppLocalizations.of(context)!.playbackOrderLinearTooltip,
               icon: _getShufflingIcon(
-                playbackState == null
-                    ? AudioServiceShuffleMode.none
-                    : playbackState.shuffleMode,
+                combinedState?.shuffleMode ?? AudioServiceShuffleMode.none,
                 Theme.of(context).colorScheme.secondary,
               ),
-              onPressed: playbackState != null
+              onPressed: combinedState?.hasState == true
                   ? () async {
-                      if (playbackState.shuffleMode ==
+                      if (combinedState!.shuffleMode ==
                           AudioServiceShuffleMode.all) {
                         await audioHandler
                             .setShuffleMode(AudioServiceShuffleMode.none);
@@ -47,7 +87,7 @@ class PlayerButtons extends StatelessWidget {
             IconButton(
               tooltip: AppLocalizations.of(context)!.skipToPrevious,
               icon: const Icon(Icons.skip_previous),
-              onPressed: playbackState != null
+              onPressed: combinedState?.hasState == true
                   ? () async => await audioHandler.skipToPrevious()
                   : null,
               iconSize: 36,
@@ -63,9 +103,9 @@ class PlayerButtons extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
                 splashColor:
                     Theme.of(context).colorScheme.onPrimary.withOpacity(0.24),
-                onPressed: playbackState != null
+                onPressed: combinedState?.hasState == true
                     ? () async {
-                        if (playbackState.playing) {
+                        if (combinedState!.isPlaying) {
                           await audioHandler.pause();
                         } else {
                           await audioHandler.play();
@@ -73,7 +113,7 @@ class PlayerButtons extends StatelessWidget {
                       }
                     : null,
                 child: Icon(
-                  playbackState == null || playbackState.playing
+                  combinedState == null || combinedState.isPlaying
                       ? Icons.pause
                       : Icons.play_arrow,
                   size: 36,
@@ -83,30 +123,28 @@ class PlayerButtons extends StatelessWidget {
             IconButton(
                 tooltip: AppLocalizations.of(context)!.skipToNext,
                 icon: const Icon(Icons.skip_next),
-                onPressed: playbackState != null
+                onPressed: combinedState?.hasState == true
                     ? () async => audioHandler.skipToNext()
                     : null,
                 iconSize: 36),
             IconButton(
-              tooltip: playbackState?.repeatMode == AudioServiceRepeatMode.all
+              tooltip: combinedState?.repeatMode == AudioServiceRepeatMode.all
                   ? AppLocalizations.of(context)!.loopModeAllTooltip
-                  : playbackState?.repeatMode == AudioServiceRepeatMode.one
+                  : combinedState?.repeatMode == AudioServiceRepeatMode.one
                       ? AppLocalizations.of(context)!.loopModeOneTooltip
                       : AppLocalizations.of(context)!.loopModeNoneTooltip,
               icon: _getRepeatingIcon(
-                playbackState == null
-                    ? AudioServiceRepeatMode.none
-                    : playbackState.repeatMode,
+                combinedState?.repeatMode ?? AudioServiceRepeatMode.none,
                 Theme.of(context).colorScheme.secondary,
               ),
-              onPressed: playbackState != null
+              onPressed: combinedState?.hasState == true
                   ? () async {
                       // Cyles from none -> all -> one
-                      if (playbackState.repeatMode ==
+                      if (combinedState!.repeatMode ==
                           AudioServiceRepeatMode.none) {
                         await audioHandler
                             .setRepeatMode(AudioServiceRepeatMode.all);
-                      } else if (playbackState.repeatMode ==
+                      } else if (combinedState.repeatMode ==
                           AudioServiceRepeatMode.all) {
                         await audioHandler
                             .setRepeatMode(AudioServiceRepeatMode.one);

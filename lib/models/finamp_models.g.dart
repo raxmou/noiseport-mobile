@@ -107,8 +107,8 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
               TabContentType.genres,
               TabContentType.songs,
               TabContentType.discover,
-              TabContentType.slskdSearches,
-              TabContentType.slskdDownloads
+              TabContentType.slskdDownloads,
+              TabContentType.slskdSearches
             ]
           : (fields[22] as List).cast<TabContentType>(),
       hasCompletedBlurhashImageMigration:
@@ -122,6 +122,11 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
       slskdUsername: fields[29] == null ? '' : fields[29] as String,
       slskdPassword: fields[30] == null ? '' : fields[30] as String,
       noiseportServerIp: fields[31] == null ? '' : fields[31] as String,
+      mpdEnabled: fields[32] == null ? false : fields[32] as bool,
+      mpdHost: fields[33] == null ? '' : fields[33] as String,
+      mpdPort: fields[34] == null ? 6600 : fields[34] as int,
+      mpdPassword: fields[35] == null ? '' : fields[35] as String,
+      isMpdMode: fields[36] == null ? false : fields[36] as bool,
     )
       ..disableGesture = fields[19] == null ? false : fields[19] as bool
       ..showFastScroller = fields[25] == null ? true : fields[25] as bool;
@@ -130,7 +135,7 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
   @override
   void write(BinaryWriter writer, FinampSettings obj) {
     writer
-      ..writeByte(32)
+      ..writeByte(37)
       ..writeByte(0)
       ..write(obj.isOffline)
       ..writeByte(1)
@@ -194,7 +199,17 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
       ..writeByte(30)
       ..write(obj.slskdPassword)
       ..writeByte(31)
-      ..write(obj.noiseportServerIp);
+      ..write(obj.noiseportServerIp)
+      ..writeByte(32)
+      ..write(obj.mpdEnabled)
+      ..writeByte(33)
+      ..write(obj.mpdHost)
+      ..writeByte(34)
+      ..write(obj.mpdPort)
+      ..writeByte(35)
+      ..write(obj.mpdPassword)
+      ..writeByte(36)
+      ..write(obj.isMpdMode);
   }
 
   @override

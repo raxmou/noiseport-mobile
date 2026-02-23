@@ -277,4 +277,42 @@ class FinampSettingsHelper {
     Hive.box<FinampSettings>("FinampSettings")
         .put("FinampSettings", finampSettingsTemp);
   }
+
+  static void setMpdEnabled(bool enabled) {
+    FinampSettings finampSettingsTemp = finampSettings;
+    finampSettingsTemp.mpdEnabled = enabled;
+    if (!enabled) {
+      finampSettingsTemp.isMpdMode = false;
+    }
+    Hive.box<FinampSettings>("FinampSettings")
+        .put("FinampSettings", finampSettingsTemp);
+  }
+
+  static void setMpdHost(String host) {
+    FinampSettings finampSettingsTemp = finampSettings;
+    finampSettingsTemp.mpdHost = host;
+    Hive.box<FinampSettings>("FinampSettings")
+        .put("FinampSettings", finampSettingsTemp);
+  }
+
+  static void setMpdPort(int port) {
+    FinampSettings finampSettingsTemp = finampSettings;
+    finampSettingsTemp.mpdPort = port;
+    Hive.box<FinampSettings>("FinampSettings")
+        .put("FinampSettings", finampSettingsTemp);
+  }
+
+  static void setMpdPassword(String password) {
+    FinampSettings finampSettingsTemp = finampSettings;
+    finampSettingsTemp.mpdPassword = password;
+    Hive.box<FinampSettings>("FinampSettings")
+        .put("FinampSettings", finampSettingsTemp);
+  }
+
+  static void setIsMpdMode(bool isMpdMode) {
+    FinampSettings finampSettingsTemp = finampSettings;
+    finampSettingsTemp.isMpdMode = isMpdMode;
+    Hive.box<FinampSettings>("FinampSettings")
+        .put("FinampSettings", finampSettingsTemp);
+  }
 }

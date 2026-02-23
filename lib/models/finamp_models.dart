@@ -96,6 +96,11 @@ class FinampSettings {
     this.slskdUsername = '',
     this.slskdPassword = '',
     this.noiseportServerIp = '',
+    this.mpdEnabled = false,
+    this.mpdHost = '',
+    this.mpdPort = 6600,
+    this.mpdPassword = '',
+    this.isMpdMode = false,
   });
 
   @HiveField(0)
@@ -208,6 +213,21 @@ class FinampSettings {
 
   @HiveField(31, defaultValue: '')
   String noiseportServerIp = '';
+
+  @HiveField(32, defaultValue: false)
+  bool mpdEnabled;
+
+  @HiveField(33, defaultValue: '')
+  String mpdHost;
+
+  @HiveField(34, defaultValue: 6600)
+  int mpdPort;
+
+  @HiveField(35, defaultValue: '')
+  String mpdPassword;
+
+  @HiveField(36, defaultValue: false)
+  bool isMpdMode;
 
   static Future<FinampSettings> create() async {
     final internalSongDir = await getInternalSongDir();

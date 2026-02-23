@@ -39,6 +39,7 @@ import 'screens/music_screen.dart';
 import 'screens/player_screen.dart';
 import 'screens/settings_screen.dart';
 import 'screens/slskd_settings_screen.dart';
+import 'screens/mpd_settings_screen.dart';
 import 'screens/noiseport_settings_screen.dart';
 import 'screens/splash_screen.dart';
 import 'screens/spotify_album_screen.dart';
@@ -51,6 +52,7 @@ import 'services/download_update_stream.dart';
 import 'services/downloads_helper.dart';
 import 'services/jellyfin_api_helper.dart';
 import 'services/locale_helper.dart';
+import 'services/mpd_playback_service.dart';
 import 'services/music_player_background_task.dart';
 import 'services/theme_mode_helper.dart';
 import 'setup_logging.dart';
@@ -69,6 +71,9 @@ void main() async {
     await _setupDownloader();
     await _setupDownloadsHelper();
     await _setupAudioServiceHelper();
+    GetIt.instance.registerSingleton(MpdPlaybackService());
+    // Initialize MPD status sync after both services are registered
+    GetIt.instance<AudioServiceHelper>().initMpdSync();
   } catch (e) {
     hasFailed = true;
     runApp(FinampErrorApp(
@@ -366,6 +371,8 @@ class Finamp extends StatelessWidget {
                           const DownloadsSettingsScreen(),
                       SlskdSettingsScreen.routeName: (context) =>
                           const SlskdSettingsScreen(),
+                      MpdSettingsScreen.routeName: (context) =>
+                          const MpdSettingsScreen(),
                       NoiseportSettingsScreen.routeName: (context) =>
                           const NoiseportSettingsScreen(),
                       AddDownloadLocationScreen.routeName: (context) =>
