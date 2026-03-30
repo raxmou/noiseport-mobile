@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
-import 'package:finamp/services/censored_log.dart';
+import 'package:noiseport/services/censored_log.dart';
 import 'package:logging/logging.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path/path.dart' as path_helper;
 
-class FinampLogsHelper {
+class NoiseportLogsHelper {
   final List<LogRecord> logs = [];
 
   void addLog(LogRecord log) {
@@ -36,7 +36,7 @@ class FinampLogsHelper {
   /// Write logs to a file and share the file
   Future<void> shareLogs() async {
     final tempDir = await getTemporaryDirectory();
-    final tempFile = File(path_helper.join(tempDir.path, "finamp-logs.txt"));
+    final tempFile = File(path_helper.join(tempDir.path, "noiseport-logs.txt"));
 
     await tempFile.writeAsString(getSanitisedLogs());
 

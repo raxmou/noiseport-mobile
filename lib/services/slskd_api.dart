@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:chopper/chopper.dart';
-import 'package:finamp/services/http_aggregate_logging_interceptor.dart';
+import 'package:noiseport/services/http_aggregate_logging_interceptor.dart';
 import 'package:logging/logging.dart';
 
 import '../models/slskd_models.dart';
-import '../services/finamp_settings_helper.dart';
+import '../services/noiseport_settings_helper.dart';
 
 part 'slskd_api.chopper.dart';
 
@@ -25,7 +25,7 @@ class SlskdConfig {
 
   /// Get configuration from settings
   static SlskdConfig fromSettings() {
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     return SlskdConfig(
       baseUrl: settings.slskdHost.isEmpty ? 'http://localhost:5030' : settings.slskdHost,
       username: settings.slskdUsername,

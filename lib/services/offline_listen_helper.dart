@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
-import 'package:finamp/models/finamp_models.dart';
-import 'package:finamp/services/finamp_user_helper.dart';
+import 'package:noiseport/models/noiseport_models.dart';
+import 'package:noiseport/services/noiseport_user_helper.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 /// Logs offline listens or failed submissions to a file.
 class OfflineListenLogHelper {
   final _logger = Logger("OfflineListenLogHelper");
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   Future<Directory> get _logDirectory async {
     if (!Platform.isAndroid) {
@@ -37,7 +37,7 @@ class OfflineListenLogHelper {
 
     final offlineListen = OfflineListen(
       timestamp: DateTime.now().millisecondsSinceEpoch ~/ 1000,
-      userId: _finampUserHelper.currentUserId!,
+      userId: _noiseportUserHelper.currentUserId!,
       itemId: itemJson["Id"],
       name: itemJson["Name"],
       artist: itemJson["AlbumArtist"],

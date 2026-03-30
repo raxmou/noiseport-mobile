@@ -4,15 +4,15 @@ import 'dart:ui';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:audio_session/audio_session.dart';
-import 'package:finamp/color_schemes.g.dart';
-import 'package:finamp/screens/interaction_settings_screen.dart';
-import 'package:finamp/services/finamp_settings_helper.dart';
-import 'package:finamp/services/finamp_user_helper.dart';
-import 'package:finamp/services/offline_listen_helper.dart';
+import 'package:noiseport/color_schemes.g.dart';
+import 'package:noiseport/screens/interaction_settings_screen.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
+import 'package:noiseport/services/noiseport_user_helper.dart';
+import 'package:noiseport/services/offline_listen_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
@@ -20,7 +20,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
-import 'models/finamp_models.dart';
+import 'models/noiseport_models.dart';
 import 'models/jellyfin_models.dart';
 import 'models/locale_adapter.dart';
 import 'models/theme_mode_adapter.dart';
@@ -65,7 +65,7 @@ void main() async {
     await setupHive();
     _migrateDownloadLocations();
     _migrateSortOptions();
-    _setupFinampUserHelper();
+    _setupNoiseportUserHelper();
     _setupJellyfinApiData();
     _setupOfflineListenLogHelper();
     await _setupDownloader();
@@ -76,7 +76,7 @@ void main() async {
     GetIt.instance<AudioServiceHelper>().initMpdSync();
   } catch (e) {
     hasFailed = true;
-    runApp(FinampErrorApp(
+    runApp(NoiseportErrorApp(
       error: e,
     ));
   }
@@ -94,7 +94,7 @@ void main() async {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarBrightness: Brightness.dark));
 
-    runApp(const Finamp());
+    runApp(const Noiseport());
   }
 }
 
@@ -113,21 +113,21 @@ Future<void> _setupDownloadsHelper() async {
   // We awkwardly cache this value since going from 0.6.14 -> 0.6.16 will switch
   // hasCompletedBlurhashImageMigration despite doing a fixed migration
   final shouldRunBlurhashImageMigrationIdFix =
-      FinampSettingsHelper.finampSettings.shouldRunBlurhashImageMigrationIdFix;
+      NoiseportSettingsHelper.noiseportSettings.shouldRunBlurhashImageMigrationIdFix;
 
-  if (!FinampSettingsHelper.finampSettings.hasCompletedBlurhashImageMigration) {
+  if (!NoiseportSettingsHelper.noiseportSettings.hasCompletedBlurhashImageMigration) {
     await downloadsHelper.migrateBlurhashImages();
-    FinampSettingsHelper.setHasCompletedBlurhashImageMigration(true);
+    NoiseportSettingsHelper.setHasCompletedBlurhashImageMigration(true);
   }
 
   if (shouldRunBlurhashImageMigrationIdFix) {
     await downloadsHelper.fixBlurhashMigrationIds();
-    FinampSettingsHelper.setHasCompletedBlurhashImageMigrationIdFix(true);
+    NoiseportSettingsHelper.setHasCompletedBlurhashImageMigrationIdFix(true);
   }
 
   // Add discover tab to existing users' settings if not already done
-  if (!FinampSettingsHelper.finampSettings.hasCompletedDiscoverTabMigration) {
-    final currentSettings = FinampSettingsHelper.finampSettings;
+  if (!NoiseportSettingsHelper.noiseportSettings.hasCompletedDiscoverTabMigration) {
+    final currentSettings = NoiseportSettingsHelper.noiseportSettings;
     
     // Add discover tab to showTabs if it's not present
     if (!currentSettings.showTabs.containsKey(TabContentType.discover)) {
@@ -156,7 +156,7 @@ Future<void> _setupDownloadsHelper() async {
       currentSettings.tabOrder.add(TabContentType.slskdSearches);
     }
     
-    FinampSettingsHelper.setHasCompletedDiscoverTabMigration(true);
+    NoiseportSettingsHelper.setHasCompletedDiscoverTabMigration(true);
   }
 }
 
@@ -184,7 +184,7 @@ Future<void> setupHive() async {
   Hive.registerAdapter(MediaSourceInfoAdapter());
   Hive.registerAdapter(MediaStreamAdapter());
   Hive.registerAdapter(AuthenticationResultAdapter());
-  Hive.registerAdapter(FinampUserAdapter());
+  Hive.registerAdapter(NoiseportUserAdapter());
   Hive.registerAdapter(UserDtoAdapter());
   Hive.registerAdapter(SessionInfoAdapter());
   Hive.registerAdapter(UserConfigurationAdapter());
@@ -204,7 +204,7 @@ Future<void> setupHive() async {
   Hive.registerAdapter(CodecProfileAdapter());
   Hive.registerAdapter(ResponseProfileAdapter());
   Hive.registerAdapter(SubtitleProfileAdapter());
-  Hive.registerAdapter(FinampSettingsAdapter());
+  Hive.registerAdapter(NoiseportSettingsAdapter());
   Hive.registerAdapter(DownloadLocationAdapter());
   Hive.registerAdapter(ImageBlurHashesAdapter());
   Hive.registerAdapter(BaseItemAdapter());
@@ -223,9 +223,9 @@ Future<void> setupHive() async {
     Hive.openBox<DownloadedParent>("DownloadedParents"),
     Hive.openBox<DownloadedSong>("DownloadedItems"),
     Hive.openBox<DownloadedSong>("DownloadIds"),
-    Hive.openBox<FinampUser>("FinampUsers"),
+    Hive.openBox<NoiseportUser>("NoiseportUsers"),
     Hive.openBox<String>("CurrentUserId"),
-    Hive.openBox<FinampSettings>("FinampSettings"),
+    Hive.openBox<NoiseportSettings>("NoiseportSettings"),
     Hive.openBox<DownloadedImage>("DownloadedImages"),
     Hive.openBox<String>("DownloadedImageIds"),
     Hive.openBox<ThemeMode>("ThemeMode"),
@@ -234,9 +234,9 @@ Future<void> setupHive() async {
   ]);
 
   // If the settings box is empty, we add an initial settings value here.
-  Box<FinampSettings> finampSettingsBox = Hive.box("FinampSettings");
-  if (finampSettingsBox.isEmpty) {
-    finampSettingsBox.put("FinampSettings", await FinampSettings.create());
+  Box<NoiseportSettings> noiseportSettingsBox = Hive.box("NoiseportSettings");
+  if (noiseportSettingsBox.isEmpty) {
+    noiseportSettingsBox.put("NoiseportSettings", await NoiseportSettings.create());
   }
 
   // If no ThemeMode is set, we set it to the default (system)
@@ -252,10 +252,10 @@ Future<void> _setupAudioServiceHelper() async {
     builder: () => MusicPlayerBackgroundTask(),
     config: AudioServiceConfig(
       androidStopForegroundOnPause:
-          FinampSettingsHelper.finampSettings.androidStopForegroundOnPause,
+          NoiseportSettingsHelper.noiseportSettings.androidStopForegroundOnPause,
       androidNotificationChannelName: "Playback",
       androidNotificationIcon: "mipmap/white",
-      androidNotificationChannelId: "com.unicornsonlsd.finamp.audio",
+      androidNotificationChannelId: "com.unicornsonlsd.noiseport.audio",
     ),
   );
   // GetIt.instance.registerSingletonAsync<AudioHandler>(
@@ -267,62 +267,62 @@ Future<void> _setupAudioServiceHelper() async {
 
 /// Migrates the old DownloadLocations list to a map
 void _migrateDownloadLocations() {
-  final finampSettings = FinampSettingsHelper.finampSettings;
+  final noiseportSettings = NoiseportSettingsHelper.noiseportSettings;
 
   // ignore: deprecated_member_use_from_same_package
-  if (finampSettings.downloadLocations.isNotEmpty) {
+  if (noiseportSettings.downloadLocations.isNotEmpty) {
     final Map<String, DownloadLocation> newMap = {};
 
     // ignore: deprecated_member_use_from_same_package
-    for (var element in finampSettings.downloadLocations) {
+    for (var element in noiseportSettings.downloadLocations) {
       // Generate a UUID and set the ID field for the DownloadsLocation
       final id = const Uuid().v4();
       element.id = id;
       newMap[id] = element;
     }
 
-    finampSettings.downloadLocationsMap = newMap;
+    noiseportSettings.downloadLocationsMap = newMap;
 
     // ignore: deprecated_member_use_from_same_package
-    finampSettings.downloadLocations = List.empty();
+    noiseportSettings.downloadLocations = List.empty();
 
-    FinampSettingsHelper.overwriteFinampSettings(finampSettings);
+    NoiseportSettingsHelper.overwriteNoiseportSettings(noiseportSettings);
   }
 }
 
 /// Migrates the old SortBy/SortOrder to a map indexed by tab content type
 void _migrateSortOptions() {
-  final finampSettings = FinampSettingsHelper.finampSettings;
+  final noiseportSettings = NoiseportSettingsHelper.noiseportSettings;
 
   var changed = false;
 
-  if (finampSettings.tabSortBy.isEmpty) {
+  if (noiseportSettings.tabSortBy.isEmpty) {
     for (var type in TabContentType.values) {
       // ignore: deprecated_member_use_from_same_package
-      finampSettings.tabSortBy[type] = finampSettings.sortBy;
+      noiseportSettings.tabSortBy[type] = noiseportSettings.sortBy;
     }
     changed = true;
   }
 
-  if (finampSettings.tabSortOrder.isEmpty) {
+  if (noiseportSettings.tabSortOrder.isEmpty) {
     for (var type in TabContentType.values) {
       // ignore: deprecated_member_use_from_same_package
-      finampSettings.tabSortOrder[type] = finampSettings.sortOrder;
+      noiseportSettings.tabSortOrder[type] = noiseportSettings.sortOrder;
     }
     changed = true;
   }
 
   if (changed) {
-    FinampSettingsHelper.overwriteFinampSettings(finampSettings);
+    NoiseportSettingsHelper.overwriteNoiseportSettings(noiseportSettings);
   }
 }
 
-void _setupFinampUserHelper() {
-  GetIt.instance.registerSingleton(FinampUserHelper());
+void _setupNoiseportUserHelper() {
+  GetIt.instance.registerSingleton(NoiseportUserHelper());
 }
 
-class Finamp extends StatelessWidget {
-  const Finamp({Key? key}) : super(key: key);
+class Noiseport extends StatelessWidget {
+  const Noiseport({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +337,7 @@ class Finamp extends StatelessWidget {
           }
         },
         // We awkwardly have two ValueListenableBuilders for the locale and
-        // theme because I didn't want every FinampSettings change to rebuild
+        // theme because I didn't want every NoiseportSettings change to rebuild
         // the whole app
         child: ValueListenableBuilder(
           valueListenable: LocaleHelper.localeListener,
@@ -346,7 +346,7 @@ class Finamp extends StatelessWidget {
                 valueListenable: ThemeModeHelper.themeModeListener,
                 builder: (_, box, __) {
                   return MaterialApp(
-                    title: "Finamp",
+                    title: "Noiseport",
                     routes: {
                       SplashScreen.routeName: (context) => const SplashScreen(),
                       UserSelector.routeName: (context) => const UserSelector(),
@@ -428,15 +428,15 @@ class Finamp extends StatelessWidget {
   }
 }
 
-class FinampErrorApp extends StatelessWidget {
-  const FinampErrorApp({Key? key, required this.error}) : super(key: key);
+class NoiseportErrorApp extends StatelessWidget {
+  const NoiseportErrorApp({Key? key, required this.error}) : super(key: key);
 
   final dynamic error;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Finamp",
+      title: "Noiseport",
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,

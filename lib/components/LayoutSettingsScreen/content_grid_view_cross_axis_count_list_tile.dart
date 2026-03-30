@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 enum ContentGridViewCrossAxisCountType {
   portrait,
@@ -62,13 +62,13 @@ class _ContentGridViewCrossAxisCountListTileState
     super.initState();
     switch (widget.type) {
       case ContentGridViewCrossAxisCountType.portrait:
-        _controller.text = FinampSettingsHelper
-            .finampSettings.contentGridViewCrossAxisCountPortrait
+        _controller.text = NoiseportSettingsHelper
+            .noiseportSettings.contentGridViewCrossAxisCountPortrait
             .toString();
         break;
       case ContentGridViewCrossAxisCountType.landscape:
-        _controller.text = FinampSettingsHelper
-            .finampSettings.contentGridViewCrossAxisCountLandscape
+        _controller.text = NoiseportSettingsHelper
+            .noiseportSettings.contentGridViewCrossAxisCountLandscape
             .toString();
         break;
     }
@@ -95,11 +95,11 @@ class _ContentGridViewCrossAxisCountListTileState
             if (valueInt != null && valueInt > 0) {
               switch (widget.type) {
                 case ContentGridViewCrossAxisCountType.portrait:
-                  FinampSettingsHelper.setContentGridViewCrossAxisCountPortrait(
+                  NoiseportSettingsHelper.setContentGridViewCrossAxisCountPortrait(
                       valueInt);
                   break;
                 case ContentGridViewCrossAxisCountType.landscape:
-                  FinampSettingsHelper
+                  NoiseportSettingsHelper
                       .setContentGridViewCrossAxisCountLandscape(valueInt);
                   break;
               }

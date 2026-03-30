@@ -9,18 +9,18 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as path_helper;
 
-import 'finamp_settings_helper.dart';
-import 'finamp_user_helper.dart';
+import 'noiseport_settings_helper.dart';
+import 'noiseport_user_helper.dart';
 import 'jellyfin_api.dart';
 import 'jellyfin_api_helper.dart';
 import 'get_internal_song_dir.dart';
 import '../models/jellyfin_models.dart';
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 
 class DownloadsHelper {
   List<String> queue = [];
   final _jellyfinApiData = GetIt.instance<JellyfinApiHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   final _downloadedItemsBox = Hive.box<DownloadedSong>("DownloadedItems");
   final _downloadedParentsBox = Hive.box<DownloadedParent>("DownloadedParents");
   final _downloadIdsBox = Hive.box<DownloadedSong>("DownloadIds");
@@ -124,7 +124,7 @@ class DownloadsHelper {
         // Base URL shouldn't be null at this point (user has to be logged in
         // to get to the point where they can add downloads).
         String songUrl =
-            "${_finampUserHelper.currentUser!.baseUrl}/Items/${item.id}/File";
+            "${_noiseportUserHelper.currentUser!.baseUrl}/Items/${item.id}/File";
 
         List<MediaSourceInfo>? mediaSourceInfo =
             await _jellyfinApiData.getPlaybackInfo(item.id);
@@ -573,13 +573,13 @@ class DownloadsHelper {
             "${downloadedSong.song.id} ${downloadedSong.song.name} exists at default internal song dir location, setting song to internal song dir");
 
         downloadedSong.downloadLocationId =
-            FinampSettingsHelper.finampSettings.internalSongDir.id;
+            NoiseportSettingsHelper.noiseportSettings.internalSongDir.id;
         hasFoundLocation = true;
 
         if (!await Directory(
-                FinampSettingsHelper.finampSettings.internalSongDir.path)
+                NoiseportSettingsHelper.noiseportSettings.internalSongDir.path)
             .exists()) {
-          await FinampSettingsHelper.resetDefaultDownloadLocation();
+          await NoiseportSettingsHelper.resetDefaultDownloadLocation();
         }
 
         downloadedSong.path = path_helper.relative(potentialSongFile.path,
@@ -590,7 +590,7 @@ class DownloadsHelper {
       } else {
         // Loop through all download locations. If we don't find one, assume the
         // download location has been deleted.
-        FinampSettingsHelper.finampSettings.downloadLocationsMap
+        NoiseportSettingsHelper.noiseportSettings.downloadLocationsMap
             .forEach((key, value) {
           if (downloadedSong.path.contains(value.path)) {
             _downloadsLogger.info(
@@ -671,7 +671,7 @@ class DownloadsHelper {
         final currentDocumentsDirectory =
             await getApplicationDocumentsDirectory();
         DownloadLocation internalStorageLocation =
-            FinampSettingsHelper.finampSettings.internalSongDir;
+            NoiseportSettingsHelper.noiseportSettings.internalSongDir;
 
         // If the song path doesn't contain the current path, assume the
         // path has changed.
@@ -689,9 +689,9 @@ class DownloadsHelper {
             _downloadsLogger.warning(
                 "Difference found in settings documents paths. Changing ${internalStorageLocation.path} to ${newSongDir.path} in settings.");
 
-            // Set the new path in FinampSettings.
+            // Set the new path in NoiseportSettings.
             internalStorageLocation =
-                await FinampSettingsHelper.resetDefaultDownloadLocation();
+                await NoiseportSettingsHelper.resetDefaultDownloadLocation();
           }
 
           // If the song's path is not relative, make it relative. This only
@@ -728,14 +728,14 @@ class DownloadsHelper {
 
       // If offline, throw an error. Otherwise, return false.
       // TODO: This will need changing for #188
-      if (FinampSettingsHelper.finampSettings.isOffline) {
+      if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
         return Future.error(
             "File could not be found. Not falling back to online stream due to offline mode");
       } else {
         return false;
       }
     } else {
-      if (FinampSettingsHelper.finampSettings.isOffline) {
+      if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
         return Future.error(
             "Download is not complete, not adding. Wait for all downloads to be complete before playing.");
       } else {

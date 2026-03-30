@@ -1,10 +1,10 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/mpd_playback_service.dart';
 import '../../services/music_player_background_task.dart';
 
@@ -44,7 +44,7 @@ class PlayerButtons extends StatelessWidget {
       audioHandler.playbackState,
       mpdService.statusStream.map<MpdPlaybackStatus?>((s) => s).startWith(null),
       (localState, mpdStatus) {
-        final settings = FinampSettingsHelper.finampSettings;
+        final settings = NoiseportSettingsHelper.noiseportSettings;
         return CombinedPlaybackState(
           localState,
           mpdStatus,

@@ -2,7 +2,7 @@ import 'package:file_sizes/file_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 import '../../services/downloads_helper.dart';
 
 class AlbumFileSize extends StatelessWidget {

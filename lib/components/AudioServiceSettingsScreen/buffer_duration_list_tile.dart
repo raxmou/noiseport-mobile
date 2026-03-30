@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class BufferDurationListTile extends StatefulWidget {
   const BufferDurationListTile({super.key});
@@ -13,7 +13,7 @@ class BufferDurationListTile extends StatefulWidget {
 class _BufferDurationListTileState extends State<BufferDurationListTile> {
   final _controller = TextEditingController(
       text:
-          FinampSettingsHelper.finampSettings.bufferDurationSeconds.toString());
+          NoiseportSettingsHelper.noiseportSettings.bufferDurationSeconds.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _BufferDurationListTileState extends State<BufferDurationListTile> {
             final valueInt = int.tryParse(value);
 
             if (valueInt != null && !valueInt.isNegative) {
-              FinampSettingsHelper.setBufferDuration(
+              NoiseportSettingsHelper.setBufferDuration(
                   Duration(seconds: valueInt));
             }
           },

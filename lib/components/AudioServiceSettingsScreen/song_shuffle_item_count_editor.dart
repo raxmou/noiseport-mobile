@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class SongShuffleItemCountEditor extends StatefulWidget {
   const SongShuffleItemCountEditor({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _SongShuffleItemCountEditorState
     extends State<SongShuffleItemCountEditor> {
   final _controller = TextEditingController(
       text:
-          FinampSettingsHelper.finampSettings.songShuffleItemCount.toString());
+          NoiseportSettingsHelper.noiseportSettings.songShuffleItemCount.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class _SongShuffleItemCountEditorState
             final valueInt = int.tryParse(value);
 
             if (valueInt != null) {
-              FinampSettingsHelper.setSongShuffleItemCount(valueInt);
+              NoiseportSettingsHelper.setSongShuffleItemCount(valueInt);
             }
           },
         ),

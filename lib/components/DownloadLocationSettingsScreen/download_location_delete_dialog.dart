@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class DownloadLocationDeleteDialog extends StatelessWidget {
   const DownloadLocationDeleteDialog({
@@ -24,7 +24,7 @@ class DownloadLocationDeleteDialog extends StatelessWidget {
         TextButton(
           child: const Text("DELETE"),
           onPressed: () {
-            FinampSettingsHelper.deleteDownloadLocation(id);
+            NoiseportSettingsHelper.deleteDownloadLocation(id);
             Navigator.of(context).pop();
           },
         ),

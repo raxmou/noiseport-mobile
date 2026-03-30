@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
 import '../../models/jellyfin_models.dart';
-import '../../models/finamp_models.dart';
-import '../../services/finamp_settings_helper.dart';
-import '../../services/finamp_user_helper.dart';
+import '../../models/noiseport_models.dart';
+import '../../services/noiseport_settings_helper.dart';
+import '../../services/noiseport_user_helper.dart';
 import '../../services/jellyfin_api_helper.dart';
 import '../../services/downloads_helper.dart';
 import '../AlbumScreen/download_dialog.dart';
@@ -34,7 +34,7 @@ class _ArtistDownloadButtonState extends State<ArtistDownloadButton> {
 
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
   final _downloadsHelper = GetIt.instance<DownloadsHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   List<BaseItemDto> _getUndownloadedAlbums(List<BaseItemDto> albums) {
     return albums
@@ -44,10 +44,10 @@ class _ArtistDownloadButtonState extends State<ArtistDownloadButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, _) {
-        final isOffline = box.get("FinampSettings")?.isOffline ?? false;
+        final isOffline = box.get("NoiseportSettings")?.isOffline ?? false;
         bool deleteAlbums = false;
 
         if (isOffline) {
@@ -139,7 +139,7 @@ class _ArtistDownloadButtonState extends State<ArtistDownloadButton> {
                           // getItems returns null so we have to null check
                           // each element
                           items: albumInfo.map((e) => e!).toList(),
-                          viewId: _finampUserHelper.currentUser!.currentViewId!,
+                          viewId: _noiseportUserHelper.currentUser!.currentViewId!,
                         ),
                       );
                     }

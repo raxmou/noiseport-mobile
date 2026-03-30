@@ -1,9 +1,9 @@
-import 'package:finamp/services/contains_login.dart';
+import 'package:noiseport/services/contains_login.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logging/logging.dart';
 
 import 'case_insensitive_pattern.dart';
-import 'finamp_user_helper.dart';
+import 'noiseport_user_helper.dart';
 
 extension CensoredMessage on LogRecord {
   /// The uncensored log string to be shown to the user
@@ -17,11 +17,11 @@ extension CensoredMessage on LogRecord {
       return loginCensoredMessage;
     }
 
-    final finampUserHelper = GetIt.instance<FinampUserHelper>();
+    final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
     String workingLogString = logString;
 
-    for (final user in finampUserHelper.finampUsers) {
+    for (final user in noiseportUserHelper.noiseportUsers) {
       workingLogString = workingLogString.replaceAll(
           CaseInsensitivePattern(user.baseUrl), "BASEURL");
       workingLogString = workingLogString.replaceAll(

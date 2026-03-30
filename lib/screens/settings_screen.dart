@@ -1,10 +1,10 @@
-import 'package:finamp/screens/interaction_settings_screen.dart';
+import 'package:noiseport/screens/interaction_settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:locale_names/locale_names.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../services/finamp_settings_helper.dart';
+import '../services/noiseport_settings_helper.dart';
 import '../services/locale_helper.dart';
 import 'transcoding_settings_screen.dart';
 import 'downloads_settings_screen.dart';
@@ -100,11 +100,11 @@ class SettingsScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.library_music),
               title: Text(AppLocalizations.of(context)!.selectMusicLibraries),
-              subtitle: FinampSettingsHelper.finampSettings.isOffline
+              subtitle: NoiseportSettingsHelper.noiseportSettings.isOffline
                   ? Text(
                       AppLocalizations.of(context)!.notAvailableInOfflineMode)
                   : null,
-              enabled: !FinampSettingsHelper.finampSettings.isOffline,
+              enabled: !NoiseportSettingsHelper.noiseportSettings.isOffline,
               onTap: () =>
                   Navigator.of(context).pushNamed(ViewSelector.routeName),
             ),

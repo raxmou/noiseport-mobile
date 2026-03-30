@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 
-import '../models/finamp_models.dart';
-import '../services/finamp_settings_helper.dart';
+import '../models/noiseport_models.dart';
+import '../services/noiseport_settings_helper.dart';
 import '../services/audio_service_helper.dart';
-import '../services/finamp_user_helper.dart';
+import '../services/noiseport_user_helper.dart';
 import '../components/MusicScreen/music_screen_tab_view.dart';
 import '../components/MusicScreen/music_screen_drawer.dart';
 import '../components/MusicScreen/sort_by_menu_button.dart';
@@ -36,7 +36,7 @@ class _MusicScreenState extends State<MusicScreen>
   TabController? _tabController;
 
   final _audioServiceHelper = GetIt.instance<AudioServiceHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
 
   void _stopSearching() {
@@ -48,7 +48,7 @@ class _MusicScreenState extends State<MusicScreen>
   }
 
   void _tabIndexCallback() {
-    var tabKey = FinampSettingsHelper.finampSettings.showTabs.entries
+    var tabKey = NoiseportSettingsHelper.noiseportSettings.showTabs.entries
         .where((element) => element.value)
         .elementAt(_tabController!.index)
         .key;
@@ -72,7 +72,7 @@ class _MusicScreenState extends State<MusicScreen>
     _tabController?.removeListener(_tabIndexCallback);
 
     _tabController = TabController(
-      length: FinampSettingsHelper.finampSettings.showTabs.entries
+      length: NoiseportSettingsHelper.noiseportSettings.showTabs.entries
           .where((element) => element.value)
           .length,
       vsync: this,
@@ -94,7 +94,7 @@ class _MusicScreenState extends State<MusicScreen>
   }
 
   FloatingActionButton? getFloatingActionButton() {
-    var tabList = FinampSettingsHelper.finampSettings.showTabs.entries
+    var tabList = NoiseportSettingsHelper.noiseportSettings.showTabs.entries
         .where((element) => element.value)
         .map((e) => e.key)
         .toList();
@@ -106,7 +106,7 @@ class _MusicScreenState extends State<MusicScreen>
         onPressed: () async {
           try {
             await _audioServiceHelper
-                .shuffleAll(FinampSettingsHelper.finampSettings.isFavourite);
+                .shuffleAll(NoiseportSettingsHelper.noiseportSettings.isFavourite);
           } catch (e) {
             errorSnackbar(e, context);
           }
@@ -158,18 +158,18 @@ class _MusicScreenState extends State<MusicScreen>
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampUser>>(
-      valueListenable: _finampUserHelper.finampUsersListenable,
+    return ValueListenableBuilder<Box<NoiseportUser>>(
+      valueListenable: _noiseportUserHelper.noiseportUsersListenable,
       builder: (context, value, _) {
-        return ValueListenableBuilder<Box<FinampSettings>>(
-          valueListenable: FinampSettingsHelper.finampSettingsListener,
+        return ValueListenableBuilder<Box<NoiseportSettings>>(
+          valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
           builder: (context, value, _) {
-            final finampSettings = value.get("FinampSettings");
+            final noiseportSettings = value.get("NoiseportSettings");
 
             // Get the tabs from the user's tab order, and filter them to only
             // include enabled tabs
-            final tabs = finampSettings!.tabOrder.where((e) =>
-                FinampSettingsHelper.finampSettings.showTabs[e] ?? false);
+            final tabs = noiseportSettings!.tabOrder.where((e) =>
+                NoiseportSettingsHelper.noiseportSettings.showTabs[e] ?? false);
 
             if (tabs.length != _tabController?.length) {
               _musicScreenLogger.info(
@@ -200,7 +200,7 @@ class _MusicScreenState extends State<MusicScreen>
                                 .searchFieldLabel,
                           ),
                         )
-                      : Text(_finampUserHelper.currentUser?.currentView?.name ??
+                      : Text(_noiseportUserHelper.currentUser?.currentView?.name ??
                           AppLocalizations.of(context)!.music),
                   bottom: TabBar(
                     controller: _tabController,
@@ -241,13 +241,13 @@ class _MusicScreenState extends State<MusicScreen>
                             tabs.elementAt(_tabController!.index),
                           ),
                           IconButton(
-                            icon: finampSettings.isFavourite
+                            icon: noiseportSettings.isFavourite
                                 ? const Icon(Icons.favorite)
                                 : const Icon(Icons.favorite_outline),
-                            onPressed: finampSettings.isOffline
+                            onPressed: noiseportSettings.isOffline
                                 ? null
-                                : () => FinampSettingsHelper.setIsFavourite(
-                                    !finampSettings.isFavourite),
+                                : () => NoiseportSettingsHelper.setIsFavourite(
+                                    !noiseportSettings.isFavourite),
                             tooltip: AppLocalizations.of(context)!.favourites,
                           ),
                           IconButton(
@@ -272,10 +272,10 @@ class _MusicScreenState extends State<MusicScreen>
                       .map((tabType) => MusicScreenTabView(
                             tabContentType: tabType,
                             searchTerm: searchQuery,
-                            isFavourite: finampSettings.isFavourite,
-                            sortBy: finampSettings.getTabSortBy(tabType),
-                            sortOrder: finampSettings.getSortOrder(tabType),
-                            view: _finampUserHelper.currentUser?.currentView,
+                            isFavourite: noiseportSettings.isFavourite,
+                            sortBy: noiseportSettings.getTabSortBy(tabType),
+                            sortOrder: noiseportSettings.getSortOrder(tabType),
+                            view: _noiseportUserHelper.currentUser?.currentView,
                           ))
                       .toList(),
                 ),

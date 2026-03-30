@@ -1,9 +1,9 @@
-import 'package:finamp/models/finamp_models.dart';
+import 'package:noiseport/models/noiseport_models.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 import '../../models/jellyfin_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class SortByMenuButton extends StatelessWidget {
   const SortByMenuButton(this.tabType, {Key? key}) : super(key: key);
@@ -23,7 +23,7 @@ class SortByMenuButton extends StatelessWidget {
               sortBy.toLocalisedString(context),
               style: TextStyle(
                 color:
-                    FinampSettingsHelper.finampSettings.getTabSortBy(tabType) ==
+                    NoiseportSettingsHelper.noiseportSettings.getTabSortBy(tabType) ==
                             sortBy
                         ? Theme.of(context).colorScheme.secondary
                         : null,
@@ -31,7 +31,7 @@ class SortByMenuButton extends StatelessWidget {
             ),
           )
       ],
-      onSelected: (value) => FinampSettingsHelper.setSortBy(tabType, value),
+      onSelected: (value) => NoiseportSettingsHelper.setSortBy(tabType, value),
     );
   }
 }

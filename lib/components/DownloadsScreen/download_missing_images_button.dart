@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/downloads_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class DownloadMissingImagesButton extends StatefulWidget {
   const DownloadMissingImagesButton({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _DownloadMissingImagesButtonState
   final _downloadsHelper = GetIt.instance<DownloadsHelper>();
 
   // The user shouldn't be able to check for missing downloads while offline
-  bool _enabled = !FinampSettingsHelper.finampSettings.isOffline;
+  bool _enabled = !NoiseportSettingsHelper.noiseportSettings.isOffline;
 
   void downloadImages() async {
     // We don't want two checks to happen at once, so we disable the

@@ -1,318 +1,318 @@
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 import '../models/jellyfin_models.dart';
 import 'get_internal_song_dir.dart';
 
-class FinampSettingsHelper {
-  static ValueListenable<Box<FinampSettings>> get finampSettingsListener =>
-      Hive.box<FinampSettings>("FinampSettings")
-          .listenable(keys: ["FinampSettings"]);
+class NoiseportSettingsHelper {
+  static ValueListenable<Box<NoiseportSettings>> get noiseportSettingsListener =>
+      Hive.box<NoiseportSettings>("NoiseportSettings")
+          .listenable(keys: ["NoiseportSettings"]);
 
-  // This shouldn't be null as FinampSettings is created on startup.
+  // This shouldn't be null as NoiseportSettings is created on startup.
   // This decision will probably come back to haunt me later.
-  static FinampSettings get finampSettings =>
-      Hive.box<FinampSettings>("FinampSettings").get("FinampSettings")!;
+  static NoiseportSettings get noiseportSettings =>
+      Hive.box<NoiseportSettings>("NoiseportSettings").get("NoiseportSettings")!;
 
   /// Deletes the downloadLocation at the given index.
   static void deleteDownloadLocation(String id) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.downloadLocationsMap.remove(id);
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.downloadLocationsMap.remove(id);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
-  /// Add a new download location to FinampSettings
+  /// Add a new download location to NoiseportSettings
   static void addDownloadLocation(DownloadLocation downloadLocation) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.downloadLocationsMap[downloadLocation.id] =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.downloadLocationsMap[downloadLocation.id] =
         downloadLocation;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static Future<DownloadLocation> resetDefaultDownloadLocation() async {
     final newInternalSongDir = await getInternalSongDir();
 
-    FinampSettings finampSettingsTemp = finampSettings;
-    final internalSongDownloadLocation = finampSettingsTemp.internalSongDir;
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    final internalSongDownloadLocation = noiseportSettingsTemp.internalSongDir;
 
     internalSongDownloadLocation.path = newInternalSongDir.path;
-    finampSettingsTemp.downloadLocationsMap[internalSongDownloadLocation.id] =
+    noiseportSettingsTemp.downloadLocationsMap[internalSongDownloadLocation.id] =
         internalSongDownloadLocation;
 
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
 
     return internalSongDownloadLocation;
   }
 
   /// Set the isOffline property
   static void setIsOffline(bool isOffline) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.isOffline = isOffline;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.isOffline = isOffline;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   /// Set the shouldTranscode property
   static void setShouldTranscode(bool shouldTranscode) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.shouldTranscode = shouldTranscode;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.shouldTranscode = shouldTranscode;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setTranscodeBitrate(int transcodeBitrate) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.transcodeBitrate = transcodeBitrate;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.transcodeBitrate = transcodeBitrate;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setShowTab(TabContentType tabContentType, bool value) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.showTabs[tabContentType] = value;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.showTabs[tabContentType] = value;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setIsFavourite(bool isFavourite) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.isFavourite = isFavourite;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.isFavourite = isFavourite;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSortBy(TabContentType tabType, SortBy sortBy) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.tabSortBy[tabType] = sortBy;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.tabSortBy[tabType] = sortBy;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSortOrder(TabContentType tabType, SortOrder sortOrder) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.tabSortOrder[tabType] = sortOrder;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.tabSortOrder[tabType] = sortOrder;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setAndroidStopForegroundOnPause(
       bool androidStopForegroundOnPause) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.androidStopForegroundOnPause =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.androidStopForegroundOnPause =
         androidStopForegroundOnPause;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSongShuffleItemCount(int songShuffleItemCount) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.songShuffleItemCount = songShuffleItemCount;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.songShuffleItemCount = songShuffleItemCount;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setContentGridViewCrossAxisCountPortrait(
       int contentGridViewCrossAxisCountPortrait) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.contentGridViewCrossAxisCountPortrait =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.contentGridViewCrossAxisCountPortrait =
         contentGridViewCrossAxisCountPortrait;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setContentGridViewCrossAxisCountLandscape(
       int contentGridViewCrossAxisCountLandscape) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.contentGridViewCrossAxisCountLandscape =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.contentGridViewCrossAxisCountLandscape =
         contentGridViewCrossAxisCountLandscape;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setContentViewType(ContentViewType contentViewType) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.contentViewType = contentViewType;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.contentViewType = contentViewType;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setShowTextOnGridView(bool showTextOnGridView) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.showTextOnGridView = showTextOnGridView;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.showTextOnGridView = showTextOnGridView;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSleepTimerSeconds(int sleepTimerSeconds) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.sleepTimerSeconds = sleepTimerSeconds;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.sleepTimerSeconds = sleepTimerSeconds;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
-  static void overwriteFinampSettings(FinampSettings newFinampSettings) {
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", newFinampSettings);
+  static void overwriteNoiseportSettings(NoiseportSettings newNoiseportSettings) {
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", newNoiseportSettings);
   }
 
   static void setShowCoverAsPlayerBackground(bool showCoverAsPlayerBackground) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.showCoverAsPlayerBackground =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.showCoverAsPlayerBackground =
         showCoverAsPlayerBackground;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setHideSongArtistsIfSameAsAlbumArtists(
       bool hideSongArtistsIfSameAsAlbumArtists) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.hideSongArtistsIfSameAsAlbumArtists =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.hideSongArtistsIfSameAsAlbumArtists =
         hideSongArtistsIfSameAsAlbumArtists;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setDisableGesture(bool disableGesture) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.disableGesture = disableGesture;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.disableGesture = disableGesture;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setShowFastScroller(bool showFastScroller) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.showFastScroller = showFastScroller;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.showFastScroller = showFastScroller;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setBufferDuration(Duration bufferDuration) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.bufferDuration = bufferDuration;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.bufferDuration = bufferDuration;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setHasCompletedBlurhashImageMigration(
       bool hasCompletedBlurhashImageMigration) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.hasCompletedBlurhashImageMigration =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.hasCompletedBlurhashImageMigration =
         hasCompletedBlurhashImageMigration;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setHasCompletedBlurhashImageMigrationIdFix(
       bool hasCompletedBlurhashImageMigrationIdFix) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.hasCompletedBlurhashImageMigrationIdFix =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.hasCompletedBlurhashImageMigrationIdFix =
         hasCompletedBlurhashImageMigrationIdFix;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setHasCompletedDiscoverTabMigration(
       bool hasCompletedDiscoverTabMigration) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.hasCompletedDiscoverTabMigration =
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.hasCompletedDiscoverTabMigration =
         hasCompletedDiscoverTabMigration;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setTabOrder(int index, TabContentType tabContentType) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.tabOrder[index] = tabContentType;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.tabOrder[index] = tabContentType;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void resetTabs() {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.tabOrder = TabContentType.values;
-    finampSettingsTemp.showTabs = Map.fromEntries(
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.tabOrder = TabContentType.values;
+    noiseportSettingsTemp.showTabs = Map.fromEntries(
       TabContentType.values.map(
         (e) => MapEntry(e, true),
       ),
     );
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSwipeInsertQueueNext(bool swipeInsertQueueNext) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.swipeInsertQueueNext = swipeInsertQueueNext;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.swipeInsertQueueNext = swipeInsertQueueNext;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSlskdHost(String host) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.slskdHost = host;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.slskdHost = host;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSlskdUsername(String username) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.slskdUsername = username;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.slskdUsername = username;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setSlskdPassword(String password) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.slskdPassword = password;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.slskdPassword = password;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setNoiseportServerIp(String serverIp) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.noiseportServerIp = serverIp;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.noiseportServerIp = serverIp;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setMpdEnabled(bool enabled) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.mpdEnabled = enabled;
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.mpdEnabled = enabled;
     if (!enabled) {
-      finampSettingsTemp.isMpdMode = false;
+      noiseportSettingsTemp.isMpdMode = false;
     }
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setMpdHost(String host) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.mpdHost = host;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.mpdHost = host;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setMpdPort(int port) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.mpdPort = port;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.mpdPort = port;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setMpdPassword(String password) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.mpdPassword = password;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.mpdPassword = password;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 
   static void setIsMpdMode(bool isMpdMode) {
-    FinampSettings finampSettingsTemp = finampSettings;
-    finampSettingsTemp.isMpdMode = isMpdMode;
-    Hive.box<FinampSettings>("FinampSettings")
-        .put("FinampSettings", finampSettingsTemp);
+    NoiseportSettings noiseportSettingsTemp = noiseportSettings;
+    noiseportSettingsTemp.isMpdMode = isMpdMode;
+    Hive.box<NoiseportSettings>("NoiseportSettings")
+        .put("NoiseportSettings", noiseportSettingsTemp);
   }
 }

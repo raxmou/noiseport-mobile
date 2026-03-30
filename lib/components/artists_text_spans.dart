@@ -1,4 +1,4 @@
-import 'package:finamp/services/finamp_settings_helper.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
@@ -36,7 +36,7 @@ List<TextSpan> ArtistsTextSpans(
       recognizer: TapGestureRecognizer()
         ..onTap = () {
           // Offline artists aren't implemented yet so we return if offline
-          if (FinampSettingsHelper.finampSettings.isOffline) return;
+          if (NoiseportSettingsHelper.noiseportSettings.isOffline) return;
 
           jellyfinApiHelper.getItemById(e.id).then((artist) =>
             popRoutes

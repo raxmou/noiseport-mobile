@@ -2,9 +2,9 @@ import 'package:chopper/chopper.dart';
 import 'package:get_it/get_it.dart';
 import 'package:logging/logging.dart';
 
-import 'finamp_user_helper.dart';
+import 'noiseport_user_helper.dart';
 import 'jellyfin_api.dart';
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 import '../models/jellyfin_models.dart';
 
 class JellyfinApiHelper {
@@ -19,7 +19,7 @@ class JellyfinApiHelper {
 
   Uri? baseUrlTemp;
 
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   Future<List<BaseItemDto>?> getItems({
     BaseItemDto? parentItem,
@@ -37,7 +37,7 @@ class JellyfinApiHelper {
     /// The maximum number of records to return.
     int? limit,
   }) async {
-    final currentUser = _finampUserHelper.currentUser;
+    final currentUser = _noiseportUserHelper.currentUser;
     if (currentUser == null) {
       // When logging out, this request causes errors since currentUser is
       // required sometimes. We just return an empty list since this error
@@ -148,7 +148,7 @@ class JellyfinApiHelper {
     AuthenticationResult newUserAuthenticationResult =
         AuthenticationResult.fromJson(response);
 
-    FinampUser newUser = FinampUser(
+    NoiseportUser newUser = NoiseportUser(
       id: newUserAuthenticationResult.user!.id,
       baseUrl: baseUrlTemp!.toString(),
       accessToken: newUserAuthenticationResult.accessToken!,
@@ -156,13 +156,13 @@ class JellyfinApiHelper {
       views: {},
     );
 
-    await _finampUserHelper.saveUser(newUser);
+    await _noiseportUserHelper.saveUser(newUser);
   }
 
   /// Gets all the user's views.
   Future<List<BaseItemDto>> getViews() async {
     var response =
-        await jellyfinApi.getViews(_finampUserHelper.currentUser!.id);
+        await jellyfinApi.getViews(_noiseportUserHelper.currentUser!.id);
 
     return QueryResult_BaseItemDto.fromJson(response).items!;
   }
@@ -172,7 +172,7 @@ class JellyfinApiHelper {
   Future<List<MediaSourceInfo>?> getPlaybackInfo(String itemId) async {
     var response = await jellyfinApi.getPlaybackInfo(
       id: itemId,
-      userId: _finampUserHelper.currentUser!.id,
+      userId: _noiseportUserHelper.currentUser!.id,
     );
 
     // getPlaybackInfo returns a PlaybackInfoResponse. We only need the List<MediaSourceInfo> in it so we convert it here and
@@ -186,7 +186,7 @@ class JellyfinApiHelper {
   Future<List<BaseItemDto>?> getInstantMix(BaseItemDto? parentItem) async {
     var response = await jellyfinApi.getInstantMix(
         id: parentItem!.id,
-        userId: _finampUserHelper.currentUser!.id,
+        userId: _noiseportUserHelper.currentUser!.id,
         limit: 200);
 
     return (QueryResult_BaseItemDto.fromJson(response).items);
@@ -213,7 +213,7 @@ class JellyfinApiHelper {
   /// Gets an item from a user's library.
   Future<BaseItemDto> getItemById(String itemId) async {
     var response = await jellyfinApi.getItemById(
-      userId: _finampUserHelper.currentUser!.id,
+      userId: _noiseportUserHelper.currentUser!.id,
       itemId: itemId,
     );
 
@@ -272,7 +272,7 @@ class JellyfinApiHelper {
   /// Marks an item as a favorite.
   Future<UserItemDataDto> addFavourite(String itemId) async {
     var response = await jellyfinApi.addFavourite(
-        userId: _finampUserHelper.currentUser!.id, itemId: itemId);
+        userId: _noiseportUserHelper.currentUser!.id, itemId: itemId);
 
     return UserItemDataDto.fromJson(response);
   }
@@ -280,7 +280,7 @@ class JellyfinApiHelper {
   /// Unmarks item as a favorite.
   Future<UserItemDataDto> removeFavourite(String itemId) async {
     var response = await jellyfinApi.removeFavourite(
-        userId: _finampUserHelper.currentUser!.id, itemId: itemId);
+        userId: _noiseportUserHelper.currentUser!.id, itemId: itemId);
 
     return UserItemDataDto.fromJson(response);
   }
@@ -303,7 +303,7 @@ class JellyfinApiHelper {
 
   Future<List<BaseItemDto>?> getArtistMix(List<String> artistIds) async {
     var response = await jellyfinApi.getItems(
-        userId: _finampUserHelper.currentUser!.id,
+        userId: _noiseportUserHelper.currentUser!.id,
         artistIds: artistIds.join(","),
         filters: "IsNotFolder",
         recursive: true,
@@ -316,7 +316,7 @@ class JellyfinApiHelper {
 
   Future<List<BaseItemDto>?> getAlbumMix(List<String> albumIds) async {
     var response = await jellyfinApi.getItems(
-        userId: _finampUserHelper.currentUser!.id,
+        userId: _noiseportUserHelper.currentUser!.id,
         albumIds: albumIds.join(","),
         filters: "IsNotFolder",
         recursive: true,
@@ -345,7 +345,7 @@ class JellyfinApiHelper {
     } finally {
       // If we're unauthorised, the logout command will fail but we're already
       // basically logged out so we shouldn't fail.
-      _finampUserHelper.removeUser(_finampUserHelper.currentUser!.id);
+      _noiseportUserHelper.removeUser(_noiseportUserHelper.currentUser!.id);
     }
   }
 
@@ -364,7 +364,7 @@ class JellyfinApiHelper {
       return null;
     }
 
-    final parsedBaseUrl = Uri.parse(_finampUserHelper.currentUser!.baseUrl);
+    final parsedBaseUrl = Uri.parse(_noiseportUserHelper.currentUser!.baseUrl);
     List<String> builtPath = List<String>.from(parsedBaseUrl.pathSegments);
     builtPath.addAll([
       "Items",

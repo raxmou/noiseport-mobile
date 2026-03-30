@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 import 'download_location_delete_dialog.dart';
 
 class DownloadLocationListTile extends StatelessWidget {

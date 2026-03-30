@@ -9,7 +9,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
 
 import '../components/favourite_button.dart';
-import '../services/finamp_settings_helper.dart';
+import '../services/noiseport_settings_helper.dart';
 import '../services/music_player_background_task.dart';
 import '../models/jellyfin_models.dart';
 import '../components/album_image.dart';
@@ -36,13 +36,13 @@ class PlayerScreen extends StatelessWidget {
 
     return SimpleGestureDetector(
       onVerticalSwipe: (direction) {
-        if (!FinampSettingsHelper.finampSettings.disableGesture &&
+        if (!NoiseportSettingsHelper.noiseportSettings.disableGesture &&
             direction == SwipeDirection.down) {
           Navigator.of(context).pop();
         }
       },
       onHorizontalSwipe: (direction) {
-        if (!FinampSettingsHelper.finampSettings.disableGesture) {
+        if (!NoiseportSettingsHelper.noiseportSettings.disableGesture) {
           switch (direction) {
             case SwipeDirection.left:
               audioHandler.skipToNext();
@@ -69,7 +69,7 @@ class PlayerScreen extends StatelessWidget {
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
-            if (FinampSettingsHelper.finampSettings.showCoverAsPlayerBackground)
+            if (NoiseportSettingsHelper.noiseportSettings.showCoverAsPlayerBackground)
               const _BlurredPlayerScreenBackground(),
             const SafeArea(
               child: Center(

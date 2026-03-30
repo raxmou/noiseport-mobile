@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
 import '../../services/downloads_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../models/jellyfin_models.dart';
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 import '../confirmation_prompt_dialog.dart';
 import '../error_snackbar.dart';
 
@@ -38,10 +38,10 @@ class _DeleteButtonState extends State<DeleteButton> {
       if (!mounted) return;
     }
 
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, child) {
-        bool? isOffline = box.get("FinampSettings")?.isOffline;
+        bool? isOffline = box.get("NoiseportSettings")?.isOffline;
 
         return IconButton(
             tooltip: AppLocalizations.of(context)!.deleteFromDevice,

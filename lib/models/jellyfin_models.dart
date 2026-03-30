@@ -7,9 +7,9 @@
 ///
 /// These classes should be correct with Jellyfin 10.7.5
 
-import 'package:finamp/models/finamp_models.dart';
+import 'package:noiseport/models/noiseport_models.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 

@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'finamp_models.dart';
+part of 'noiseport_models.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FinampUserAdapter extends TypeAdapter<FinampUser> {
+class NoiseportUserAdapter extends TypeAdapter<NoiseportUser> {
   @override
   final int typeId = 8;
 
   @override
-  FinampUser read(BinaryReader reader) {
+  NoiseportUser read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FinampUser(
+    return NoiseportUser(
       id: fields[0] as String,
       baseUrl: fields[1] as String,
       accessToken: fields[2] as String,
@@ -27,7 +27,7 @@ class FinampUserAdapter extends TypeAdapter<FinampUser> {
   }
 
   @override
-  void write(BinaryWriter writer, FinampUser obj) {
+  void write(BinaryWriter writer, NoiseportUser obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
@@ -50,22 +50,22 @@ class FinampUserAdapter extends TypeAdapter<FinampUser> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FinampUserAdapter &&
+      other is NoiseportUserAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
 
-class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
+class NoiseportSettingsAdapter extends TypeAdapter<NoiseportSettings> {
   @override
   final int typeId = 28;
 
   @override
-  FinampSettings read(BinaryReader reader) {
+  NoiseportSettings read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FinampSettings(
+    return NoiseportSettings(
       isOffline: fields[0] as bool,
       shouldTranscode: fields[1] as bool,
       transcodeBitrate: fields[2] as int,
@@ -133,7 +133,7 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
   }
 
   @override
-  void write(BinaryWriter writer, FinampSettings obj) {
+  void write(BinaryWriter writer, NoiseportSettings obj) {
     writer
       ..writeByte(37)
       ..writeByte(0)
@@ -218,7 +218,7 @@ class FinampSettingsAdapter extends TypeAdapter<FinampSettings> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FinampSettingsAdapter &&
+      other is NoiseportSettingsAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

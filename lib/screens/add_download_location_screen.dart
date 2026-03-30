@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import '../components/AddDownloadLocationScreen/custom_download_location_form.dart';
 import '../components/AddDownloadLocationScreen/app_directory_location_form.dart';
-import '../models/finamp_models.dart';
-import '../services/finamp_settings_helper.dart';
+import '../models/noiseport_models.dart';
+import '../services/noiseport_settings_helper.dart';
 
 class AddDownloadLocationScreen extends StatefulWidget {
   const AddDownloadLocationScreen({Key? key}) : super(key: key);
@@ -114,7 +114,7 @@ class _AddDownloadLocationScreenState extends State<AddDownloadLocationScreen>
                   deletable: newDownloadLocation.deletable,
                 );
 
-                FinampSettingsHelper.addDownloadLocation(downloadLocation);
+                NoiseportSettingsHelper.addDownloadLocation(downloadLocation);
                 Navigator.of(context).pop();
               }
             },

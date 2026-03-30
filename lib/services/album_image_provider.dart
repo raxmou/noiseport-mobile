@@ -3,7 +3,7 @@ import 'package:get_it/get_it.dart';
 
 import '../models/jellyfin_models.dart';
 import 'downloads_helper.dart';
-import 'finamp_settings_helper.dart';
+import 'noiseport_settings_helper.dart';
 import 'jellyfin_api_helper.dart';
 
 /// A class that handles returning ImageProviders for Jellyfin items. This class
@@ -50,7 +50,7 @@ class AlbumImageProvider {
     final downloadedImage = downloadsHelper.getDownloadedImage(item);
 
     if (downloadedImage == null) {
-      if (FinampSettingsHelper.finampSettings.isOffline) {
+      if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
         return null;
       }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import '../../models/finamp_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../models/noiseport_models.dart';
+import '../../services/noiseport_settings_helper.dart';
 import 'download_location_list_tile.dart';
 
 class DownloadLocationList extends StatefulWidget {
@@ -19,13 +19,13 @@ class _DownloadLocationListState extends State<DownloadLocationList> {
   void initState() {
     super.initState();
     downloadLocationsIterable =
-        FinampSettingsHelper.finampSettings.downloadLocationsMap.values;
+        NoiseportSettingsHelper.noiseportSettings.downloadLocationsMap.values;
   }
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, child) {
         return ListView.builder(
           itemCount: downloadLocationsIterable.length,

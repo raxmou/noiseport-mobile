@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../services/finamp_user_helper.dart';
+import '../../services/noiseport_user_helper.dart';
 import '../../screens/downloads_screen.dart';
 import '../../screens/logs_screen.dart';
 import '../../screens/settings_screen.dart';
@@ -15,7 +15,7 @@ class MusicScreenDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final finampUserHelper = GetIt.instance<FinampUserHelper>();
+    final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
     return Drawer(
       child: Scrollbar(
         child: CustomScrollView(
@@ -40,7 +40,7 @@ class MusicScreenDrawer extends StatelessWidget {
                           alignment:
                               Alignment.bottomCenter - const Alignment(0, 0.2),
                           child: Text(
-                            AppLocalizations.of(context)!.finamp,
+                            AppLocalizations.of(context)!.noiseport,
                             style: const TextStyle(fontSize: 20),
                           )),
                     ],
@@ -57,13 +57,13 @@ class MusicScreenDrawer extends StatelessWidget {
               ),
             ),
             // This causes an error when logging out if we show this widget
-            if (finampUserHelper.currentUser != null)
+            if (noiseportUserHelper.currentUser != null)
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   return ViewListTile(
-                      view: finampUserHelper.currentUser!.views.values
+                      view: noiseportUserHelper.currentUser!.views.values
                           .elementAt(index));
-                }, childCount: finampUserHelper.currentUser!.views.length),
+                }, childCount: noiseportUserHelper.currentUser!.views.length),
               ),
             SliverFillRemaining(
               hasScrollBody: false,
@@ -78,7 +78,7 @@ class MusicScreenDrawer extends StatelessWidget {
                         leading: const Icon(Icons.science),
                         title: Text(AppLocalizations.of(context)!.redesignBeta),
                         onTap: () async => await launchUrl(Uri.parse(
-                            "https://github.com/jmshrv/finamp/releases/tag/0.9.2-beta")),
+                            "https://github.com/jmshrv/noiseport/releases/tag/0.9.2-beta")),
                       ),
                       ListTile(
                         leading: const Icon(Icons.warning),

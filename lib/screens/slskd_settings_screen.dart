@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-import '../services/finamp_settings_helper.dart';
-import '../services/finamp_user_helper.dart';
+import '../services/noiseport_settings_helper.dart';
+import '../services/noiseport_user_helper.dart';
 import '../services/slskd_api.dart';
 import '../components/error_snackbar.dart';
 
@@ -25,7 +25,7 @@ class _SlskdSettingsScreenState extends State<SlskdSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     
     // Get default host from Jellyfin server if not already set
     String defaultHost = settings.slskdHost;
@@ -52,8 +52,8 @@ class _SlskdSettingsScreenState extends State<SlskdSettingsScreen> {
   /// Gets the default slskd host based on the connected Jellyfin server
   String _getDefaultSlskdHost() {
     try {
-      final finampUserHelper = GetIt.instance<FinampUserHelper>();
-      final currentUser = finampUserHelper.currentUser;
+      final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
+      final currentUser = noiseportUserHelper.currentUser;
       
       if (currentUser == null) {
         return '';
@@ -124,9 +124,9 @@ class _SlskdSettingsScreenState extends State<SlskdSettingsScreen> {
   }
 
   void _saveSettings() {
-    FinampSettingsHelper.setSlskdHost(_hostController.text);
-    FinampSettingsHelper.setSlskdUsername(_usernameController.text);
-    FinampSettingsHelper.setSlskdPassword(_passwordController.text);
+    NoiseportSettingsHelper.setSlskdHost(_hostController.text);
+    NoiseportSettingsHelper.setSlskdUsername(_usernameController.text);
+    NoiseportSettingsHelper.setSlskdPassword(_passwordController.text);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

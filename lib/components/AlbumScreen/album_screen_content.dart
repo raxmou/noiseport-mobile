@@ -1,13 +1,13 @@
-import 'package:finamp/components/AlbumScreen/sync_album_or_playlist_button.dart';
-import 'package:finamp/services/downloads_helper.dart';
+import 'package:noiseport/components/AlbumScreen/sync_album_or_playlist_button.dart';
+import 'package:noiseport/services/downloads_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/jellyfin_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../components/favourite_button.dart';
 import 'album_screen_content_flexible_space_bar.dart';
 import 'delete_button.dart';
@@ -77,13 +77,13 @@ class _AlbumScreenContentState extends State<AlbumScreenContent> {
             ),
             actions: [
               if (widget.parent.type == "Playlist" &&
-                  !FinampSettingsHelper.finampSettings.isOffline)
+                  !NoiseportSettingsHelper.noiseportSettings.isOffline)
                 PlaylistNameEditButton(playlist: widget.parent),
               FavoriteButton(item: widget.parent),
               if (GetIt.instance<DownloadsHelper>()
                   .isAlbumDownloaded(widget.parent.id))
                 DeleteButton(parent: widget.parent, items: widget.children),
-              if (!FinampSettingsHelper.finampSettings.isOffline)
+              if (!NoiseportSettingsHelper.noiseportSettings.isOffline)
                 SyncAlbumOrPlaylistButton(
                     parent: widget.parent, items: widget.children)
             ],
@@ -193,8 +193,8 @@ class _SongsSliverListState extends State<SongsSliverList> {
                 widget.parent.type == "MusicAlbum"
                     // "hide song artists if they're the same as album artists" == true
                     &&
-                    FinampSettingsHelper
-                        .finampSettings.hideSongArtistsIfSameAsAlbumArtists
+                    NoiseportSettingsHelper
+                        .noiseportSettings.hideSongArtistsIfSameAsAlbumArtists
                     // song artists == album artists
                     &&
                     setEquals(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-import '../services/finamp_settings_helper.dart';
-import '../services/finamp_user_helper.dart';
+import '../services/noiseport_settings_helper.dart';
+import '../services/noiseport_user_helper.dart';
 import '../services/mpd_playback_service.dart';
 import '../components/error_snackbar.dart';
 
@@ -28,7 +28,7 @@ class _MpdSettingsScreenState extends State<MpdSettingsScreen> {
   @override
   void initState() {
     super.initState();
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
 
     String defaultHost = settings.mpdHost;
     if (defaultHost.isEmpty) {
@@ -44,8 +44,8 @@ class _MpdSettingsScreenState extends State<MpdSettingsScreen> {
 
   String _getDefaultHost() {
     try {
-      final finampUserHelper = GetIt.instance<FinampUserHelper>();
-      final currentUser = finampUserHelper.currentUser;
+      final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
+      final currentUser = noiseportUserHelper.currentUser;
       if (currentUser == null) return '';
       final uri = Uri.parse(currentUser.baseUrl);
       return uri.host;
@@ -140,13 +140,13 @@ class _MpdSettingsScreenState extends State<MpdSettingsScreen> {
     final port = int.tryParse(_portController.text.trim()) ?? 6600;
     final password = _passwordController.text.trim();
 
-    FinampSettingsHelper.setMpdEnabled(_mpdEnabled);
+    NoiseportSettingsHelper.setMpdEnabled(_mpdEnabled);
     if (!_mpdEnabled) {
-      FinampSettingsHelper.setIsMpdMode(false);
+      NoiseportSettingsHelper.setIsMpdMode(false);
     }
-    FinampSettingsHelper.setMpdHost(host);
-    FinampSettingsHelper.setMpdPort(port);
-    FinampSettingsHelper.setMpdPassword(password);
+    NoiseportSettingsHelper.setMpdHost(host);
+    NoiseportSettingsHelper.setMpdPort(port);
+    NoiseportSettingsHelper.setMpdPassword(password);
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

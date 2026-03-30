@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-import '../../services/finamp_settings_helper.dart';
-import '../../models/finamp_models.dart';
+import '../../services/noiseport_settings_helper.dart';
+import '../../models/noiseport_models.dart';
 
 class HideTabToggle extends StatelessWidget {
   const HideTabToggle({
@@ -14,17 +14,17 @@ class HideTabToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (_, box, __) {
         return SwitchListTile.adaptive(
           title: Text(tabContentType.toLocalisedString(context)),
           // secondary: const Icon(Icons.drag_handle),
           // This should never be null, but it gets set to true if it is.
-          value: FinampSettingsHelper.finampSettings.showTabs[tabContentType] ??
+          value: NoiseportSettingsHelper.noiseportSettings.showTabs[tabContentType] ??
               true,
           onChanged: (value) =>
-              FinampSettingsHelper.setShowTab(tabContentType, value),
+              NoiseportSettingsHelper.setShowTab(tabContentType, value),
         );
       },
     );

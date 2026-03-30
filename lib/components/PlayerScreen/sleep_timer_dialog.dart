@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../services/music_player_background_task.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 
 class SleepTimerDialog extends StatefulWidget {
   const SleepTimerDialog({Key? key}) : super(key: key);
@@ -17,7 +17,7 @@ class _SleepTimerDialogState extends State<SleepTimerDialog> {
   final _audioHandler = GetIt.instance<MusicPlayerBackgroundTask>();
 
   final _textController = TextEditingController(
-      text: (FinampSettingsHelper.finampSettings.sleepTimerSeconds ~/ 60)
+      text: (NoiseportSettingsHelper.noiseportSettings.sleepTimerSeconds ~/ 60)
           .toString());
 
   final _formKey = GlobalKey<FormState>();
@@ -51,7 +51,7 @@ class _SleepTimerDialogState extends State<SleepTimerDialog> {
                   final valueInt = int.parse(value!);
 
                   _audioHandler.setSleepTimer(Duration(minutes: valueInt));
-                  FinampSettingsHelper.setSleepTimerSeconds(valueInt * 60);
+                  NoiseportSettingsHelper.setSleepTimerSeconds(valueInt * 60);
                 },
               ),
             ),

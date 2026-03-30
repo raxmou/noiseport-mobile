@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 
-import '../../services/finamp_settings_helper.dart';
-import '../../models/finamp_models.dart';
+import '../../services/noiseport_settings_helper.dart';
+import '../../models/noiseport_models.dart';
 
 class StopForegroundSelector extends StatelessWidget {
   const StopForegroundSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (_, box, __) {
         return SwitchListTile.adaptive(
           title:
@@ -19,9 +19,9 @@ class StopForegroundSelector extends StatelessWidget {
           subtitle: Text(AppLocalizations.of(context)!
               .enterLowPriorityStateOnPauseSubtitle),
           value:
-              FinampSettingsHelper.finampSettings.androidStopForegroundOnPause,
+              NoiseportSettingsHelper.noiseportSettings.androidStopForegroundOnPause,
           onChanged: (value) =>
-              FinampSettingsHelper.setAndroidStopForegroundOnPause(value),
+              NoiseportSettingsHelper.setAndroidStopForegroundOnPause(value),
         );
       },
     );

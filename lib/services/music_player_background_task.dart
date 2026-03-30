@@ -5,27 +5,27 @@ import 'dart:math';
 import 'package:android_id/android_id.dart';
 import 'package:audio_service/audio_service.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:finamp/services/offline_listen_helper.dart';
+import 'package:noiseport/services/offline_listen_helper.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:logging/logging.dart';
 
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 import '../models/jellyfin_models.dart';
-import 'finamp_settings_helper.dart';
-import 'finamp_user_helper.dart';
+import 'noiseport_settings_helper.dart';
+import 'noiseport_user_helper.dart';
 import 'jellyfin_api_helper.dart';
 import 'mpd_playback_service.dart';
 
 // Largely copied from just_audio's DefaultShuffleOrder, but with a mildly
 // stupid hack to insert() to make Play Next work
-class FinampShuffleOrder extends ShuffleOrder {
+class NoiseportShuffleOrder extends ShuffleOrder {
   final Random _random;
   @override
   final indices = <int>[];
 
-  FinampShuffleOrder({Random? random}) : _random = random ?? Random();
+  NoiseportShuffleOrder({Random? random}) : _random = random ?? Random();
 
   @override
   void shuffle({int? initialIndex}) {
@@ -84,23 +84,23 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   final _player = AudioPlayer(
     audioLoadConfiguration: AudioLoadConfiguration(
         androidLoadControl: AndroidLoadControl(
-          minBufferDuration: FinampSettingsHelper.finampSettings.bufferDuration,
-          maxBufferDuration: FinampSettingsHelper.finampSettings.bufferDuration,
+          minBufferDuration: NoiseportSettingsHelper.noiseportSettings.bufferDuration,
+          maxBufferDuration: NoiseportSettingsHelper.noiseportSettings.bufferDuration,
           prioritizeTimeOverSizeThresholds: true,
         ),
         darwinLoadControl: DarwinLoadControl(
           preferredForwardBufferDuration:
-              FinampSettingsHelper.finampSettings.bufferDuration,
+              NoiseportSettingsHelper.noiseportSettings.bufferDuration,
         )),
   );
   ConcatenatingAudioSource _queueAudioSource = ConcatenatingAudioSource(
     children: [],
-    shuffleOrder: FinampShuffleOrder(),
+    shuffleOrder: NoiseportShuffleOrder(),
   );
   final _audioServiceBackgroundTaskLogger = Logger("MusicPlayerBackgroundTask");
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
   final _offlineListenLogHelper = GetIt.instance<OfflineListenLogHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   /// Set when shuffle mode is changed. If true, [onUpdateQueue] will create a
   /// shuffled [ConcatenatingAudioSource].
@@ -155,7 +155,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
               AudioProcessingState.idle &&
           playbackState.valueOrNull?.processingState !=
               AudioProcessingState.completed &&
-          !FinampSettingsHelper.finampSettings.isOffline &&
+          !NoiseportSettingsHelper.noiseportSettings.isOffline &&
           !_isStopping) {
         await _updatePlaybackProgress();
       }
@@ -165,7 +165,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
     _player.processingStateStream.listen((event) {
       if (event == ProcessingState.completed) {
         // Don't stop when in MPD mode - the local player is intentionally empty
-        final settings = FinampSettingsHelper.finampSettings;
+        final settings = NoiseportSettingsHelper.noiseportSettings;
         if (settings.mpdEnabled && settings.isMpdMode) {
           _audioServiceBackgroundTaskLogger.info(
               "Local player completed but in MPD mode - ignoring");
@@ -195,7 +195,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
       setSleepTimer(_sleepTimerDuration);
     }
 
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     if (settings.mpdEnabled && settings.isMpdMode) {
       final mpdService = GetIt.instance<MpdPlaybackService>();
       if (mpdService.isConnected) {
@@ -213,7 +213,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
 
   @override
   Future<void> pause() async {
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     if (settings.mpdEnabled && settings.isMpdMode) {
       final mpdService = GetIt.instance<MpdPlaybackService>();
       if (mpdService.isConnected) {
@@ -236,7 +236,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
     await _player.stop();
     _queueAudioSource = ConcatenatingAudioSource(
       children: [],
-      shuffleOrder: FinampShuffleOrder(),
+      shuffleOrder: NoiseportShuffleOrder(),
     );
     try {
       await _player.setAudioSource(_queueAudioSource);
@@ -263,7 +263,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
       // Create new audio source with the queue
       _queueAudioSource = ConcatenatingAudioSource(
         children: audioSources,
-        shuffleOrder: FinampShuffleOrder(),
+        shuffleOrder: NoiseportShuffleOrder(),
       );
 
       final safeIndex = startIndex.clamp(0, queueItems.length - 1);
@@ -290,7 +290,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
       _isStopping = true;
 
       // Tell Jellyfin we're no longer playing audio if we're online
-      if (!FinampSettingsHelper.finampSettings.isOffline) {
+      if (!NoiseportSettingsHelper.noiseportSettings.isOffline) {
         final playbackInfo = generateCurrentPlaybackProgressInfo();
         if (playbackInfo != null) {
           await _jellyfinApiHelper.stopPlaybackProgress(playbackInfo);
@@ -387,7 +387,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
       // Create a new ConcatenatingAudioSource with the new queue.
       _queueAudioSource = ConcatenatingAudioSource(
         children: audioSources,
-        shuffleOrder: FinampShuffleOrder(),
+        shuffleOrder: NoiseportShuffleOrder(),
       );
 
       try {
@@ -440,7 +440,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> skipToPrevious() async {
     try {
-      final settings = FinampSettingsHelper.finampSettings;
+      final settings = NoiseportSettingsHelper.noiseportSettings;
       if (settings.mpdEnabled && settings.isMpdMode) {
         // Route to MPD
         final mpdService = GetIt.instance<MpdPlaybackService>();
@@ -474,7 +474,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> skipToNext() async {
     try {
-      final settings = FinampSettingsHelper.finampSettings;
+      final settings = NoiseportSettingsHelper.noiseportSettings;
       if (settings.mpdEnabled && settings.isMpdMode) {
         // Route to MPD
         final mpdService = GetIt.instance<MpdPlaybackService>();
@@ -503,7 +503,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
 
   Future<void> skipToIndex(int index) async {
     try {
-      final settings = FinampSettingsHelper.finampSettings;
+      final settings = NoiseportSettingsHelper.noiseportSettings;
       if (settings.mpdEnabled && settings.isMpdMode) {
         // Route to MPD with optimized navigation
         final mpdService = GetIt.instance<MpdPlaybackService>();
@@ -529,7 +529,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
   @override
   Future<void> seek(Duration position) async {
     try {
-      final settings = FinampSettingsHelper.finampSettings;
+      final settings = NoiseportSettingsHelper.noiseportSettings;
       if (settings.mpdEnabled && settings.isMpdMode) {
         final mpdService = GetIt.instance<MpdPlaybackService>();
         if (mpdService.isConnected) {
@@ -610,7 +610,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
     MediaItem? previousItem,
     PlaybackState? previousState,
   ) async {
-    final isOffline = FinampSettingsHelper.finampSettings.isOffline;
+    final isOffline = NoiseportSettingsHelper.noiseportSettings.isOffline;
 
     if (previousItem != null &&
         previousState != null &&
@@ -668,7 +668,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
             : "DirectPlay",
         // We don't send the queue since it seems useless and it can cause
         // issues with large queues.
-        // https://github.com/jmshrv/finamp/issues/387
+        // https://github.com/jmshrv/noiseport/issues/387
 
         // nowPlayingQueue: includeNowPlayingQueue
         //     ? _queueFromSource()
@@ -863,7 +863,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
         "_songUri() only supports Android and iOS");
 
     // When creating the MediaItem (usually in AudioServiceHelper), we specify
-    // whether or not to transcode. We used to pull from FinampSettings here,
+    // whether or not to transcode. We used to pull from NoiseportSettings here,
     // but since audio_service runs in an isolate (or at least, it does until
     // 0.18), the value would be wrong if changed while a song was playing since
     // Hive is bad at multi-isolate stuff.
@@ -873,7 +873,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
     final iosDeviceInfo =
         Platform.isIOS ? await DeviceInfoPlugin().iosInfo : null;
 
-    final parsedBaseUrl = Uri.parse(_finampUserHelper.currentUser!.baseUrl);
+    final parsedBaseUrl = Uri.parse(_noiseportUserHelper.currentUser!.baseUrl);
 
     List<String> builtPath = List.from(parsedBaseUrl.pathSegments);
 
@@ -882,7 +882,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
 
     // We include the user token as a query parameter because just_audio used to
     // have issues with headers in HLS, and this solution still works fine
-    queryParameters["ApiKey"] = _finampUserHelper.currentUser!.accessToken;
+    queryParameters["ApiKey"] = _noiseportUserHelper.currentUser!.accessToken;
 
     if (mediaItem.extras!["shouldTranscode"]) {
       builtPath.addAll([
@@ -898,7 +898,7 @@ class MusicPlayerBackgroundTask extends BaseAudioHandler {
         "audioSampleRate": "44100",
         "maxAudioBitDepth": "16",
         "audioBitRate":
-            FinampSettingsHelper.finampSettings.transcodeBitrate.toString(),
+            NoiseportSettingsHelper.noiseportSettings.transcodeBitrate.toString(),
       });
     } else {
       builtPath.addAll([

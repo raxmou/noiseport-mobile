@@ -3,7 +3,7 @@ import 'package:logging/logging.dart';
 import 'package:chopper/chopper.dart';
 
 import '../models/spotify_models.dart';
-import '../services/finamp_settings_helper.dart';
+import '../services/noiseport_settings_helper.dart';
 
 class SpotifyApi {
   final _logger = Logger("SpotifyApi");
@@ -85,7 +85,7 @@ class SpotifyApi {
 
   Future<String> _getSpotifyToken() async {
     try {
-      final serverIp = FinampSettingsHelper.finampSettings.noiseportServerIp;
+      final serverIp = NoiseportSettingsHelper.noiseportSettings.noiseportServerIp;
 
       if (serverIp.isEmpty) {
         throw Exception(

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 
 import '../../models/jellyfin_models.dart';
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 import '../../services/jellyfin_api_helper.dart';
 import '../../services/audio_service_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/downloads_helper.dart';
 
 class ArtistPlayButton extends StatefulWidget {
@@ -37,10 +37,10 @@ class _ArtistPlayButtonState extends State<ArtistPlayButton> {
 
     @override
     Widget build(BuildContext context) {
-      return ValueListenableBuilder<Box<FinampSettings>>(
-        valueListenable: FinampSettingsHelper.finampSettingsListener,
+      return ValueListenableBuilder<Box<NoiseportSettings>>(
+        valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
         builder: (context, box, _) {
-          final isOffline = box.get("FinampSettings")?.isOffline ?? false;
+          final isOffline = box.get("NoiseportSettings")?.isOffline ?? false;
 
           if (isOffline) {
              final downloadsHelper = GetIt.instance<DownloadsHelper>();

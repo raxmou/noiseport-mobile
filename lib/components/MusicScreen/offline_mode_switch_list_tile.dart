@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 
-import '../../services/finamp_settings_helper.dart';
-import '../../models/finamp_models.dart';
+import '../../services/noiseport_settings_helper.dart';
+import '../../models/noiseport_models.dart';
 
 class OfflineModeSwitchListTile extends StatelessWidget {
   const OfflineModeSwitchListTile({
@@ -12,15 +12,15 @@ class OfflineModeSwitchListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, widget) {
         return SwitchListTile.adaptive(
           title: Text(AppLocalizations.of(context)!.offlineMode),
           secondary: const Icon(Icons.cloud_off),
-          value: box.get("FinampSettings")?.isOffline ?? false,
+          value: box.get("NoiseportSettings")?.isOffline ?? false,
           onChanged: (value) {
-            FinampSettingsHelper.setIsOffline(value);
+            NoiseportSettingsHelper.setIsOffline(value);
           },
         );
       },

@@ -1,9 +1,9 @@
-import 'package:finamp/models/jellyfin_models.dart';
+import 'package:noiseport/models/jellyfin_models.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../services/finamp_user_helper.dart';
+import '../../services/noiseport_user_helper.dart';
 import '../../services/jellyfin_api_helper.dart';
 import '../error_snackbar.dart';
 
@@ -22,7 +22,7 @@ class NewPlaylistDialog extends StatefulWidget {
 class _NewPlaylistDialogState extends State<NewPlaylistDialog> {
   final _formKey = GlobalKey<FormState>();
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   bool _isSubmitting = false;
 
@@ -72,7 +72,7 @@ class _NewPlaylistDialogState extends State<NewPlaylistDialog> {
         await _jellyfinApiHelper.createNewPlaylist(NewPlaylist(
           name: _name,
           ids: [widget.itemToAdd],
-          userId: _finampUserHelper.currentUser!.id,
+          userId: _noiseportUserHelper.currentUser!.id,
         ));
 
         if (!mounted) return;

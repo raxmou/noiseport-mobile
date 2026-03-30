@@ -1,8 +1,8 @@
-import 'package:finamp/components/MusicScreen/album_item_list_tile.dart';
-import 'package:finamp/services/downloads_helper.dart';
-import 'package:finamp/services/finamp_settings_helper.dart';
+import 'package:noiseport/components/MusicScreen/album_item_list_tile.dart';
+import 'package:noiseport/services/downloads_helper.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../models/jellyfin_models.dart';
@@ -36,7 +36,7 @@ class AlbumItem extends StatefulWidget {
     this.gridAddSettingsListener = false,
   }) : super(key: key);
 
-  /// The album (or item, I just used to call items albums before Finamp
+  /// The album (or item, I just used to call items albums before Noiseport
   /// supported other types) to show in the widget.
   final BaseItemDto album;
 
@@ -54,7 +54,7 @@ class AlbumItem extends StatefulWidget {
 
   /// If true, the grid item will use a ValueListenableBuilder to check whether
   /// or not to show the text. You'll want to set this to false if the
-  /// [AlbumItem] would be rebuilt by FinampSettings anyway.
+  /// [AlbumItem] would be rebuilt by NoiseportSettings anyway.
   final bool gridAddSettingsListener;
 
   @override
@@ -117,7 +117,7 @@ class _AlbumItemState extends State<AlbumItem> {
         onLongPressStart: (details) async {
           Feedback.forLongPress(context);
 
-          final isOffline = FinampSettingsHelper.finampSettings.isOffline;
+          final isOffline = NoiseportSettingsHelper.noiseportSettings.isOffline;
 
           final jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
 

@@ -5,10 +5,10 @@ import 'package:get_it/get_it.dart';
 import 'package:logging/logging.dart';
 import 'package:uuid/uuid.dart';
 
-import 'finamp_user_helper.dart';
+import 'noiseport_user_helper.dart';
 import 'jellyfin_api_helper.dart';
 import 'jellyfin_stream_helper.dart';
-import 'finamp_settings_helper.dart';
+import 'noiseport_settings_helper.dart';
 import 'downloads_helper.dart';
 import 'mpd_playback_service.dart';
 import '../models/jellyfin_models.dart';
@@ -19,7 +19,7 @@ class AudioServiceHelper {
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
   final _downloadsHelper = GetIt.instance<DownloadsHelper>();
   final _audioHandler = GetIt.instance<MusicPlayerBackgroundTask>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   MpdPlaybackService get _mpdService => GetIt.instance<MpdPlaybackService>();
   final audioServiceHelperLogger = Logger("AudioServiceHelper");
 
@@ -38,7 +38,7 @@ class AudioServiceHelper {
 
   /// Handle MPD status updates - detect track changes and update UI
   void _onMpdStatusUpdate(MpdPlaybackStatus status) {
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     if (!settings.mpdEnabled || !settings.isMpdMode) {
       return;
     }
@@ -70,7 +70,7 @@ class AudioServiceHelper {
     int initialIndex = 0,
     bool shuffle = false,
   }) async {
-    final _settings = FinampSettingsHelper.finampSettings;
+    final _settings = NoiseportSettingsHelper.noiseportSettings;
     audioServiceHelperLogger.info(
         'replaceQueueWithItem: mpdEnabled=${_settings.mpdEnabled}, isMpdMode=${_settings.isMpdMode}');
     if (_settings.mpdEnabled && _settings.isMpdMode) {
@@ -132,7 +132,7 @@ class AudioServiceHelper {
   }
 
   Future<void> addQueueItems(List<BaseItemDto> items) async {
-    final _addSettings = FinampSettingsHelper.finampSettings;
+    final _addSettings = NoiseportSettingsHelper.noiseportSettings;
     if (_addSettings.mpdEnabled && _addSettings.isMpdMode) {
       return _addQueueItemsMpd(items);
     }
@@ -175,7 +175,7 @@ class AudioServiceHelper {
   Future<void> shuffleAll(bool isFavourite) async {
     List<BaseItemDto>? items;
 
-    if (FinampSettingsHelper.finampSettings.isOffline) {
+    if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
       // If offline, get a shuffled list of songs from _downloadsHelper.
       // This is a bit inefficient since we have to get all of the songs and
       // shuffle them before making a sublist, but I couldn't think of a better
@@ -183,18 +183,18 @@ class AudioServiceHelper {
       items = _downloadsHelper.downloadedItems.map((e) => e.song).toList();
       items.shuffle();
       if (items.length - 1 >
-          FinampSettingsHelper.finampSettings.songShuffleItemCount) {
+          NoiseportSettingsHelper.noiseportSettings.songShuffleItemCount) {
         items = items.sublist(
-            0, FinampSettingsHelper.finampSettings.songShuffleItemCount);
+            0, NoiseportSettingsHelper.noiseportSettings.songShuffleItemCount);
       }
     } else {
       // If online, get all audio items from the user's view
       items = await _jellyfinApiHelper.getItems(
         isGenres: false,
-        parentItem: _finampUserHelper.currentUser!.currentView,
+        parentItem: _noiseportUserHelper.currentUser!.currentView,
         includeItemTypes: "Audio",
         filters: isFavourite ? "IsFavorite" : null,
-        limit: FinampSettingsHelper.finampSettings.songShuffleItemCount,
+        limit: NoiseportSettingsHelper.noiseportSettings.songShuffleItemCount,
         sortBy: "Random",
       );
     }
@@ -332,7 +332,7 @@ class AudioServiceHelper {
       return;
     }
 
-    final settings = FinampSettingsHelper.finampSettings;
+    final settings = NoiseportSettingsHelper.noiseportSettings;
     audioServiceHelperLogger.info(
         '_ensureMpdConnected: connecting to ${settings.mpdHost}:${settings.mpdPort}');
     await _mpdService.connect(
@@ -362,11 +362,11 @@ class AudioServiceHelper {
         // "parentId": item.parentId,
         // "itemId": item.id,
         "itemJson": item.toJson(),
-        "shouldTranscode": FinampSettingsHelper.finampSettings.shouldTranscode,
+        "shouldTranscode": NoiseportSettingsHelper.noiseportSettings.shouldTranscode,
         "downloadedSongJson": isDownloaded
             ? (_downloadsHelper.getDownloadedSong(item.id))!.toJson()
             : null,
-        "isOffline": FinampSettingsHelper.finampSettings.isOffline,
+        "isOffline": NoiseportSettingsHelper.noiseportSettings.isOffline,
         // TODO: Maybe add transcoding bitrate here?
       },
       // Jellyfin returns microseconds * 10 for some reason

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/jellyfin_models.dart';
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 import '../components/ArtistScreen/artist_download_button.dart';
 import '../components/MusicScreen/music_screen_tab_view.dart';
 import '../components/now_playing_bar.dart';

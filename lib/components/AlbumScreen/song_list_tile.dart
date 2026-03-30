@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mini_music_visualizer/mini_music_visualizer.dart';
 
@@ -8,7 +8,7 @@ import '../../screens/add_to_playlist_screen.dart';
 import '../../screens/album_screen.dart';
 import '../../services/audio_service_helper.dart';
 import '../../services/downloads_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/jellyfin_api_helper.dart';
 import '../../services/media_state_stream.dart';
 import '../../services/process_artist.dart';
@@ -227,7 +227,7 @@ class _SongListTileState extends State<SongListTile> {
             _isAlbumDownloadedIfOffline(widget.item.parentId);
 
         // Some options are disabled in offline mode
-        final isOffline = FinampSettingsHelper.finampSettings.isOffline;
+        final isOffline = NoiseportSettingsHelper.noiseportSettings.isOffline;
 
         final selection = await showMenu<SongListTileMenuItems>(
           context: context,
@@ -408,7 +408,7 @@ class _SongListTileState extends State<SongListTile> {
             break;
           case SongListTileMenuItems.goToAlbum:
             late BaseItemDto album;
-            if (FinampSettingsHelper.finampSettings.isOffline) {
+            if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
               // If offline, load the album's BaseItemDto from DownloadHelper.
               final downloadsHelper = GetIt.instance<DownloadsHelper>();
 
@@ -445,7 +445,7 @@ class _SongListTileState extends State<SongListTile> {
           ? listTile
           : Dismissible(
               key: Key(widget.index.toString()),
-              direction: FinampSettingsHelper.finampSettings.disableGesture
+              direction: NoiseportSettingsHelper.noiseportSettings.disableGesture
                   ? DismissDirection.none
                   : DismissDirection.horizontal,
               background: Container(
@@ -475,7 +475,7 @@ class _SongListTileState extends State<SongListTile> {
                 ),
               ),
               confirmDismiss: (direction) async {
-                if (!FinampSettingsHelper.finampSettings.swipeInsertQueueNext) {
+                if (!NoiseportSettingsHelper.noiseportSettings.swipeInsertQueueNext) {
                   await _audioServiceHelper.addQueueItems([widget.item]);
                 } else {
                   await _audioServiceHelper.insertQueueItemsNext([widget.item]);
@@ -485,7 +485,7 @@ class _SongListTileState extends State<SongListTile> {
 
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text(
-                      FinampSettingsHelper.finampSettings.swipeInsertQueueNext
+                      NoiseportSettingsHelper.noiseportSettings.swipeInsertQueueNext
                           ? AppLocalizations.of(context)!.insertedIntoQueue
                           : AppLocalizations.of(context)!.addedToQueue),
                 ));
@@ -503,7 +503,7 @@ class _SongListTileState extends State<SongListTile> {
 bool _isAlbumDownloadedIfOffline(String? albumId) {
   if (albumId == null) {
     return false;
-  } else if (FinampSettingsHelper.finampSettings.isOffline) {
+  } else if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
     final downloadsHelper = GetIt.instance<DownloadsHelper>();
     return downloadsHelper.isAlbumDownloaded(albumId);
   } else {

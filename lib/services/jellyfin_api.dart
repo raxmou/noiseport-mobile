@@ -3,12 +3,12 @@ import 'dart:io' show Platform;
 import 'package:android_id/android_id.dart';
 import 'package:chopper/chopper.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:finamp/services/http_aggregate_logging_interceptor.dart';
+import 'package:noiseport/services/http_aggregate_logging_interceptor.dart';
 import 'package:get_it/get_it.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../models/jellyfin_models.dart';
-import 'finamp_user_helper.dart';
+import 'noiseport_user_helper.dart';
 import 'jellyfin_api_helper.dart';
 
 part 'jellyfin_api.chopper.dart';
@@ -372,14 +372,14 @@ abstract class JellyfinApi extends ChopperService {
         /// Gets baseUrl from SharedPreferences.
         (Request request) async {
           final jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
-          final finampUserHelper = GetIt.instance<FinampUserHelper>();
+          final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
           String authHeader = await getAuthHeader();
 
           // If baseUrlTemp is null, use the baseUrl of the current user.
           // If baseUrlTemp is set, we're setting up a new user and should use it instead.
           Uri baseUri = jellyfinApiHelper.baseUrlTemp ??
-              Uri.parse(finampUserHelper.currentUser!.baseUrl);
+              Uri.parse(noiseportUserHelper.currentUser!.baseUrl);
 
           // Add the request path on to the baseUrl
           baseUri = baseUri.replace(
@@ -408,20 +408,20 @@ abstract class JellyfinApi extends ChopperService {
 Future<String> getAuthHeader() async {
   final notAsciiRegex = RegExp(r'[^\x00-\x7F]+');
 
-  final finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
 
   String authHeader = "MediaBrowser ";
 
-  if (finampUserHelper.currentUser != null) {
-    authHeader = '${authHeader}UserId="${finampUserHelper.currentUser!.id}", ';
+  if (noiseportUserHelper.currentUser != null) {
+    authHeader = '${authHeader}UserId="${noiseportUserHelper.currentUser!.id}", ';
   }
 
-  if (finampUserHelper.currentUser?.accessToken != null) {
+  if (noiseportUserHelper.currentUser?.accessToken != null) {
     authHeader =
-        '${authHeader}Token="${finampUserHelper.currentUser!.accessToken}", ';
+        '${authHeader}Token="${noiseportUserHelper.currentUser!.accessToken}", ';
   }
 
-  authHeader = '${authHeader}Client="Finamp", ';
+  authHeader = '${authHeader}Client="Noiseport", ';
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   if (Platform.isAndroid) {
     AndroidDeviceInfo androidDeviceInfo = await deviceInfo.androidInfo;

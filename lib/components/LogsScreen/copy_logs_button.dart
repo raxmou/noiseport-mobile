@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
-import '../../services/finamp_logs_helper.dart';
+import '../../services/noiseport_logs_helper.dart';
 
 class CopyLogsButton extends StatefulWidget {
   const CopyLogsButton({Key? key}) : super(key: key);
@@ -17,9 +17,9 @@ class _CopyLogsButtonState extends State<CopyLogsButton> {
     return IconButton(
       icon: const Icon(Icons.copy),
       onPressed: () async {
-        final finampLogsHelper = GetIt.instance<FinampLogsHelper>();
+        final noiseportLogsHelper = GetIt.instance<NoiseportLogsHelper>();
 
-        await finampLogsHelper.copyLogs();
+        await noiseportLogsHelper.copyLogs();
 
         if (!mounted) return;
 

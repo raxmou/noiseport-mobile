@@ -1,6 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 /// Snackbar with error icon for displaying errors
 ScaffoldFeatureController<SnackBar, SnackBarClosedReason> errorSnackbar(

@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import '../../models/jellyfin_models.dart';
 import '../../screens/artist_screen.dart';
 import '../../services/jellyfin_api_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../album_image.dart';
 import '../error_snackbar.dart';
 
@@ -60,7 +60,7 @@ class _ArtistListTileState extends State<ArtistListTile> {
         onLongPressStart: (details) async {
           Feedback.forLongPress(context);
           // Some options are disabled in offline mode
-          final isOffline = FinampSettingsHelper.finampSettings.isOffline;
+          final isOffline = NoiseportSettingsHelper.noiseportSettings.isOffline;
 
           final selection = await showMenu<ArtistListTileMenuItems>(
             context: context,

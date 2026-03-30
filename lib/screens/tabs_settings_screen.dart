@@ -1,6 +1,6 @@
-import 'package:finamp/services/finamp_settings_helper.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 import '../components/TabsSettingsScreen/hide_tab_toggle.dart';
 
@@ -23,7 +23,7 @@ class _TabsSettingsScreenState extends State<TabsSettingsScreen> {
           IconButton(
             onPressed: () {
               setState(() {
-                FinampSettingsHelper.resetTabs();
+                NoiseportSettingsHelper.resetTabs();
               });
             },
             icon: const Icon(Icons.refresh),
@@ -34,13 +34,13 @@ class _TabsSettingsScreenState extends State<TabsSettingsScreen> {
       body: Scrollbar(
         child: ReorderableListView.builder(
           // buildDefaultDragHandles: false,
-          itemCount: FinampSettingsHelper.finampSettings.tabOrder.length,
+          itemCount: NoiseportSettingsHelper.noiseportSettings.tabOrder.length,
           itemBuilder: (context, index) {
             return HideTabToggle(
               tabContentType:
-                  FinampSettingsHelper.finampSettings.tabOrder[index],
+                  NoiseportSettingsHelper.noiseportSettings.tabOrder[index],
               key:
-                  ValueKey(FinampSettingsHelper.finampSettings.tabOrder[index]),
+                  ValueKey(NoiseportSettingsHelper.noiseportSettings.tabOrder[index]),
             );
           },
           onReorder: (oldIndex, newIndex) {
@@ -55,12 +55,12 @@ class _TabsSettingsScreenState extends State<TabsSettingsScreen> {
               }
 
               final oldValue =
-                  FinampSettingsHelper.finampSettings.tabOrder[oldIndex];
+                  NoiseportSettingsHelper.noiseportSettings.tabOrder[oldIndex];
               final newValue =
-                  FinampSettingsHelper.finampSettings.tabOrder[newIndex];
+                  NoiseportSettingsHelper.noiseportSettings.tabOrder[newIndex];
 
-              FinampSettingsHelper.setTabOrder(oldIndex, newValue);
-              FinampSettingsHelper.setTabOrder(newIndex, oldValue);
+              NoiseportSettingsHelper.setTabOrder(oldIndex, newValue);
+              NoiseportSettingsHelper.setTabOrder(newIndex, oldValue);
             });
           },
         ),

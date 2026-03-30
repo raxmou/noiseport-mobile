@@ -6,7 +6,7 @@ import '../services/album_image_provider.dart';
 
 typedef ImageProviderCallback = void Function(ImageProvider? imageProvider);
 
-/// This widget provides the default look for album images throughout Finamp -
+/// This widget provides the default look for album images throughout Noiseport -
 /// Aspect ratio 1 with a circular border radius of 4. If you don't want these
 /// customisations, use [BareAlbumImage] or get an [ImageProvider] directly
 /// through [AlbumImageProvider.init].

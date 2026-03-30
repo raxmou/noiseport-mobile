@@ -1,10 +1,10 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:finamp/models/jellyfin_models.dart';
-import 'package:finamp/screens/artist_screen.dart';
-import 'package:finamp/services/finamp_settings_helper.dart';
+import 'package:noiseport/models/jellyfin_models.dart';
+import 'package:noiseport/screens/artist_screen.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../screens/album_screen.dart';
@@ -51,7 +51,7 @@ class SongName extends StatelessWidget {
                       ..onTap = () {
                         // Offline artists aren't implemented yet so we return if
                         // offline
-                        if (FinampSettingsHelper.finampSettings.isOffline) {
+                        if (NoiseportSettingsHelper.noiseportSettings.isOffline) {
                           return;
                         }
 

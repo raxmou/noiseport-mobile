@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 import 'add_download_location_screen.dart';
 import '../components/DownloadLocationSettingsScreen/download_location_list.dart';

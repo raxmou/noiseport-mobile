@@ -5,10 +5,10 @@ import 'package:chopper/chopper.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 import '../../models/jellyfin_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../album_image.dart';
 import 'item_info.dart';
 
@@ -81,7 +81,7 @@ class SpotifyAlbumScreenContentFlexibleSpaceBar extends StatelessWidget {
 
   void _showDownloadDialog(BuildContext context) async {
     try {
-      final serverIp = FinampSettingsHelper.finampSettings.noiseportServerIp;
+      final serverIp = NoiseportSettingsHelper.noiseportSettings.noiseportServerIp;
       if (serverIp.isEmpty) {
         _showErrorDialog(context,
             "Noiseport server IP not configured. Please set it in Settings > Noiseport Server.");

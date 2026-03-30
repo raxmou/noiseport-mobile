@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 
 import '../components/DownloadsScreen/downloads_overview.dart';
 import '../components/DownloadsScreen/downloaded_albums_list.dart';

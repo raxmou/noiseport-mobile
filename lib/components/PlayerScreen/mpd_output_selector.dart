@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../models/finamp_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../models/noiseport_models.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/jellyfin_stream_helper.dart';
 import '../../services/mpd_playback_service.dart';
 import '../../services/music_player_background_task.dart';
@@ -16,10 +16,10 @@ class MpdOutputSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, _) {
-        final settings = FinampSettingsHelper.finampSettings;
+        final settings = NoiseportSettingsHelper.noiseportSettings;
 
         if (!settings.mpdEnabled) {
           return const SizedBox.shrink();
@@ -100,7 +100,7 @@ class MpdOutputSelector extends StatelessWidget {
     );
   }
 
-  Future<void> _toggleOutput(BuildContext context, FinampSettings settings,
+  Future<void> _toggleOutput(BuildContext context, NoiseportSettings settings,
       MpdPlaybackService mpdService) async {
     final newMode = !settings.isMpdMode;
 
@@ -169,6 +169,6 @@ class MpdOutputSelector extends StatelessWidget {
       }
     }
 
-    FinampSettingsHelper.setIsMpdMode(newMode);
+    NoiseportSettingsHelper.setIsMpdMode(newMode);
   }
 }

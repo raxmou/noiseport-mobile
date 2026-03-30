@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 
 import '../models/jellyfin_models.dart';
-import '../models/finamp_models.dart';
-import '../services/finamp_settings_helper.dart';
+import '../models/noiseport_models.dart';
+import '../services/noiseport_settings_helper.dart';
 import '../services/spotify_api_helper.dart';
 import '../components/now_playing_bar.dart';
 import '../components/AlbumScreen/spotify_album_screen_content.dart';
@@ -35,10 +35,10 @@ class _SpotifyAlbumScreenState extends State<SpotifyAlbumScreen> {
         ModalRoute.of(context)!.settings.arguments as BaseItemDto;
 
     return Scaffold(
-      body: ValueListenableBuilder<Box<FinampSettings>>(
-        valueListenable: FinampSettingsHelper.finampSettingsListener,
+      body: ValueListenableBuilder<Box<NoiseportSettings>>(
+        valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
         builder: (context, box, widget) {
-          bool isOffline = box.get("FinampSettings")?.isOffline ?? false;
+          bool isOffline = box.get("NoiseportSettings")?.isOffline ?? false;
 
           if (isOffline) {
             return Center(

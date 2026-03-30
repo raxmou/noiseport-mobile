@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'finamp_settings_helper.dart';
+import 'noiseport_settings_helper.dart';
 import 'mpd_playback_service.dart';
 import 'music_player_background_task.dart';
 
@@ -25,7 +25,7 @@ Stream<ProgressState> get progressStateStream {
     AudioService.position.startWith(audioHandler.playbackState.value.position),
     mpdService.statusStream.map<MpdPlaybackStatus?>((s) => s).startWith(null),
     (localPosition, mpdStatus) {
-      final settings = FinampSettingsHelper.finampSettings;
+      final settings = NoiseportSettingsHelper.noiseportSettings;
       if (settings.mpdEnabled && settings.isMpdMode && mpdStatus != null) {
         // Use MPD's elapsed time when in MPD mode
         return mpdStatus.elapsed;

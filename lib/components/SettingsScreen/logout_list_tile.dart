@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../screens/splash_screen.dart';
 import '../../services/jellyfin_api_helper.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/music_player_background_task.dart';
 import '../error_snackbar.dart';
 
@@ -22,23 +22,23 @@ class _LogoutListTileState extends State<LogoutListTile> {
       leading: Icon(
         Icons.logout,
         color:
-            FinampSettingsHelper.finampSettings.isOffline ? null : Colors.red,
+            NoiseportSettingsHelper.noiseportSettings.isOffline ? null : Colors.red,
       ),
       title: Text(
         AppLocalizations.of(context)!.logOut,
-        style: FinampSettingsHelper.finampSettings.isOffline
+        style: NoiseportSettingsHelper.noiseportSettings.isOffline
             ? null
             : const TextStyle(
                 color: Colors.red,
               ),
       ),
-      subtitle: FinampSettingsHelper.finampSettings.isOffline
+      subtitle: NoiseportSettingsHelper.noiseportSettings.isOffline
           ? Text(AppLocalizations.of(context)!.notAvailableInOfflineMode)
           : Text(
               AppLocalizations.of(context)!.downloadedSongsWillNotBeDeleted,
               style: const TextStyle(color: Colors.red),
             ),
-      enabled: !FinampSettingsHelper.finampSettings.isOffline,
+      enabled: !NoiseportSettingsHelper.noiseportSettings.isOffline,
       onTap: () {
         showDialog(
           context: context,

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
-import 'finamp_settings_helper.dart';
-import 'finamp_user_helper.dart';
+import 'noiseport_settings_helper.dart';
+import 'noiseport_user_helper.dart';
 
 /// Shared utility for building Jellyfin stream URLs.
 /// Used by both MusicPlayerBackgroundTask (local playback) and
@@ -13,8 +13,8 @@ class JellyfinStreamHelper {
   /// When false (default), returns a direct file URL — suitable for MPD
   /// which handles its own decoding.
   static Uri buildStreamUrl(String itemId, {bool transcode = false}) {
-    final finampUserHelper = GetIt.instance<FinampUserHelper>();
-    final currentUser = finampUserHelper.currentUser!;
+    final noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
+    final currentUser = noiseportUserHelper.currentUser!;
 
     final parsedBaseUrl = Uri.parse(currentUser.baseUrl);
     List<String> builtPath = List.from(parsedBaseUrl.pathSegments);
@@ -36,7 +36,7 @@ class JellyfinStreamHelper {
         "audioSampleRate": "44100",
         "maxAudioBitDepth": "16",
         "audioBitRate":
-            FinampSettingsHelper.finampSettings.transcodeBitrate.toString(),
+            NoiseportSettingsHelper.noiseportSettings.transcodeBitrate.toString(),
       });
     } else {
       builtPath.addAll([

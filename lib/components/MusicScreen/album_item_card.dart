@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 import '../../models/jellyfin_models.dart';
-import '../../models/finamp_models.dart';
-import '../../services/finamp_settings_helper.dart';
+import '../../models/noiseport_models.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../../services/generate_subtitle.dart';
 import '../album_image.dart';
 
@@ -37,13 +37,13 @@ class AlbumItemCard extends StatelessWidget {
                 ? // We need this ValueListenableBuilder to react to changes to
                 // showTextOnGridView. When shown in a MusicScreen, this widget
                 // would refresh anyway since MusicScreen also listens to
-                // FinampSettings, but there may be cases where this widget is used
+                // NoiseportSettings, but there may be cases where this widget is used
                 // elsewhere.
-                ValueListenableBuilder<Box<FinampSettings>>(
+                ValueListenableBuilder<Box<NoiseportSettings>>(
                     valueListenable:
-                        FinampSettingsHelper.finampSettingsListener,
+                        NoiseportSettingsHelper.noiseportSettingsListener,
                     builder: (_, box, __) {
-                      if (box.get("FinampSettings")!.showTextOnGridView) {
+                      if (box.get("NoiseportSettings")!.showTextOnGridView) {
                         return _AlbumItemCardText(
                             item: item, parentType: parentType);
                       } else {
@@ -53,7 +53,7 @@ class AlbumItemCard extends StatelessWidget {
                       }
                     },
                   )
-                : FinampSettingsHelper.finampSettings.showTextOnGridView
+                : NoiseportSettingsHelper.noiseportSettings.showTextOnGridView
                     ? _AlbumItemCardText(item: item, parentType: parentType)
                     : const SizedBox.shrink(),
             Positioned.fill(

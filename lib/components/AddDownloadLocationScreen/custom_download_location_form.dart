@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 
 class CustomDownloadLocationForm extends StatefulWidget {
   const CustomDownloadLocationForm({Key? key, required this.formKey})

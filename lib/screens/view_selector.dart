@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import '../components/ViewSelector/no_music_libraries_message.dart';
-import '../services/finamp_user_helper.dart';
+import '../services/noiseport_user_helper.dart';
 import 'music_screen.dart';
 import '../services/jellyfin_api_helper.dart';
 import '../models/jellyfin_models.dart';
@@ -20,7 +20,7 @@ class ViewSelector extends StatefulWidget {
 
 class _ViewSelectorState extends State<ViewSelector> {
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   late Future<List<BaseItemDto>> viewListFuture;
   final Map<BaseItemDto, bool> _views = {};
   bool isSubmitButtonEnabled = false;
@@ -37,9 +37,9 @@ class _ViewSelectorState extends State<ViewSelector> {
       future: viewListFuture,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // Finamp only supports music libraries. We used to allow people to
+          // Noiseport only supports music libraries. We used to allow people to
           // select unsupported libraries, but some people selected "general"
-          // libraries and thought Finamp was broken.
+          // libraries and thought Noiseport was broken.
           if (snapshot.data!.isEmpty ||
               !snapshot.data!
                   .any((element) => element.collectionType == "music")) {
@@ -61,7 +61,7 @@ class _ViewSelectorState extends State<ViewSelector> {
             // If only one music library is available and user doesn't have a
             // view saved (assuming setup is in progress), skip the selector.
             if (_views.values.where((element) => element == true).length == 1 &&
-                _finampUserHelper.currentUser!.currentView == null) {
+                _noiseportUserHelper.currentUser!.currentView == null) {
               _submitChoice();
             } else {
               if (mounted) {
@@ -128,7 +128,7 @@ class _ViewSelectorState extends State<ViewSelector> {
       return;
     } else {
       try {
-        _finampUserHelper.setCurrentUserViews(_views.entries
+        _noiseportUserHelper.setCurrentUserViews(_views.entries
             .where((element) => element.value == true)
             .map((e) => e.key)
             .toList());

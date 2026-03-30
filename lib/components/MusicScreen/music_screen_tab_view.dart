@@ -1,19 +1,19 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:finamp/components/MusicScreen/artist_item_list_tile.dart';
-import 'package:finamp/components/SlskdScreen/slskd_downloads_tab_view.dart';
-import 'package:finamp/components/SlskdScreen/slskd_searches_tab_view.dart';
+import 'package:noiseport/components/MusicScreen/artist_item_list_tile.dart';
+import 'package:noiseport/components/SlskdScreen/slskd_downloads_tab_view.dart';
+import 'package:noiseport/components/SlskdScreen/slskd_searches_tab_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hive/hive.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
-import '../../models/finamp_models.dart';
+import '../../models/noiseport_models.dart';
 import '../../models/jellyfin_models.dart';
 import '../../services/downloads_helper.dart';
-import '../../services/finamp_settings_helper.dart';
-import '../../services/finamp_user_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
+import '../../services/noiseport_user_helper.dart';
 import '../../services/jellyfin_api_helper.dart';
 import '../../services/spotify_api_helper.dart';
 import '../AlbumScreen/song_list_tile.dart';
@@ -66,7 +66,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
   List<BaseItemDto>? offlineSortedItems;
 
   final _jellyfinApiHelper = GetIt.instance<JellyfinApiHelper>();
-  final _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   final _spotifyApiHelper = SpotifyApiHelper();
 
   String? _lastSearch;
@@ -118,7 +118,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
             ? null
             : widget.parentItem ??
                 widget.view ??
-                _finampUserHelper.currentUser?.currentView,
+                _noiseportUserHelper.currentUser?.currentView,
         includeItemTypes: _includeItemTypes(widget.tabContentType),
 
         // If we're on the songs tab, sort by "Album,SortName". This is what the
@@ -166,7 +166,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
 
   String _getParentType() =>
       widget.parentItem?.type! ??
-      _finampUserHelper.currentUser!.currentView!.type!;
+      _noiseportUserHelper.currentUser!.currentView!.type!;
 
   @override
   void initState() {
@@ -284,10 +284,10 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
       return const SlskdSearchesTabView();
     }
 
-    return ValueListenableBuilder<Box<FinampSettings>>(
-      valueListenable: FinampSettingsHelper.finampSettingsListener,
+    return ValueListenableBuilder<Box<NoiseportSettings>>(
+      valueListenable: NoiseportSettingsHelper.noiseportSettingsListener,
       builder: (context, box, _) {
-        final isOffline = box.get("FinampSettings")?.isOffline ?? false;
+        final isOffline = box.get("NoiseportSettings")?.isOffline ?? false;
 
         if (isOffline) {
           // We do the same checks we do when online to ensure that the list is
@@ -346,7 +346,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                 offlineSortedItems = downloadsHelper.downloadedItems
                     .where((element) =>
                         element.viewId ==
-                        _finampUserHelper.currentUser!.currentViewId)
+                        _noiseportUserHelper.currentUser!.currentViewId)
                     .map((e) => e.song)
                     .toList();
               } else {
@@ -356,7 +356,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                         element.item.type ==
                             _includeItemTypes(widget.tabContentType) &&
                         element.viewId ==
-                            _finampUserHelper.currentUser!.currentViewId &&
+                            _noiseportUserHelper.currentUser!.currentViewId &&
                         (albumArtist == null ||
                             element.item.albumArtist?.toLowerCase() ==
                                 albumArtist.toLowerCase()))
@@ -463,7 +463,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
             controller: controller,
             child: Stack(
               children: [
-                box.get("FinampSettings")!.contentViewType ==
+                box.get("NoiseportSettings")!.contentViewType ==
                         ContentViewType.list
                     ? ListView.builder(
                         keyboardDismissBehavior:
@@ -494,10 +494,10 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                           crossAxisCount: MediaQuery.of(context).size.width >
                                   MediaQuery.of(context).size.height
                               ? box
-                                  .get("FinampSettings")!
+                                  .get("NoiseportSettings")!
                                   .contentGridViewCrossAxisCountLandscape
                               : box
-                                  .get("FinampSettings")!
+                                  .get("NoiseportSettings")!
                                   .contentGridViewCrossAxisCountPortrait,
                         ),
                         itemBuilder: (context, index) {
@@ -516,7 +516,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                           }
                         },
                       ),
-                box.get("FinampSettings")!.showFastScroller &&
+                box.get("NoiseportSettings")!.showFastScroller &&
                         widget.sortBy == SortBy.sortName
                     ? AlphabetList(
                         callback: scrollToLetter, sortOrder: lastSortOrder)
@@ -582,7 +582,7 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
               controller: controller,
               child: Stack(
                 children: [
-                  box.get("FinampSettings")!.contentViewType ==
+                  box.get("NoiseportSettings")!.contentViewType ==
                           ContentViewType.list
                       ? PagedListView<int, BaseItemDto>.separated(
                           pagingController: _pagingController,
@@ -669,14 +669,14 @@ class _MusicScreenTabViewState extends State<MusicScreenTabView>
                             crossAxisCount: MediaQuery.of(context).size.width >
                                     MediaQuery.of(context).size.height
                                 ? box
-                                    .get("FinampSettings")!
+                                    .get("NoiseportSettings")!
                                     .contentGridViewCrossAxisCountLandscape
                                 : box
-                                    .get("FinampSettings")!
+                                    .get("NoiseportSettings")!
                                     .contentGridViewCrossAxisCountPortrait,
                           ),
                         ),
-                  box.get("FinampSettings")!.showFastScroller &&
+                  box.get("NoiseportSettings")!.showFastScroller &&
                           widget.sortBy == SortBy.sortName
                       ? AlphabetList(
                           callback: scrollToLetter, sortOrder: lastSortOrder)

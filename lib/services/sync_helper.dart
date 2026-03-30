@@ -1,16 +1,16 @@
 import 'dart:collection';
 
-import 'package:finamp/components/AlbumScreen/download_dialog.dart';
-import 'package:finamp/services/finamp_settings_helper.dart';
-import 'package:finamp/services/finamp_user_helper.dart';
+import 'package:noiseport/components/AlbumScreen/download_dialog.dart';
+import 'package:noiseport/services/noiseport_settings_helper.dart';
+import 'package:noiseport/services/noiseport_user_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get_it/get_it.dart';
-import 'package:finamp/services/downloads_helper.dart';
-import 'package:finamp/services/jellyfin_api_helper.dart';
+import 'package:noiseport/services/downloads_helper.dart';
+import 'package:noiseport/services/jellyfin_api_helper.dart';
 import 'package:logging/logging.dart';
 
-import '../models/finamp_models.dart';
+import '../models/noiseport_models.dart';
 import '../models/jellyfin_models.dart';
 
 class SyncState {
@@ -26,7 +26,7 @@ class DownloadsSyncHelper {
   final DownloadsHelper downloadsHelper = GetIt.instance<DownloadsHelper>();
   final JellyfinApiHelper jellyfinApiHelper =
       GetIt.instance<JellyfinApiHelper>();
-  final FinampUserHelper _finampUserHelper = GetIt.instance<FinampUserHelper>();
+  final NoiseportUserHelper _noiseportUserHelper = GetIt.instance<NoiseportUserHelper>();
   final Logger logger;
 
   DownloadsSyncHelper(this.logger);
@@ -60,8 +60,8 @@ class DownloadsSyncHelper {
       }
     }
 
-    final selectedDownloadLocation = FinampSettingsHelper
-                .finampSettings.downloadLocationsMap.values.length >
+    final selectedDownloadLocation = NoiseportSettingsHelper
+                .noiseportSettings.downloadLocationsMap.values.length >
             1
         ? await showDialog<DownloadLocation>(
             context: context,
@@ -70,10 +70,10 @@ class DownloadsSyncHelper {
               // getItems returns null so we have to null check
               // each element
               items: [itemsToDownload],
-              viewId: _finampUserHelper.currentUser!.currentViewId!,
+              viewId: _noiseportUserHelper.currentUser!.currentViewId!,
             ),
           )
-        : FinampSettingsHelper.finampSettings.downloadLocationsMap.values.first;
+        : NoiseportSettingsHelper.noiseportSettings.downloadLocationsMap.values.first;
 
     if (itemsToDownload.isNotEmpty && selectedDownloadLocation != null) {
       await downloadsHelper.addDownloads(
@@ -81,7 +81,7 @@ class DownloadsSyncHelper {
         parent: parentObject,
         useHumanReadableNames: selectedDownloadLocation.useHumanReadableNames,
         downloadLocation: selectedDownloadLocation,
-        viewId: _finampUserHelper.currentUser!.currentViewId!,
+        viewId: _noiseportUserHelper.currentUser!.currentViewId!,
       );
     } else {
       logger.warning("No items to download for parent: ${parentObject.id}");

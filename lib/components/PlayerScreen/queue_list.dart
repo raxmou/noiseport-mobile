@@ -1,10 +1,10 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rxdart/rxdart.dart';
 
-import '../../services/finamp_settings_helper.dart';
+import '../../services/noiseport_settings_helper.dart';
 import '../album_image.dart';
 import '../../models/jellyfin_models.dart';
 import '../../services/process_artist.dart';
@@ -72,7 +72,7 @@ class _QueueListState extends State<QueueList> {
                         : index;
                 return Dismissible(
                   key: ValueKey(snapshot.data!.queue![actualIndex].id),
-                  direction: FinampSettingsHelper.finampSettings.disableGesture
+                  direction: NoiseportSettingsHelper.noiseportSettings.disableGesture
                       ? DismissDirection.none
                       : DismissDirection.horizontal,
                   onDismissed: (direction) async {

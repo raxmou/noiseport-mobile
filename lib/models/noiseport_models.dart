@@ -2,21 +2,21 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:finamp/l10n/app_localizations.dart';
+import 'package:noiseport/l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:path/path.dart' as path_helper;
 import 'package:uuid/uuid.dart';
 
-import '../services/finamp_settings_helper.dart';
+import '../services/noiseport_settings_helper.dart';
 import '../services/get_internal_song_dir.dart';
 import 'jellyfin_models.dart';
 
-part 'finamp_models.g.dart';
+part 'noiseport_models.g.dart';
 
 @HiveType(typeId: 8)
-class FinampUser {
-  FinampUser({
+class NoiseportUser {
+  NoiseportUser({
     required this.id,
     required this.baseUrl,
     required this.accessToken,
@@ -42,7 +42,7 @@ class FinampUser {
 }
 
 // These consts are so that we can easily keep the same default for
-// FinampSettings's constructor and Hive's defaultValue.
+// NoiseportSettings's constructor and Hive's defaultValue.
 const _songShuffleItemCountDefault = 250;
 const _contentViewType = ContentViewType.list;
 const _contentGridViewCrossAxisCountPortrait = 2;
@@ -58,13 +58,13 @@ const _tabOrder = TabContentType.values;
 const _swipeInsertQueueNext = false;
 
 @HiveType(typeId: 28)
-class FinampSettings {
-  FinampSettings({
+class NoiseportSettings {
+  NoiseportSettings({
     this.isOffline = false,
     this.shouldTranscode = false,
     this.transcodeBitrate = 320000,
     // downloadLocations is required since the other values can be created with
-    // default values. create() is used to return a FinampSettings with
+    // default values. create() is used to return a NoiseportSettings with
     // downloadLocations.
     required this.downloadLocations,
     this.androidStopForegroundOnPause = true,
@@ -229,7 +229,7 @@ class FinampSettings {
   @HiveField(36, defaultValue: false)
   bool isMpdMode;
 
-  static Future<FinampSettings> create() async {
+  static Future<NoiseportSettings> create() async {
     final internalSongDir = await getInternalSongDir();
     final downloadLocation = DownloadLocation.create(
       name: "Internal Storage",
@@ -237,7 +237,7 @@ class FinampSettings {
       useHumanReadableNames: false,
       deletable: false,
     );
-    return FinampSettings(
+    return NoiseportSettings(
       downloadLocations: [],
       // Create a map of TabContentType from TabContentType's values.
       showTabs: Map.fromEntries(
@@ -517,8 +517,8 @@ class DownloadedSong {
 
   File get file {
     if (isPathRelative) {
-      final downloadLocation = FinampSettingsHelper
-          .finampSettings.downloadLocationsMap[downloadLocationId];
+      final downloadLocation = NoiseportSettingsHelper
+          .noiseportSettings.downloadLocationsMap[downloadLocationId];
 
       if (downloadLocation == null) {
         throw "DownloadLocation was null in file getter for DownloadsSong!";
@@ -530,8 +530,8 @@ class DownloadedSong {
     return File(path);
   }
 
-  DownloadLocation? get downloadLocation => FinampSettingsHelper
-      .finampSettings.downloadLocationsMap[downloadLocationId];
+  DownloadLocation? get downloadLocation => NoiseportSettingsHelper
+      .noiseportSettings.downloadLocationsMap[downloadLocationId];
 
   Future<DownloadTask?> get downloadTask async {
     final tasks = await FlutterDownloader.loadTasksWithRawQuery(
@@ -601,8 +601,8 @@ class DownloadedImage {
   @HiveField(4)
   String downloadLocationId;
 
-  DownloadLocation? get downloadLocation => FinampSettingsHelper
-      .finampSettings.downloadLocationsMap[downloadLocationId];
+  DownloadLocation? get downloadLocation => NoiseportSettingsHelper
+      .noiseportSettings.downloadLocationsMap[downloadLocationId];
 
   File get file {
     if (downloadLocation == null) {
