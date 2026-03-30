@@ -1,7 +1,7 @@
 {
   "serverUrl": "URL servera",
   "@serverUrl": {},
-  "startupError": "Dogodila se greška prilikom pokretanja aplikacije. Greška: {error}\n\nPrijavi problem na github.com/UnicornsOnLSD/finamp sa snimkom ekrana ove stranice. Ako ovaj problem ustraje, izbriši svoje podatke aplikacije i resetiraj aplikaciju.",
+  "startupError": "Dogodila se greška prilikom pokretanja aplikacije. Greška: {error}\n\nPrijavi problem na github.com/UnicornsOnLSD/noiseport sa snimkom ekrana ove stranice. Ako ovaj problem ustraje, izbriši svoje podatke aplikacije i resetiraj aplikaciju.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -51,7 +51,7 @@
   "@favourite": {},
   "location": "Lokacija",
   "@location": {},
-  "applicationLegalese": "Licenca: Mozilla Public License 2.0. Izvorni kod je dostupan na:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Licenca: Mozilla Public License 2.0. Izvorni kod je dostupan na:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "Transkodiranje",
   "@transcoding": {},
@@ -170,8 +170,8 @@
   "@communityRating": {},
   "clear": "Izbriši",
   "@clear": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "favourites": "Omiljeno",
   "@favourites": {},
   "downloads": "Preuzimanja",
@@ -498,7 +498,7 @@
   },
   "refresh": "AKTUALIZIRAJ",
   "@refresh": {},
-  "noMusicLibrariesBody": "Finamp nije mogao pronaći nijednu fonoteku. Provjeri sadrži li tvoj Jellyfin poslužitelj barem jednu biblioteku s vrstom sadržaja postavljenom na „Glazba”.",
+  "noMusicLibrariesBody": "Noiseport nije mogao pronaći nijednu fonoteku. Provjeri sadrži li tvoj Jellyfin poslužitelj barem jednu biblioteku s vrstom sadržaja postavljenom na „Glazba”.",
   "@noMusicLibrariesBody": {},
   "noMusicLibrariesTitle": "Nema fonoteka",
   "@noMusicLibrariesTitle": {
@@ -556,7 +556,7 @@
   "@loopModeAllTooltip": {},
   "loopModeOneTooltip": "Ponavljanje jedne. Uključi/isključi dodirom.",
   "@loopModeOneTooltip": {},
-  "about": "O aplikaciji Finamp",
+  "about": "O aplikaciji Noiseport",
   "@about": {},
   "shuffleArtist": "Izmiješaj sve albume od {artist}",
   "@shuffleArtist": {

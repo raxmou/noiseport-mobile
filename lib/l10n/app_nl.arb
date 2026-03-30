@@ -197,8 +197,8 @@
   "@offlineMode": {},
   "sortOrder": "Sorteervolgorde",
   "@sortOrder": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Downloads",
   "@downloads": {},
   "sortBy": "Sorteer met",
@@ -298,7 +298,7 @@
   "@shareLogs": {},
   "stackTrace": "Strack-trace",
   "@stackTrace": {},
-  "applicationLegalese": "Uitgegeven onder de Mozilla Public License 2.0. Broncode beschikbaar op:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Uitgegeven onder de Mozilla Public License 2.0. Broncode beschikbaar op:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "downloadLocations": "Downloadlocaties",
   "@downloadLocations": {},
@@ -456,7 +456,7 @@
   "@system": {},
   "transcode": "CONVERTEREN",
   "@transcode": {},
-  "startupError": "Er ging iets mis bij het starten van de app. Dit was de foutmelding: {error}\n\nCreëer een issue op github.com/UnicornsOnLSD/finamp met een schermafbeelding van deze pagina. Wanneer het probleem zich vaker voordoet, kan je de app-data verwijderen om de app te resetten.",
+  "startupError": "Er ging iets mis bij het starten van de app. Dit was de foutmelding: {error}\n\nCreëer een issue op github.com/UnicornsOnLSD/noiseport met een schermafbeelding van deze pagina. Wanneer het probleem zich vaker voordoet, kan je de app-data verwijderen om de app te resetten.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {

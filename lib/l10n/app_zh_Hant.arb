@@ -3,7 +3,7 @@
   "@serverUrl": {},
   "showTextOnGridViewSubtitle": "是否在網格音樂螢幕上顯示文字（標題、歌手等）。",
   "@showTextOnGridViewSubtitle": {},
-  "startupError": "應用程序啓動期間出現問題！ 錯誤是：{error}\n\n請在 github.com/UnicornsOnLSD/finamp 上提出一個 Github 問題，並附上此頁面的螢幕截圖。 如果此頁面一直顯示，請清除您的應用數據以重置應用。",
+  "startupError": "應用程序啓動期間出現問題！ 錯誤是：{error}\n\n請在 github.com/UnicornsOnLSD/noiseport 上提出一個 Github 問題，並附上此頁面的螢幕截圖。 如果此頁面一直顯示，請清除您的應用數據以重置應用。",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -75,8 +75,8 @@
   "@favourites": {},
   "shuffleAll": "全部隨機播放",
   "@shuffleAll": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "下載",
   "@downloads": {},
   "settings": "設置",
@@ -254,7 +254,7 @@
   "@addButtonLabel": {},
   "shareLogs": "分享紀錄檔",
   "@shareLogs": {},
-  "applicationLegalese": "獲得 Mozilla 公共授權條款 2.0 的許可。 源代碼位於：\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "獲得 Mozilla 公共授權條款 2.0 的許可。 源代碼位於：\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "logsCopied": "已複制紀錄檔。",
   "@logsCopied": {},

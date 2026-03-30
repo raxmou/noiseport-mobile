@@ -1,5 +1,5 @@
 {
-  "startupError": "Une erreur est survenue lors du démarrage de l'application. L'erreur est: {error}\n\nPlease create an issue on github.com/UnicornsOnLSD/finamp with a screenshot of this page. If this problem persists you can clear your app data to reset the app.",
+  "startupError": "Une erreur est survenue lors du démarrage de l'application. L'erreur est: {error}\n\nPlease create an issue on github.com/UnicornsOnLSD/noiseport with a screenshot of this page. If this problem persists you can clear your app data to reset the app.",
   "@startupError": {
     "description": "Le message d'erreur affiché lorsque le démarrage de l'application échoue.",
     "placeholders": {
@@ -73,8 +73,8 @@
   "@favourites": {},
   "shuffleAll": "Tout mélanger",
   "@shuffleAll": {},
-  "finamp": "NoisePort",
-  "@finamp": {},
+  "noiseport": "NoisePort",
+  "@noiseport": {},
   "downloads": "Téléchargements",
   "@downloads": {},
   "settings": "Réglages",
@@ -525,7 +525,7 @@
   "@noMusicLibrariesTitle": {
     "description": "Titre du message affiché sur l'écran de vues lorsque aucune bibliothèque musicale n'a été trouvée."
   },
-  "noMusicLibrariesBody": "Finamp n'a pas trouvé de bibliothèques musicales. Veuillez vous assurer que votre serveur Jellyfin contient au moins une bibliothèque avec le type de contenu défini sur \"Musique\".",
+  "noMusicLibrariesBody": "Noiseport n'a pas trouvé de bibliothèques musicales. Veuillez vous assurer que votre serveur Jellyfin contient au moins une bibliothèque avec le type de contenu défini sur \"Musique\".",
   "refresh": "RAFRAÎCHIR",
   "swipeInsertQueueNext": "Lire la chanson balayée en prochain",
   "@swipeInsertQueueNext": {},
@@ -582,6 +582,6 @@
   "@download": {},
   "sync": "Synchroniser avec le serveur",
   "@sync": {},
-  "about": "À propos de Finamp",
+  "about": "À propos de Noiseport",
   "@about": {}
 }

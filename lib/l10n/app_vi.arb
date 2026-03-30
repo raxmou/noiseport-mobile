@@ -53,8 +53,8 @@
   "@favourites": {},
   "shuffleAll": "Trộn hết",
   "@shuffleAll": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Tải xuống",
   "@downloads": {},
   "settings": "Cài đặt",
@@ -259,7 +259,7 @@
   "@removeFromPlaylistTitle": {},
   "newPlaylist": "Danh sách phát mới",
   "@newPlaylist": {},
-  "startupError": "Đã xảy ra lỗi khi khởi động ứng dụng. Lỗi: {error}\n\nXin hãy tạo một Issue trên github.com/UnicornsOnLSD/finamp với ảnh chụp màn hình của trang này. Nếu vấn đề tái diễn bạn có thể dọn dữ liệu ứng dụng để thiết lập lại ứng dụng.",
+  "startupError": "Đã xảy ra lỗi khi khởi động ứng dụng. Lỗi: {error}\n\nXin hãy tạo một Issue trên github.com/UnicornsOnLSD/noiseport với ảnh chụp màn hình của trang này. Nếu vấn đề tái diễn bạn có thể dọn dữ liệu ứng dụng để thiết lập lại ứng dụng.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -312,7 +312,7 @@
   "@areYouSure": {},
   "unknownError": "Lỗi không xác định",
   "@unknownError": {},
-  "applicationLegalese": "Được cấp giấy phép Mozilla Public License 2.0. Mã nguồn tại:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Được cấp giấy phép Mozilla Public License 2.0. Mã nguồn tại:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "bitrate": "Tốc độ bit",
   "@bitrate": {},

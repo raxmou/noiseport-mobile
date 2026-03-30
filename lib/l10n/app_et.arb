@@ -61,8 +61,8 @@
   "@clear": {},
   "favourites": "Lemmikud",
   "@favourites": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Allalaadimised",
   "@downloads": {},
   "settings": "Seaded",
@@ -234,7 +234,7 @@
   "@logsCopied": {},
   "message": "Sõnum",
   "@message": {},
-  "applicationLegalese": "Litsentsitud Mozilla avaliku litsentsiga 2.0. Lähtekood on saadaval aadressil:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Litsentsitud Mozilla avaliku litsentsiga 2.0. Lähtekood on saadaval aadressil:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "Transkoodimine",
   "@transcoding": {},
@@ -446,7 +446,7 @@
   "@hideSongArtistsIfSameAsAlbumArtists": {},
   "light": "Hele",
   "@light": {},
-  "startupError": "Rakenduse käivitamisel läks midagi valesti. Viga oli: {error}\n\nPalun loo probleem github.com/UnicornsOnLSD/finamp koos ekraanipildiga sellest leheküljest. Kui see probleem püsib, võiks rakenduse lähtestamiseks kustutada rakenduse andmed.",
+  "startupError": "Rakenduse käivitamisel läks midagi valesti. Viga oli: {error}\n\nPalun loo probleem github.com/UnicornsOnLSD/noiseport koos ekraanipildiga sellest leheküljest. Kui see probleem püsib, võiks rakenduse lähtestamiseks kustutada rakenduse andmed.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {

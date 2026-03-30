@@ -75,8 +75,8 @@
   "@favourites": {},
   "offlineMode": "Offline tila",
   "@offlineMode": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "sortOrder": "Lajittelujärjestys",
   "@sortOrder": {},
   "album": "Albumi",
@@ -400,7 +400,7 @@
   "@streaming": {},
   "transcode": "TRANSKOODI",
   "@transcode": {},
-  "noMusicLibrariesBody": "Finamp ei löytänyt musiikkikirjastoja. Varmista, että Jellyfin-palvelimellasi on vähintään yksi kirjasto, jonka sisältötyypiksi on asetettu \"Musiikki\".",
+  "noMusicLibrariesBody": "Noiseport ei löytänyt musiikkikirjastoja. Varmista, että Jellyfin-palvelimellasi on vähintään yksi kirjasto, jonka sisältötyypiksi on asetettu \"Musiikki\".",
   "@noMusicLibrariesBody": {},
   "instantMix": "Välitön Sekoitus",
   "@instantMix": {},
@@ -426,13 +426,13 @@
   "@failedToGetSongFromDownloadId": {},
   "stackTrace": "Pinon jäljitys",
   "@stackTrace": {},
-  "applicationLegalese": "Lisensoitu Mozilla Public License 2.0 -lisenssillä. Lähdekoodi saatavilla osoitteessa:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Lisensoitu Mozilla Public License 2.0 -lisenssillä. Lähdekoodi saatavilla osoitteessa:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "customLocationsBuggy": "Mukautetut sijainnit ovat erittäin bugisia käyttöoikeusongelmien vuoksi. Mietin tapoja korjata tämä, mutta toistaiseksi en suosittele niiden käyttöä.",
   "@customLocationsBuggy": {},
   "enterLowPriorityStateOnPauseSubtitle": "Sallii ilmoituksen pyyhkäisemisen pois, kun toisto on pysäytetty. Antaa myös Androidin lopettaa palvelun, kun toisto on keskeytetty.",
   "@enterLowPriorityStateOnPauseSubtitle": {},
-  "startupError": "Jokin meni pieleen sovelluksen käynnistyksen aikana. Virhe oli: {error}\n\nOle hyvä ja luo virheilmoitus osoitteessa github.com/UnicornsOnLSD/finamp, jossa on kuvakaappaus tästä sivusta. Jos ongelma jatkuu, voit tyhjentää sovelluksen tiedot nollataksesi sovelluksen.",
+  "startupError": "Jokin meni pieleen sovelluksen käynnistyksen aikana. Virhe oli: {error}\n\nOle hyvä ja luo virheilmoitus osoitteessa github.com/UnicornsOnLSD/noiseport, jossa on kuvakaappaus tästä sivusta. Jos ongelma jatkuu, voit tyhjentää sovelluksen tiedot nollataksesi sovelluksen.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -589,6 +589,6 @@
   "@download": {},
   "sync": "Synkronoi palvelimen kanssa",
   "@sync": {},
-  "about": "Tietoja Finampista",
+  "about": "Tietoja Noiseportista",
   "@about": {}
 }

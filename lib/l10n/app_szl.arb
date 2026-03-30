@@ -162,8 +162,8 @@
   "@runtime": {},
   "favourites": "Ôblubiōne",
   "@favourites": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Pobrane",
   "@downloads": {},
   "settings": "Sztalōnki",
@@ -311,7 +311,7 @@
   "@addButtonLabel": {},
   "shareLogs": "Podziel sie logami",
   "@shareLogs": {},
-  "applicationLegalese": "Na licyncyji Mozilla Public License 2.0. Zdrzōdłowy kod je przistympny na:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Na licyncyji Mozilla Public License 2.0. Zdrzōdłowy kod je przistympny na:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "Transkodowanie",
   "@transcoding": {},
@@ -416,7 +416,7 @@
   "@transcode": {},
   "replaceQueue": "Zastōmp raja",
   "@replaceQueue": {},
-  "startupError": "Coś poszło źle przi ôtwiyraniu aplikacyje. Feler to: {error}\n\nZgłoś to na github.com/UnicornsOnLSD/finamp ze zopisym ekranu tyj strōny. Jeźli ta strōna niy przestowo sie pokazować, to wymaż dane aplikacyje, żeby ja zresetować.",
+  "startupError": "Coś poszło źle przi ôtwiyraniu aplikacyje. Feler to: {error}\n\nZgłoś to na github.com/UnicornsOnLSD/noiseport ze zopisym ekranu tyj strōny. Jeźli ta strōna niy przestowo sie pokazować, to wymaż dane aplikacyje, żeby ja zresetować.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {

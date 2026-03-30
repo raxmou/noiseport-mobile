@@ -57,8 +57,8 @@
   "@clear": {},
   "shuffleAll": "임의 재생(모두)",
   "@shuffleAll": {},
-  "finamp": "핀앰프(Finamp)",
-  "@finamp": {},
+  "noiseport": "핀앰프(Noiseport)",
+  "@noiseport": {},
   "sortOrder": "정렬 순서",
   "@sortOrder": {},
   "sortBy": "정렬 기준",
@@ -195,7 +195,7 @@
   "@message": {},
   "stackTrace": "스택 추적",
   "@stackTrace": {},
-  "applicationLegalese": "Mozilla Public License 2.0에 따라 라이선스가 부여됐습니다. 소스 코드는 다음에서 확인할 수 있습니다:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Mozilla Public License 2.0에 따라 라이선스가 부여됐습니다. 소스 코드는 다음에서 확인할 수 있습니다:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "트랜스코딩",
   "@transcoding": {},
@@ -381,7 +381,7 @@
   "@noMusicLibrariesTitle": {
     "description": "Title for message that shows on the views screen when no music libraries could be found."
   },
-  "noMusicLibrariesBody": "Finamp가 음악 라이브러리를 찾을 수 없습니다. 귀하의 Jellyfin 서버에 콘텐츠 유형이 \"음악\"으로 설정된 라이브러리가 하나 이상 있는지 확인하세요.",
+  "noMusicLibrariesBody": "Noiseport가 음악 라이브러리를 찾을 수 없습니다. 귀하의 Jellyfin 서버에 콘텐츠 유형이 \"음악\"으로 설정된 라이브러리가 하나 이상 있는지 확인하세요.",
   "@noMusicLibrariesBody": {},
   "startMixNoSongsArtist": "믹스를 시작하기 전에 '아티스트'를 길게 탭하여 믹스 빌더에서 추가하거나 제거하세요",
   "@startMixNoSongsArtist": {
@@ -530,7 +530,7 @@
   "@swipeInsertQueueNext": {},
   "swipeInsertQueueNextSubtitle": "노래 목록에서 스와이프 했을 때, 노래를 대기열 끝에 추가하는 대신 바로 다음 곡으로 삽입할 수 있습니다.",
   "@swipeInsertQueueNextSubtitle": {},
-  "startupError": "앱 시작중에 문제가 발생했습니다. 오류 내용:{error}\n\n\"github.com/UnicornsOnLSD/finamp\"에 이 페이지의 캡처 화면을 첨부하여 '이슈'를 등록 해주세요. 이 문제가 지속되면 당신은 앱 데이터를 삭제하여 앱을 초기화 할 수 있습니다.",
+  "startupError": "앱 시작중에 문제가 발생했습니다. 오류 내용:{error}\n\n\"github.com/UnicornsOnLSD/noiseport\"에 이 페이지의 캡처 화면을 첨부하여 '이슈'를 등록 해주세요. 이 문제가 지속되면 당신은 앱 데이터를 삭제하여 앱을 초기화 할 수 있습니다.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -589,6 +589,6 @@
   "@download": {},
   "sync": "서버와 동기화하기",
   "@sync": {},
-  "about": "Finamp(핀앰프) 소개",
+  "about": "Noiseport(핀앰프) 소개",
   "@about": {}
 }

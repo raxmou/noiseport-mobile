@@ -118,7 +118,7 @@
   "@bufferDurationSubtitle": {},
   "language": "Мова",
   "@language": {},
-  "startupError": "Щось пішло не так під час запуску програми. помилка: {error}\n\nБудь ласка, створіть проблему на github.com/UnicornsOnLSD/finamp із знімком екрана цієї сторінки. Якщо проблема не зникне, ви можете очистити дані програми, щоб скинути налаштування програми.",
+  "startupError": "Щось пішло не так під час запуску програми. помилка: {error}\n\nБудь ласка, створіть проблему на github.com/UnicornsOnLSD/noiseport із знімком екрана цієї сторінки. Якщо проблема не зникне, ви можете очистити дані програми, щоб скинути налаштування програми.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -265,7 +265,7 @@
   "@downloadLocations": {},
   "addButtonLabel": "ДОДАТИ",
   "@addButtonLabel": {},
-  "applicationLegalese": "Ліцензовано за Mozilla Public License 2.0. Вихідний код доступний за адресою:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Ліцензовано за Mozilla Public License 2.0. Вихідний код доступний за адресою:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "bitrate": "Бітрейт",
   "@bitrate": {},
@@ -426,8 +426,8 @@
   "@favourites": {},
   "shuffleAll": "Перемішати все",
   "@shuffleAll": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Завантаження",
   "@downloads": {},
   "settings": "Налаштування",
@@ -516,7 +516,7 @@
   "@noMusicLibrariesTitle": {
     "description": "Title for message that shows on the views screen when no music libraries could be found."
   },
-  "noMusicLibrariesBody": "Finamp не знайшов жодної музичної бібліотеки. Переконайтеся, що ваш сервер Jellyfin містить принаймні одну бібліотеку з типом вмісту \"Музика\".",
+  "noMusicLibrariesBody": "Noiseport не знайшов жодної музичної бібліотеки. Переконайтеся, що ваш сервер Jellyfin містить принаймні одну бібліотеку з типом вмісту \"Музика\".",
   "@noMusicLibrariesBody": {},
   "resetTabs": "Скинути вкладки",
   "@resetTabs": {},

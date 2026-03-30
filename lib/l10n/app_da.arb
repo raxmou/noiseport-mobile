@@ -45,8 +45,8 @@
   "@favourites": {},
   "shuffleAll": "Bland alle",
   "@shuffleAll": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Overførelser",
   "@downloads": {},
   "settings": "Indstillinger",
@@ -333,7 +333,7 @@
   "@bufferDuration": {},
   "bufferDurationSubtitle": "Hvor meget afspilleren skal forudindlæse i sekunder. En genstart er nødvendig.",
   "@bufferDurationSubtitle": {},
-  "startupError": "Noget gik galt under app opstarten. Fejlen er {error}\n\nVenligst opret en sag på github.com/UnicornsOnLSD/finamp med et skærmbillede af denne side. Hvis dette problem forbliver, så kan du fjerne dine app data for at nulstille appen.",
+  "startupError": "Noget gik galt under app opstarten. Fejlen er {error}\n\nVenligst opret en sag på github.com/UnicornsOnLSD/noiseport med et skærmbillede af denne side. Hvis dette problem forbliver, så kan du fjerne dine app data for at nulstille appen.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -404,7 +404,7 @@
   "@logsCopied": {},
   "message": "Besked",
   "@message": {},
-  "applicationLegalese": "Licenseret med Mozilla Public License 2.0. Kildeteksten er tilgængelig på:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Licenseret med Mozilla Public License 2.0. Kildeteksten er tilgængelig på:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "pathReturnSlashErrorMessage": "Stier, der returnerer \"/\", kan ikke anvendes",
   "@pathReturnSlashErrorMessage": {},

@@ -1,5 +1,5 @@
 {
-  "startupError": "Something went wrong during app startup. The error was: {error}\n\nPlease create an issue on github.com/UnicornsOnLSD/finamp with a screenshot of this page. If this problem persists you can clear your app data to reset the app.",
+  "startupError": "Something went wrong during app startup. The error was: {error}\n\nPlease create an issue on github.com/UnicornsOnLSD/noiseport with a screenshot of this page. If this problem persists you can clear your app data to reset the app.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -79,8 +79,8 @@
   "@favourites": {},
   "shuffleAll": "Shuffle all",
   "@shuffleAll": {},
-  "finamp": "NoisePort",
-  "@finamp": {},
+  "noiseport": "NoisePort",
+  "@noiseport": {},
   "downloads": "Downloads",
   "@downloads": {},
   "settings": "Settings",
@@ -531,7 +531,7 @@
   "@noMusicLibrariesTitle": {
     "description": "Title for message that shows on the views screen when no music libraries could be found."
   },
-  "noMusicLibrariesBody": "Finamp could not find any music libraries. Please ensure that your Jellyfin server contains at least one library with the content type set to \"Music\".",
+  "noMusicLibrariesBody": "Noiseport could not find any music libraries. Please ensure that your Jellyfin server contains at least one library with the content type set to \"Music\".",
   "refresh": "REFRESH",
   "swipeInsertQueueNext": "Play Swiped Song Next",
   "@swipeInsertQueueNext": {},
@@ -588,7 +588,7 @@
   "@download": {},
   "sync": "Synchronize with Server",
   "@sync": {},
-  "about": "About Finamp",
+  "about": "About Noiseport",
   "@about": {},
   "connectionSuccessful": "Connection successful",
   "@connectionSuccessful": {},

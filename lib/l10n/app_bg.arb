@@ -47,8 +47,8 @@
   "@favourites": {},
   "shuffleAll": "Възпроизвеждане в случаен ред",
   "@shuffleAll": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Изтегляния",
   "@downloads": {},
   "settings": "Настройки",
@@ -328,7 +328,7 @@
   "@removeFromMix": {},
   "addToMix": "Добави към микса",
   "@addToMix": {},
-  "startupError": "Нещо се обърка по време на стартиране на приложението. Грешката беше:{error}\n\nДокладвайте проблема, с екранна снимка, на github.com/UnicornsOnLSD/finamp, Ако проблемът продължава, изчистете кеша или преинсталирайте приложението.",
+  "startupError": "Нещо се обърка по време на стартиране на приложението. Грешката беше:{error}\n\nДокладвайте проблема, с екранна снимка, на github.com/UnicornsOnLSD/noiseport, Ако проблемът продължава, изчистете кеша или преинсталирайте приложението.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -385,7 +385,7 @@
   "@downloadsAdded": {},
   "addButtonLabel": "ДОБАВИ",
   "@addButtonLabel": {},
-  "applicationLegalese": "Лиценз Mozilla Public License 2.0. Програмният код е достъпен на:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Лиценз Mozilla Public License 2.0. Програмният код е достъпен на:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "downloadedSongsWillNotBeDeleted": "Изтеглените песни няма да бъдат изтрити",
   "@downloadedSongsWillNotBeDeleted": {},

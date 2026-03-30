@@ -1,7 +1,7 @@
 {
   "serverUrl": "URL del Server",
   "@serverUrl": {},
-  "startupError": "Qualcosa è andato storto durante l'avvio dell'app. L'errore è stato: {error}\n\nPerfavore apri una segnalazione su github.com/UnicornsOnLSD/finamp con uno screenshot di questa pagina. Se il problema persiste puoi cancellare i dati dell'app per riportarla alle impostazioni iniziali.",
+  "startupError": "Qualcosa è andato storto durante l'avvio dell'app. L'errore è stato: {error}\n\nPerfavore apri una segnalazione su github.com/UnicornsOnLSD/noiseport con uno screenshot di questa pagina. Se il problema persiste puoi cancellare i dati dell'app per riportarla alle impostazioni iniziali.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -47,8 +47,8 @@
   "@music": {},
   "favourites": "Preferiti",
   "@favourites": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "offlineMode": "Modailtà Offline",
   "@offlineMode": {},
   "settings": "Impostazioni",
@@ -354,7 +354,7 @@
   "@startMixNoSongsAlbum": {
     "description": "Snackbar message that shows when the user presses the instant mix button with no albums selected"
   },
-  "applicationLegalese": "Concesso in licenza con \"Mozilla Public License 2.0\". Codice Sorgente disponibile su:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Concesso in licenza con \"Mozilla Public License 2.0\". Codice Sorgente disponibile su:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "startMixNoSongsArtist": "Effettua una pressione prolungata su un artista per aggiungerlo o rimuoverlo dal mix builder prima di far partire un mix",
   "@startMixNoSongsArtist": {
@@ -498,7 +498,7 @@
   },
   "resetTabs": "Resettare le schede",
   "@resetTabs": {},
-  "noMusicLibrariesBody": "Finamp non è riuscito a trovare nessuna raccolta musicale. Sei pregato di controllare che il tuo server Jellyfin contenga almeno una raccolta con il genere configurato come \"Musica\".",
+  "noMusicLibrariesBody": "Noiseport non è riuscito a trovare nessuna raccolta musicale. Sei pregato di controllare che il tuo server Jellyfin contenga almeno una raccolta con il genere configurato come \"Musica\".",
   "@noMusicLibrariesBody": {},
   "noMusicLibrariesTitle": "Nessuna raccolta musicale",
   "@noMusicLibrariesTitle": {

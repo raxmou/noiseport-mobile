@@ -298,7 +298,7 @@
   "@offlineMode": {},
   "album": "อัลบั้ม",
   "@album": {},
-  "startupError": "พบข้อผิดพลาดขณะเริ่มต้นแอป ข้อผิดพลาด: {error}\n\nโปรดสร้าง Issue บน github.com/UnicornsOnLSD/finamp พร้อมแนบภาพหน้าจอของหน้านี้ หากปัญหานี้ยังคงเป็นอยู่ให้ลองเคลียร์ข้อมูลของแอปเพื่อรีเซ็ต",
+  "startupError": "พบข้อผิดพลาดขณะเริ่มต้นแอป ข้อผิดพลาด: {error}\n\nโปรดสร้าง Issue บน github.com/UnicornsOnLSD/noiseport พร้อมแนบภาพหน้าจอของหน้านี้ หากปัญหานี้ยังคงเป็นอยู่ให้ลองเคลียร์ข้อมูลของแอปเพื่อรีเซ็ต",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -408,7 +408,7 @@
       }
     }
   },
-  "applicationLegalese": "สงวนลิขสิทธิ์โดย Mozilla Public License 2.0 สามารถดาวน์โหลด Source Code ได้ที่:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "สงวนลิขสิทธิ์โดย Mozilla Public License 2.0 สามารถดาวน์โหลด Source Code ได้ที่:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "logOut": "ออกจากระบบ",
   "@logOut": {},
@@ -472,8 +472,8 @@
   "@sortBy": {},
   "unknownName": "ไม่รู้จักชื่อ",
   "@unknownName": {},
-  "finamp": "ฟินแอมป์",
-  "@finamp": {},
+  "noiseport": "ฟินแอมป์",
+  "@noiseport": {},
   "songs": "เพลง",
   "@songs": {},
   "startMix": "เริ่มมิกซ์",

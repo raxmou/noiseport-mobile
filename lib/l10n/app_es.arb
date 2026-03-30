@@ -108,8 +108,8 @@
   "@downloads": {},
   "goToAlbum": "Ir al álbum",
   "@goToAlbum": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "landscape": "Horizontal",
   "@landscape": {},
   "noAlbum": "Sin álbum",
@@ -148,7 +148,7 @@
   "@playlistNameUpdated": {},
   "downloadsAdded": "Se añadieron las descargas.",
   "@downloadsAdded": {},
-  "applicationLegalese": "Licenciado con la Mozilla Public License 2.0. El código fuente disponible en:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Licenciado con la Mozilla Public License 2.0. El código fuente disponible en:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "logsCopied": "Se copiaron los registros.",
   "@logsCopied": {},
@@ -386,7 +386,7 @@
       }
     }
   },
-  "startupError": "¡Algo ha salido mal en el arranque de la aplicación! El error es: {error}\n\nPor favor crea una incidencia en github.com/UnicornsOnLSD/finamp con una captura de pantalla de esta página. Si el problema persiste, borra los datos de la aplicación para resetearla.",
+  "startupError": "¡Algo ha salido mal en el arranque de la aplicación! El error es: {error}\n\nPor favor crea una incidencia en github.com/UnicornsOnLSD/noiseport con una captura de pantalla de esta página. Si el problema persiste, borra los datos de la aplicación para resetearla.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -502,7 +502,7 @@
   },
   "refresh": "REFRESCAR",
   "@refresh": {},
-  "noMusicLibrariesBody": "Finamp no ha podido encontrar ninguna biblioteca de música. Asegúrate de que tu servidor Jellyfin contiene al menos una biblioteca con el tipo de \"Música\".",
+  "noMusicLibrariesBody": "Noiseport no ha podido encontrar ninguna biblioteca de música. Asegúrate de que tu servidor Jellyfin contiene al menos una biblioteca con el tipo de \"Música\".",
   "@noMusicLibrariesBody": {},
   "deleteDownloadsConfirmButtonText": "Borrar",
   "@deleteDownloadsConfirmButtonText": {
@@ -585,6 +585,6 @@
   "@download": {},
   "sync": "Sincronizar con el servidor",
   "@sync": {},
-  "about": "Acerca de Finamp",
+  "about": "Acerca de Noiseport",
   "@about": {}
 }

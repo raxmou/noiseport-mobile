@@ -15,8 +15,8 @@
   "@album": {},
   "albumArtist": "Albumsartist",
   "@albumArtist": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloads": "Nedlastninger",
   "@downloads": {},
   "settings": "Innstillinger",
@@ -253,7 +253,7 @@
       }
     }
   },
-  "startupError": "Noe gikk galt under oppstart av programmet. Feilen var: {error}\n\nOpprett en feilrapport på github.com/UnicornsOnLSD/finamp med en skjermavbildning av denne siden. Hvis problemet vedvarer kan du tømme programdata for å tilbakestille programmet.",
+  "startupError": "Noe gikk galt under oppstart av programmet. Feilen var: {error}\n\nOpprett en feilrapport på github.com/UnicornsOnLSD/noiseport med en skjermavbildning av denne siden. Hvis problemet vedvarer kan du tømme programdata for å tilbakestille programmet.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -360,7 +360,7 @@
   "@noErrors": {},
   "stackTrace": "Stabelspor",
   "@stackTrace": {},
-  "applicationLegalese": "Lisensiert MPL 2.0, med kildekode tilgjengelig på\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Lisensiert MPL 2.0, med kildekode tilgjengelig på\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "Transkoding",
   "@transcoding": {},
@@ -494,7 +494,7 @@
   },
   "resetTabs": "Tilbakestill faner",
   "@resetTabs": {},
-  "noMusicLibrariesBody": "Finamp fant ingen musikkbibliotek. Forsikre deg om at din Jellyfin-tjener inneholder minst ett bibliotek med innholdstype satt til «Musikk».",
+  "noMusicLibrariesBody": "Noiseport fant ingen musikkbibliotek. Forsikre deg om at din Jellyfin-tjener inneholder minst ett bibliotek med innholdstype satt til «Musikk».",
   "@noMusicLibrariesBody": {},
   "disableGesture": "Skru av håndvendinger",
   "@disableGesture": {},

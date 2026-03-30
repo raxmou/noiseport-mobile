@@ -383,7 +383,7 @@
   "@goToAlbum": {},
   "errorScreenError": "エラーリスト取得時にエラーが発生しました！この時点では、GitHub で issue を作成し、アプリデータを削除することをお勧めします",
   "@errorScreenError": {},
-  "startupError": "起動時に問題が起こりました。エラー内容: {error}\n\ngithub.com/UnicornsOnLSD/finamp でイシューを作成し、このページのスクリーンショットを付けてください。問題が継続した場合はアプリデータをクリアしてアプリを初期化して下さい。",
+  "startupError": "起動時に問題が起こりました。エラー内容: {error}\n\ngithub.com/UnicornsOnLSD/noiseport でイシューを作成し、このページのスクリーンショットを付けてください。問題が継続した場合はアプリデータをクリアしてアプリを初期化して下さい。",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -417,8 +417,8 @@
   "@bufferDuration": {},
   "language": "言語",
   "@language": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "downloadedItemsImagesCount": "{downloadedItems}, {downloadedImages}",
   "@downloadedItemsImagesCount": {
     "description": "This is for merging downloadedItemsCount and downloadedImagesCount as Flutter's intl stuff doesn't support multiple plurals in one string. https://github.com/flutter/flutter/issues/86906",
@@ -498,7 +498,7 @@
       }
     }
   },
-  "noMusicLibrariesBody": "Finamp は音楽ライブラリを見つけることができませんでした。Jellyfin サーバーに、コンテンツ タイプが「音楽」に設定されているライブラリが少なくとも 1 つ含まれていることを確認してください。",
+  "noMusicLibrariesBody": "Noiseport は音楽ライブラリを見つけることができませんでした。Jellyfin サーバーに、コンテンツ タイプが「音楽」に設定されているライブラリが少なくとも 1 つ含まれていることを確認してください。",
   "@noMusicLibrariesBody": {},
   "swipeInsertQueueNextSubtitle": "曲リストでスワイプしたときに、曲を最後に追加するのではなく、キューの次の項目として挿入できるようにします。",
   "@swipeInsertQueueNextSubtitle": {},
@@ -512,7 +512,7 @@
   "@deleteDownloadsConfirmButtonText": {
     "description": "Shown in the confirmation dialog for deleting downloaded media from the local device."
   },
-  "applicationLegalese": "Mozilla Public License 2.0 でライセンスされています。ソース コードは以下から入手できます:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Mozilla Public License 2.0 でライセンスされています。ソース コードは以下から入手できます:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "customLocationsBuggy": "カスタムの場所は、権限の問題により、非常にバグが多くなります。これを修正する方法を考えていますが、今のところは使用しないことをお勧めします。",
   "@customLocationsBuggy": {},

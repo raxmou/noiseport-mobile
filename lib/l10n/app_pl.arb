@@ -151,8 +151,8 @@
   "@settings": {},
   "unknownError": "Nieznany błąd",
   "@unknownError": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "music": "Muzyka",
   "@music": {},
   "shareLogs": "Udostępnij logi",
@@ -432,7 +432,7 @@
   },
   "transcode": "TRANSKODOWANE",
   "@transcode": {},
-  "applicationLegalese": "Licencja Mozilla Public License 2.0. Kod źródłowy dostępny na:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Licencja Mozilla Public License 2.0. Kod źródłowy dostępny na:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "errorScreenError": "Wystąpił błąd podczas pobierania listy błędów. Utwórz zgłoszenie na portalu GitHub i usuń dane aplikacji",
   "@errorScreenError": {},
@@ -440,7 +440,7 @@
   "@internalExternalIpExplanation": {
     "description": "Extra info for which IP to use for remote access, and info on whether or not the user needs to specify a port."
   },
-  "startupError": "Coś poszło nie tak podczas startu aplikacji. Wystąpił błąd :{error}\n\nProszę utworzyć zgłoszenie (https://github.com/jmshrv/finamp) wraz ze zrzutem ekranu. Jeśli problem będzie się powtarzać, usuń dane aplikacji.",
+  "startupError": "Coś poszło nie tak podczas startu aplikacji. Wystąpił błąd :{error}\n\nProszę utworzyć zgłoszenie (https://github.com/jmshrv/noiseport) wraz ze zrzutem ekranu. Jeśli problem będzie się powtarzać, usuń dane aplikacji.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -532,7 +532,7 @@
     },
     "description": "Confirmation prompt shown before deleting downloaded media from the local device, destructive action, doesn't affect the media on the server."
   },
-  "noMusicLibrariesBody": "Finamp nie mógł znaleźć żadnych bibliotek muzycznych. Upewnij się, że serwer Jellyfin zawiera co najmniej jedną bibliotekę z typem zawartości ustawionym na \"Muzyka\".",
+  "noMusicLibrariesBody": "Noiseport nie mógł znaleźć żadnych bibliotek muzycznych. Upewnij się, że serwer Jellyfin zawiera co najmniej jedną bibliotekę z typem zawartości ustawionym na \"Muzyka\".",
   "@noMusicLibrariesBody": {},
   "redesignBeta": "Przeprojektowanie Beta",
   "@redesignBeta": {}

@@ -1,11 +1,11 @@
 {
-  "applicationLegalese": "A Mozilla Public License 2.0 licenccel. A forráskód elérhető:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "A Mozilla Public License 2.0 licenccel. A forráskód elérhető:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "sleepTimerTooltip": "Elalvás időzítő",
   "@sleepTimerTooltip": {},
   "shuffleAllSongCount": "Az összes szám véletlenszerű lejátszása",
   "@shuffleAllSongCount": {},
-  "startupError": "Hiba történt az alkalmazás indításakor! A hiba a következő volt: {error}\n\nKérjük, hozzon létre egyGithub-problémát a github.com/UnicornsOnLSD/finamp oldalon az oldal képernyőképével. Ha a probléma továbbra is fennáll, törölje az alkalmazás adatait az alkalmazás visszaállításához.",
+  "startupError": "Hiba történt az alkalmazás indításakor! A hiba a következő volt: {error}\n\nKérjük, hozzon létre egyGithub-problémát a github.com/UnicornsOnLSD/noiseport oldalon az oldal képernyőképével. Ha a probléma továbbra is fennáll, törölje az alkalmazás adatait az alkalmazás visszaállításához.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -65,8 +65,8 @@
   "@downloadMissingImages": {},
   "favourites": "Kedvencek",
   "@favourites": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "genres": "Műfajok",
   "@genres": {},
   "logs": "Naplók",

@@ -27,8 +27,8 @@
   "@songs": {},
   "music": "Музыка",
   "@music": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "albumArtist": "Исполнитель Альбома",
   "@albumArtist": {},
   "artist": "Исполнитель",
@@ -117,7 +117,7 @@
   "@message": {},
   "stackTrace": "Отслеживание стека",
   "@stackTrace": {},
-  "applicationLegalese": "Лицензия Mozilla Public License 2.0. Открытый код приложения доступен по ссылке:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Лицензия Mozilla Public License 2.0. Открытый код приложения доступен по ссылке:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "transcoding": "Транскодирование",
   "@transcoding": {},
@@ -446,7 +446,7 @@
   "@showCoverAsPlayerBackgroundSubtitle": {},
   "hideSongArtistsIfSameAsAlbumArtists": "Не отображать одинаковых исполнителей для трека и альбома",
   "@hideSongArtistsIfSameAsAlbumArtists": {},
-  "startupError": "Что-то пошло не так во время запуска приложения. Возникла ошибка: {error}\n\nПожалуйста, создайте \"issue\" на github.com/UnicornsOnLSD/finamp и приложите скриншот этой страницы. Если проблема будет повторяться, вы можете очистить данные приложения, чтобы сбросить его настройки.",
+  "startupError": "Что-то пошло не так во время запуска приложения. Возникла ошибка: {error}\n\nПожалуйста, создайте \"issue\" на github.com/UnicornsOnLSD/noiseport и приложите скриншот этой страницы. Если проблема будет повторяться, вы можете очистить данные приложения, чтобы сбросить его настройки.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -498,7 +498,7 @@
   "@playNext": {
     "description": "Popup menu item title for inserting an item into the play queue after the currently-playing item."
   },
-  "noMusicLibrariesBody": "Finamp не обнаружил музыкальных библиотек. Убедитесь, что на вашем сервере Jellyfin есть хотя бы одна библиотека с типом контента \"Музыка\".",
+  "noMusicLibrariesBody": "Noiseport не обнаружил музыкальных библиотек. Убедитесь, что на вашем сервере Jellyfin есть хотя бы одна библиотека с типом контента \"Музыка\".",
   "@noMusicLibrariesBody": {},
   "deleteDownloadsConfirmButtonText": "Удалить",
   "@deleteDownloadsConfirmButtonText": {

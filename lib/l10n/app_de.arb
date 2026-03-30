@@ -63,8 +63,8 @@
   "@songs": {},
   "favourites": "Favoriten",
   "@favourites": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "settings": "Einstellungen",
   "@settings": {},
   "communityRating": "Community-Bewertung",
@@ -135,7 +135,7 @@
   "@selectMusicLibraries": {
     "description": "App bar title for library select screen"
   },
-  "startupError": "Während dem Starten der App ist etwas schief gelaufen. Der Fehler war: {error}\n\nBitte öffne ein Issue auf github.com/UnicornsOnLSD/finamp mit einem Bildschirmfoto von dieser Seite. Wenn dieses Problem weiterhin besteht, kannst du deine App-Daten löschen, um die App zurückzusetzen.",
+  "startupError": "Während dem Starten der App ist etwas schief gelaufen. Der Fehler war: {error}\n\nBitte öffne ein Issue auf github.com/UnicornsOnLSD/noiseport mit einem Bildschirmfoto von dieser Seite. Wenn dieses Problem weiterhin besteht, kannst du deine App-Daten löschen, um die App zurückzusetzen.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -392,7 +392,7 @@
   "@downloadsAdded": {},
   "addButtonLabel": "Hinzufügen",
   "@addButtonLabel": {},
-  "applicationLegalese": "Lizensiert mit der Mozilla Public License 2.0. Quellcode verfügbar unter:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Lizensiert mit der Mozilla Public License 2.0. Quellcode verfügbar unter:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "enterLowPriorityStateOnPauseSubtitle": "Ermöglicht, dass die Benachrichtigung im pausierten Zustand weggewischt werden kann. Dies erlaubt es Android ebenfalls, den Prozess im pausierten Zustand zu terminieren.",
   "@enterLowPriorityStateOnPauseSubtitle": {},
@@ -530,7 +530,7 @@
   },
   "refresh": "AKTUALISIEREN",
   "@refresh": {},
-  "noMusicLibrariesBody": "Finamp konnte keine Musikbibliotheken finden. Bitte stelle sicher, dass dein Jellyfin-Server mindestens eine Bibliothek mit dem Medientyp \"Musik\" enthält.",
+  "noMusicLibrariesBody": "Noiseport konnte keine Musikbibliotheken finden. Bitte stelle sicher, dass dein Jellyfin-Server mindestens eine Bibliothek mit dem Medientyp \"Musik\" enthält.",
   "@noMusicLibrariesBody": {},
   "interactions": "Interaktionen",
   "@interactions": {},
@@ -570,7 +570,7 @@
   },
   "download": "Herunterladen",
   "@download": {},
-  "about": "Über Finamp",
+  "about": "Über Noiseport",
   "@about": {},
   "downloadArtist": "Lade alle Alben von {artist} herunter",
   "@downloadArtist": {

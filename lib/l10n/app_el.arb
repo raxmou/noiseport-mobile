@@ -1,5 +1,5 @@
 {
-  "startupError": "Ωχ, κάτι δεν πήγε καλά κατά την έναρξη της εφαρμογής. Ο αριθμός σφάλματος είναι:{error}\nΔημιούργησε ένα issue στο\ngithub.com/UnicornsOnLSD/finamp μαζί με ένα στιγμιότυπο οθόνης από αυτήν την σελίδα. Εάν το πρόβλημα παραμένει μπορείς να διαγράψεις τα δεδομένα της εφαρμογής με σκοπό την επαναφορά της.",
+  "startupError": "Ωχ, κάτι δεν πήγε καλά κατά την έναρξη της εφαρμογής. Ο αριθμός σφάλματος είναι:{error}\nΔημιούργησε ένα issue στο\ngithub.com/UnicornsOnLSD/noiseport μαζί με ένα στιγμιότυπο οθόνης από αυτήν την σελίδα. Εάν το πρόβλημα παραμένει μπορείς να διαγράψεις τα δεδομένα της εφαρμογής με σκοπό την επαναφορά της.",
   "@startupError": {
     "description": "The error message that shows when startup fails.",
     "placeholders": {
@@ -69,8 +69,8 @@
   },
   "music": "Μουσική",
   "@music": {},
-  "finamp": "Finamp",
-  "@finamp": {},
+  "noiseport": "Noiseport",
+  "@noiseport": {},
   "communityRating": "Βαθμολογία κοινότητας",
   "@communityRating": {},
   "dlFailed": "{count} απέτυχαν",
@@ -274,7 +274,7 @@
   "@enableTranscodingSubtitle": {},
   "shareLogs": "Μοιραστείτε τις καταγραφές",
   "@shareLogs": {},
-  "applicationLegalese": "Αδειοδοτηθηκε με την Άδεια Δημόσιας Χρήσης της Mozilla Public License2.0. Ο κώδικας πηγής διαθέσιμος στο:\n\ngithub.com/jmshrv/finamp",
+  "applicationLegalese": "Αδειοδοτηθηκε με την Άδεια Δημόσιας Χρήσης της Mozilla Public License2.0. Ο κώδικας πηγής διαθέσιμος στο:\n\ngithub.com/jmshrv/noiseport",
   "@applicationLegalese": {},
   "downloadLocations": "Τοποθεσίες λήψεων",
   "@downloadLocations": {},
