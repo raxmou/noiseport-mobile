@@ -9,7 +9,7 @@ body:
         Thank you for opening a feature Request! Please take the time to properly and thoughtfully fill
         out this form to make it easier for us to work with you :)
         If you notice you cant fully express your feature in this template, you can always
-        [open a blank template](https://github.com/flloschy/finamp/issues/new?template=BLANK_ISSUE)
+        [open a blank template](https://github.com/flloschy/noiseport/issues/new?template=BLANK_ISSUE)
         with all the creative freedom you'll need
         ⚠️ One more Info before you start filling everything out. ⚠️
         If you are *not* using the Beta/Redesign already please do **not** open a feature request. New features
@@ -19,7 +19,7 @@ body:
     id: updated
     attributes:
       label: Are you using the newest Version?
-      description: Did you make sure you are already using the [newest version of Finamp](https://github.com/jmshrv/finamp/releases) and there isn't an feature request about this already?
+      description: Did you make sure you are already using the [newest version of Noiseport](https://github.com/jmshrv/noiseport/releases) and there isn't an feature request about this already?
       options:
         - label: Yes, the feature is still missing on the newest version
           required: true
@@ -46,7 +46,7 @@ body:
     id: reason
     attributes:
       label: Reasoning
-      description: Please describe why you would like to have this feature and why it benefits Finamp as a whole.
+      description: Please describe why you would like to have this feature and why it benefits Noiseport as a whole.
 
   - type: textarea
     id: implementation

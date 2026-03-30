@@ -15,7 +15,7 @@ Yes? Make sure you replace hardcoded strings with translations -->
 - [ ] Translations
 <!-- Did you add settings to the settings screen?
 No? Just check or remove the box 
-Yes? Make sure they are resettable using the button on the respective page! (see finamp_settings_helper.dart)-->
+Yes? Make sure they are resettable using the button on the respective page! (see noiseport_settings_helper.dart)-->
 - [ ] Reset Settings
 <!-- Did you run into problems?
 No? Just check or remove the box
