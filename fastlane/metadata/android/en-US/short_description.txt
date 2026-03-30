@@ -1,1 +1,1 @@
-Finamp is a music player for Jellyfin.
+Noiseport is a music player for Jellyfin.
