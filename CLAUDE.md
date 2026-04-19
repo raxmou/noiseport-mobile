@@ -1,3 +1,5 @@
+> **Legacy / archived.** This is the finamp-based fork, kept for historical reference. The active mobile client is at `rax/active/noiseport-mobile/` (musly fork, see Plan 5). Do not add features here.
+
 # CLAUDE.md
 
 ## Project Overview
